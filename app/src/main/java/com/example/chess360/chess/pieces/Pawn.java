@@ -13,7 +13,12 @@ public class Pawn extends Piece {
         super(color);
 
         // Letter:
-        this.setLetter(PAWN_LETTER);
+        if (color == Piece.BLACK){
+            this.setLetter(Character.toLowerCase(PAWN_LETTER));
+        }
+        else{
+            this.setLetter(PAWN_LETTER);
+        }
     }
 
     @Override

@@ -31,7 +31,7 @@ public class Handler {
         if (isValid){
 
             String [][] position = this.chess.exportPosition();
-            //    this.playzone.setPosition(position);
+            this.playzone.setPosition(position);
             //     this.playzone.setApertura(this.chess.getApertura());
         }
     }
@@ -51,5 +51,9 @@ public class Handler {
     public void reset(){
         this.chess = new Chess(this);
         this.initializeBoard(playzone, chess);
+    }
+
+    public String getFEN(){
+        return this.chess.exportFEN();
     }
 }

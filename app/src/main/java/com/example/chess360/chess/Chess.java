@@ -212,43 +212,40 @@ public class Chess {
         return isValid;
     }
 
-    /*
-          <----- NOT IMPLEMENTED YET ----->
-
-    public String exportarFEN() {
+    public String exportFEN() {
 
         String fen = new String();
 
-        // En primer lugar, se indica la posición de las piezas:
-        for (int i = Tablero.FILAS - 1; i >= 0; i--) {
+        // Position of each piece:
+        for (int i = Board.ROWS - 1; i >= 0; i--) {
 
-            int vacios = 0;
+            int empty = 0;
 
-            for (int j = 0; j < Tablero.COLUMNAS; j++) {
+            for (int j = 0; j < Board.COLUMNS; j++) {
 
-                Pieza miPieza = this.board.getCasilla(i, j).getPieza();
+                Piece myPiece = this.board.getSquare(i, j).getPiece();
 
-                if (miPieza == null) {
-                    vacios++;
+                if (myPiece == null) {
+                    empty++;
                 } else {
-                    if (vacios > 0) {
-                        fen += vacios;
-                        vacios = 0;
+                    if (empty > 0) {
+                        fen += empty;
+                        empty = 0;
                     }
 
-                    Character letra = miPieza.getLetra();
+                    Character letter = myPiece.getLetter();
 
-                    if (miPieza.getColor() == Pieza.NEGRO) {
-                        letra = Character.toLowerCase(letra);
+                    if (myPiece.getColor() == Piece.BLACK) {
+                        letter = Character.toLowerCase(letter);
                     }
 
-                    fen += letra;
+                    fen += letter;
                 }
 
             }
 
-            if (vacios > 0) {
-                fen += vacios;
+            if (empty > 0) {
+                fen += empty;
             }
 
             if (i > 0) {
@@ -256,7 +253,7 @@ public class Chess {
             }
         }
 
-        // En segundo lugar, se indica qué jugador mueve a continuación:
+        // Player to move:
         if (this.whiteTurn){
             fen += " w";
         }
@@ -264,22 +261,20 @@ public class Chess {
             fen += " b";
         }
 
-        // En tercer lugar, indicamos qué jugador tiene derecho a enrocar y en
-        // qué condiciones si fuese posible:
+        // Castling:
         fen += " KQkq";
 
-        // En cuarto lugar, indicamos cuál es la casilla en la que se puede
-        // comer al paso, si la hubiese:
+        // Square where the player can take en passant:
         fen += " -";
 
-        // En quinto lugar, se añade el número de semimovimientos:
+        // Half moves:
         fen += " " + this.halfMoves;
 
-        // En sexto lugar, se añade el número de movimientos completos:
+        // Full moves:
         fen += " " + this.fullMoves;
 
         return fen;
-    } */
+    }
 
     public ArrayList<String> getAvailableSquares(String square) {
 

@@ -13,7 +13,12 @@ public class Queen extends Piece{
         super(color);
 
         // Letter:
-        this.setLetter(QUEEN_LETTER);
+        if (color == Piece.BLACK){
+            this.setLetter(Character.toLowerCase(QUEEN_LETTER));
+        }
+        else{
+            this.setLetter(QUEEN_LETTER);
+        }
     }
 
     public int movePiece(Move move, Board board) {

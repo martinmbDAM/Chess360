@@ -14,7 +14,12 @@ public class Bishop extends Piece{
         super(color);
 
         // Letter:
-        this.setLetter(BISHOP_LETTER);
+        if (color == Piece.BLACK){
+            this.setLetter(Character.toLowerCase(BISHOP_LETTER));
+        }
+        else{
+            this.setLetter(BISHOP_LETTER);
+        }
     }
 
     public int movePiece(Move move, Board board) {

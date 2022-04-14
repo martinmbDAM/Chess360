@@ -15,7 +15,12 @@ public class King extends Piece {
         super(color);
 
         // Letter:
-        this.setLetter(KING_LETTER);
+        if (color == Piece.BLACK){
+            this.setLetter(Character.toLowerCase(KING_LETTER));
+        }
+        else{
+            this.setLetter(KING_LETTER);
+        }
 
         // The king hasn't moved:
         this.isMoved = false;

@@ -16,7 +16,12 @@ public class Rook extends Piece{
         super(color);
 
         // Letter:
-        this.setLetter(ROOK_LETTER);
+        if (color == Piece.BLACK){
+            this.setLetter(Character.toLowerCase(ROOK_LETTER));
+        }
+        else{
+            this.setLetter(ROOK_LETTER);
+        }
 
         // The rook hasn't been moved:
         this.isMoved = false;

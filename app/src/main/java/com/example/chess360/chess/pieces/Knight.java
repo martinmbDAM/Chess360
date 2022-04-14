@@ -13,7 +13,12 @@ public class Knight extends Piece {
         super(color);
 
         // Letter:
-        this.setLetter(KNIGHT_LETTER);
+        if (color == Piece.BLACK){
+            this.setLetter(Character.toLowerCase(KNIGHT_LETTER));
+        }
+        else{
+            this.setLetter(KNIGHT_LETTER);
+        }
     }
 
     public int movePiece(Move move, Board board) {
