@@ -7,16 +7,25 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class PlayZone extends AppCompatActivity {
+
+    private final int ROWS = 8;
+    private final int COLUMNS = 8;
 
     public ImageButton [][] squares = new ImageButton[8][8];
     public TextView casilla;
     private String chosenSquare;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_zone);
+
+        // Handler:
+        this.handler = new Handler(this);
 
         // No square has been selected so far:
         this.chosenSquare = null;
@@ -102,9 +111,8 @@ public class PlayZone extends AppCompatActivity {
         squares[7][7] = findViewById(R.id.h1_square);
 
         this.setInitialPosition();
+        this.setOriginalColor();
 
-        // Esto es una prueba:
-        casilla = findViewById(R.id.nombre_casilla);
     }
 
     // Sets the initial position of a game of chess
@@ -348,22 +356,180 @@ public class PlayZone extends AppCompatActivity {
                 break;
         }
 
-        this.registerSquare(name);
+        this.onClick(name);
     }
 
-    private void registerSquare(String squareName){
+    private void onClick(String squareName){
 
         if (this.chosenSquare == null){
-            this.chosenSquare = squareName;
-            casilla.setText(squareName);
+
+            if (this.isOccupied(squareName) && this.isPlayerTurn(squareName)){
+
+                this.highlightSquare(squareName);
+                this.chosenSquare = squareName;
+
+                // Available squares are highlighted:
+                ArrayList<String> availableSquares = this.handler.requestAvailableSquares(squareName);
+
+                for (int i = 0; i < availableSquares.size(); i++) {
+                    this.highlightSquare(availableSquares.get(i));
+                }
+            }
+
         }
         else{
-            casilla.setText("From " + this.chosenSquare + " to " + squareName);
+
+            // If the user has chosen a square different from the previously selected one, it is
+            // considered to be a move:
+            if (!squareName.equals(this.chosenSquare)){
+
+                this.exportMove(this.chosenSquare, squareName);
+            }
+
+            this.setOriginalColor();
             this.chosenSquare = null;
+        }
+
+    }
+
+    private void setOriginalColor(){
+
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
+                this.setColor(this.translateCoordinates(i, j));
+            }
         }
     }
 
-    public void fakeMethod(){
+    public void setPosition(String [][] position){
 
+        this.resetBoard();
+
+        int size = position.length;
+
+        for (int i = 0; i < size; i++) {
+
+            String letter = position[1][i];
+
+            int [] coordinates = this.translateName(position[0][i]);
+            int row = coordinates[0];
+            int column = coordinates[1];
+
+            switch(letter){
+                case "p":
+                    squares[row][column].setImageResource(R.drawable.black_pawn);
+                    break;
+                case "P":
+                    squares[row][column].setImageResource(R.drawable.white_pawn);
+                    break;
+                case "r":
+                    squares[row][column].setImageResource(R.drawable.black_rook);
+                    break;
+                case "R":
+                    squares[row][column].setImageResource(R.drawable.white_rook);
+                    break;
+                case "n":
+                    squares[row][column].setImageResource(R.drawable.black_knight);
+                    break;
+                case "N":
+                    squares[row][column].setImageResource(R.drawable.white_knight);
+                    break;
+                case "b":
+                    squares[row][column].setImageResource(R.drawable.black_bishop);
+                    break;
+                case "B":
+                    squares[row][column].setImageResource(R.drawable.white_bishop);
+                    break;
+                case "q":
+                    squares[row][column].setImageResource(R.drawable.black_queen);
+                    break;
+                case "Q":
+                    squares[row][column].setImageResource(R.drawable.white_queen);
+                    break;
+                case "k":
+                    squares[row][column].setImageResource(R.drawable.black_king);
+                    break;
+                case "K":
+                    squares[row][column].setImageResource(R.drawable.white_king);
+                    break;
+            }
+        }
+    }
+
+    // Reset board
+    private void resetBoard(){
+
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
+                this.squares[i][j].setImageDrawable(null); // Comprobar si este es el método correcto
+            }
+        }
+    }
+
+    // Translates coordinates to a name in algebraic notation:
+    private String translateCoordinates(int x, int y) {
+
+        String name;
+
+        int row = 8 - x;
+        char column = (char) ('a' + y);
+
+        name = Character.toString(column) + Integer.toString(row);
+
+        return (name);
+    }
+
+    // Translates a name in algebraic notation to coordinates:
+    private int[] translateName(String nombre) {
+
+        int[] coordinates = new int[2];
+
+        coordinates[0] = 8 - Integer.parseInt(Character.toString(nombre.charAt(1)));
+        coordinates[1] = nombre.charAt(0) - 'a';
+
+        return (coordinates);
+    }
+/*          <--- NOT IMPLEMENTED YET --->
+    public void setApertura(String apertura){
+        this.aperturaNombre.setText(apertura);
+    } */
+
+    // Highlights a square:
+    private void highlightSquare(String name) {
+
+        int[] coordinates = this.translateName(name);
+
+        this.squares[coordinates[0]][coordinates[1]].setBackgroundColor(getResources().getColor(R.color.green));
+
+    }
+
+    // Sets the color of a square:
+    private void setColor(String name) {
+
+        int[] coordinates = this.translateName(name);
+
+        int row = coordinates[0];
+        int column = coordinates[1];
+
+        if ((row + column) % 2 == 0) {
+
+            this.squares[row][column].setBackgroundColor(getResources().getColor(R.color.light_brown));
+        } else {
+
+            this.squares[row][column].setBackgroundColor(getResources().getColor(R.color.dark_brown));
+        }
+    }
+
+    private void exportMove(String origin, String destination){
+
+        this.handler.getMove(origin, destination);
+    }
+
+    private boolean isOccupied(String square){
+        return this.handler.isOccupied(square);
+    }
+
+    private boolean isPlayerTurn(String square){
+        return this.handler.isPlayerTurn(square);
     }
 }

@@ -9,6 +9,11 @@ public class Handler {
     private PlayZone playzone;
     private Chess chess;
 
+    public Handler(PlayZone myPlayZone){
+        this.playzone = myPlayZone;
+        this.chess = new Chess(this);
+    }
+
     public void initializeBoard(PlayZone myPlayZone, Chess myChess){
 
         this.playzone = myPlayZone;
