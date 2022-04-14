@@ -112,7 +112,7 @@ public class PlayZone extends AppCompatActivity {
         squares[7][7] = findViewById(R.id.h1_square);
 
         this.setInitialPosition();
-        this.setOriginalColor();
+       // this.setOriginalColor();
 
     }
 
@@ -501,7 +501,7 @@ public class PlayZone extends AppCompatActivity {
 
         int[] coordinates = this.translateName(name);
 
-        this.squares[coordinates[0]][coordinates[1]].setBackgroundColor(getResources().getColor(R.color.green));
+        this.squares[coordinates[0]][coordinates[1]].setBackground(getResources().getDrawable(R.drawable.square_selected));
 
     }
 
@@ -515,10 +515,10 @@ public class PlayZone extends AppCompatActivity {
 
         if ((row + column) % 2 == 0) {
 
-            this.squares[row][column].setBackgroundColor(getResources().getColor(R.color.light_brown));
+            this.squares[row][column].setBackground(getResources().getDrawable(R.drawable.square_light));
         } else {
 
-            this.squares[row][column].setBackgroundColor(getResources().getColor(R.color.dark_brown));
+            this.squares[row][column].setBackground(getResources().getDrawable(R.drawable.square_dark));
         }
     }
 
