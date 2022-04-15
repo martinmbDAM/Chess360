@@ -525,4 +525,10 @@
 
     </GridLayout>
 
+    <TextView
+        android:id="@+id/prueba"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Esto es un texto de prueba" />
+
 </LinearLayout>

@@ -8,9 +8,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.chess360.dialogs.ListenerPromotion;
+import com.example.chess360.dialogs.PromotionDialog;
+
 import java.util.ArrayList;
 
-public class PlayZone extends AppCompatActivity {
+public class PlayZone extends AppCompatActivity implements ListenerPromotion {
 
     private final int ROWS = 8;
     private final int COLUMNS = 8;
@@ -19,10 +22,14 @@ public class PlayZone extends AppCompatActivity {
     private String chosenSquare;
     private Handler handler;
 
+    private TextView prueba;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_zone);
+
+        prueba = findViewById(R.id.prueba);
 
         // Handler:
         this.handler = new Handler(this);
@@ -531,5 +538,15 @@ public class PlayZone extends AppCompatActivity {
 
     private boolean isPlayerTurn(String square){
         return this.handler.isPlayerTurn(square);
+    }
+
+    public void launchPromotionDialog(){
+        PromotionDialog promotionDialog = new PromotionDialog();
+        promotionDialog.show(getSupportFragmentManager(), "AlertDialog");
+    }
+
+    public void onPromotionClick(String input){
+
+        this.handler.getPromotionPiece(input);
     }
 }

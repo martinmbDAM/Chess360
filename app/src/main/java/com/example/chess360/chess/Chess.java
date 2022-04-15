@@ -14,10 +14,11 @@ public class Chess {
     public static final int CASTLE_SHORT = 2;
     public static final int CASTLE_LONG = 3;
     public static final int EN_PASSANT = 4;
-    public static final int PROMOTION_QUEEN = 5;
-    public static final int PROMOTION_ROOK = 6;
-    public static final int PROMOTION_BISHOP = 7;
-    public static final int PROMOTION_KNIGHT = 8;
+    public static final int PROMOTION = 5;
+    public static final int PROMOTION_QUEEN = 6;
+    public static final int PROMOTION_ROOK = 7;
+    public static final int PROMOTION_BISHOP = 8;
+    public static final int PROMOTION_KNIGHT = 9;
 
     private final String STARTING_POSITION = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
@@ -27,7 +28,7 @@ public class Chess {
     private int halfMoves;
     private int fullMoves;
     private String enPassant;
-    private boolean [] castle;
+    private boolean[] castle;
 
     private boolean whiteTurn;
 
@@ -36,7 +37,7 @@ public class Chess {
         this.handler = myHandler;
         this.whiteTurn = true;
         this.enPassant = null;
-        this.castle = new boolean[]{true,true,true,true}; // K - Q - k - q
+        this.castle = new boolean[]{true, true, true, true}; // K - Q - k - q
 
 
         //      this.dao = new DAO(this.STARTING_POSITION);
@@ -109,10 +110,10 @@ public class Chess {
                             myPiece = new Queen(Piece.WHITE);
                             break;
                         case 'k':
-                            myPiece = new King(Piece.BLACK,this);
+                            myPiece = new King(Piece.BLACK, this);
                             break;
                         case 'K':
-                            myPiece = new King(Piece.WHITE,this);
+                            myPiece = new King(Piece.WHITE, this);
                             break;
                     }
 
@@ -167,41 +168,42 @@ public class Chess {
 
         if (result != Chess.ILLEGAL_MOVE) {
 
-            // En passant:
-            if (this.canTakeEnPassant(myMove)){
+            if (result == Chess.PROMOTION) {
+                this.handler.requestPromotion(myMove);
+            } else {
+                // En passant:
+                if (this.canTakeEnPassant(myMove)) {
 
-                int row = myMove.getDestination().getRow();
-                int column = myMove.getDestination().getColumn();
+                    int row = myMove.getDestination().getRow();
+                    int column = myMove.getDestination().getColumn();
 
-                if (myMove.getOrigin().getPiece().getColor() == Piece.WHITE){
+                    if (myMove.getOrigin().getPiece().getColor() == Piece.WHITE) {
 
-                    this.enPassant = Square.translateCoordinates(row-1,column);
+                        this.enPassant = Square.translateCoordinates(row - 1, column);
+                    } else {
+
+                        this.enPassant = Square.translateCoordinates(row + 1, column);
+                    }
+                } else {
+                    this.enPassant = null;
                 }
-                else{
 
-                    this.enPassant = Square.translateCoordinates(row+1, column);
-                }
+                this.board.makeMove(myMove, result);
             }
-            else{
-                this.enPassant = null;
-            }
-
-            this.board.makeMove(myMove, result);
 
             // If it's a pawn move or a capture, the number of halfmoves gets reseted:
             if ((myMove.getOrigin().getPiece() != null &&
                     myMove.getOrigin().getPiece() instanceof Pawn) ||
-                    (myMove.getDestination().getPiece() != null)){
+                    (myMove.getDestination().getPiece() != null)) {
 
                 this.resetHalfMoves();
-            }
-            else{
+            } else {
 
                 this.increaseHalfMoves();
             }
 
             // If the black pieces have moved, the number of full moves is increased:
-            if (!this.whiteTurn){
+            if (!this.whiteTurn) {
                 this.increaseFullMoves();
             }
 
@@ -214,7 +216,7 @@ public class Chess {
 
     private int checkMove(Move myMove) {
 
-        int result=-1;
+        int result = -1;
 
         Piece myPiece = myMove.getOrigin().getPiece();
 
@@ -268,10 +270,9 @@ public class Chess {
         }
 
         // Player to move:
-        if (this.whiteTurn){
+        if (this.whiteTurn) {
             fen += " w";
-        }
-        else{
+        } else {
             fen += " b";
         }
 
@@ -279,10 +280,9 @@ public class Chess {
         fen += " KQkq";
 
         // Square where the player can take en passant:
-        if (this.enPassant == null){
+        if (this.enPassant == null) {
             fen += " -";
-        }
-        else{
+        } else {
             fen += " " + this.enPassant;
         }
 
@@ -312,7 +312,7 @@ public class Chess {
                     boolean isValid = myPiece.movePiece(myMove, this.board) !=
                             Chess.ILLEGAL_MOVE;
 
-                    if (isValid){
+                    if (isValid) {
 
                         mySquares.add(destination.getName());
                     }
@@ -324,17 +324,17 @@ public class Chess {
         return (mySquares);
     }
 
-    public boolean isOccupied(String square){
+    public boolean isOccupied(String square) {
         return this.board.getSquare(square).getPiece() != null;
     }
 
-    public boolean isPlayerTurn(String square){
+    public boolean isPlayerTurn(String square) {
 
         return ((this.whiteTurn && this.board.getSquare(square).getPiece().getColor() == Piece.WHITE) ||
                 (!this.whiteTurn && this.board.getSquare(square).getPiece().getColor() == Piece.BLACK));
     }
 
-    private void changeTurn(){
+    private void changeTurn() {
         this.whiteTurn = !this.whiteTurn;
     }
 
@@ -343,28 +343,28 @@ public class Chess {
         return this.dao.getApertura();
     } */
 
-    private void increaseHalfMoves(){
+    private void increaseHalfMoves() {
         this.halfMoves++;
     }
 
-    private void resetHalfMoves(){
+    private void resetHalfMoves() {
         this.halfMoves = 0;
     }
 
-    private void increaseFullMoves(){
+    private void increaseFullMoves() {
         this.fullMoves++;
     }
 
     // Checks whether en passant is possible:
-    private boolean canTakeEnPassant(Move myMove){
+    private boolean canTakeEnPassant(Move myMove) {
 
         boolean enPassant = false;
 
         // It must be a pawn move:
-        if (myMove.getOrigin().getPiece() instanceof Pawn){
+        if (myMove.getOrigin().getPiece() instanceof Pawn) {
 
-            int [] coordinatesOrigin = Square.translateName(myMove.getOrigin().getName());
-            int [] coordinatesDestination = Square.translateName(myMove.getDestination().getName());
+            int[] coordinatesOrigin = Square.translateName(myMove.getOrigin().getName());
+            int[] coordinatesDestination = Square.translateName(myMove.getDestination().getName());
 
             int row1 = coordinatesOrigin[0];
             int row2 = coordinatesDestination[0];
@@ -372,23 +372,23 @@ public class Chess {
             int column2 = coordinatesDestination[1];
 
             // The pawn must have moved two squares forward:
-            if (column1 == column2 && Math.abs(row1 - row2) == 2){
+            if (column1 == column2 && Math.abs(row1 - row2) == 2) {
 
                 int color = myMove.getOrigin().getPiece().getColor();
                 Piece pieceLeft = null;
                 Piece pieceRight = null;
 
                 // Finally, there must be a pawn of the opposite color in an adjacent square:
-                if (column2 > 0){
-                    pieceLeft = this.board.getSquare(Square.translateCoordinates(row2,column2-1)).getPiece();
+                if (column2 > 0) {
+                    pieceLeft = this.board.getSquare(Square.translateCoordinates(row2, column2 - 1)).getPiece();
                 }
 
-                if (column2 < 7){
-                    pieceRight = this.board.getSquare(Square.translateCoordinates(row2,column2+1)).getPiece();
+                if (column2 < 7) {
+                    pieceRight = this.board.getSquare(Square.translateCoordinates(row2, column2 + 1)).getPiece();
                 }
 
                 if ((pieceLeft != null && pieceLeft instanceof Pawn && color != pieceLeft.getColor()) ||
-                        (pieceRight != null && pieceRight instanceof Pawn && color != pieceRight.getColor())){
+                        (pieceRight != null && pieceRight instanceof Pawn && color != pieceRight.getColor())) {
 
                     enPassant = true;
                 }
@@ -396,5 +396,10 @@ public class Chess {
         }
 
         return enPassant;
+    }
+
+    public void promotePiece(Move promotionMove, int promotionCode) {
+
+        this.board.makeMove(promotionMove, promotionCode);
     }
 }

@@ -91,6 +91,10 @@ public class Pawn extends Piece {
             if (enPassant){
                 output = Chess.EN_PASSANT;
             }
+            else if ((move.getDestination().getRow() == 7 && move.getOrigin().getPiece().getColor() == Piece.WHITE) ||
+                    (move.getDestination().getRow() == 0 && move.getOrigin().getPiece().getColor() == Piece.BLACK)){
+                output = Chess.PROMOTION;
+            }
             else{
                 output = Chess.LEGAL_MOVE;
             }

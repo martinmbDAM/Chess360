@@ -1,6 +1,7 @@
 package com.example.chess360;
 
 import com.example.chess360.chess.Chess;
+import com.example.chess360.chess.Move;
 
 import java.util.ArrayList;
 
@@ -8,10 +9,12 @@ public class Handler {
 
     private PlayZone playzone;
     private Chess chess;
+    private Move promotionMove;
 
     public Handler(PlayZone myPlayZone){
         this.playzone = myPlayZone;
         this.chess = new Chess(this);
+        this.promotionMove = null;
     }
 
     public void initializeBoard(PlayZone myPlayZone, Chess myChess){
@@ -55,5 +58,34 @@ public class Handler {
 
     public String getFEN(){
         return this.chess.exportFEN();
+    }
+
+    public void requestPromotion(Move myMove){
+
+        this.playzone.launchPromotionDialog();
+        this.promotionMove = myMove;
+    }
+
+    public void getPromotionPiece(String piece){
+
+        switch(piece){
+            case "Queen":
+                this.chess.promotePiece(this.promotionMove, Chess.PROMOTION_QUEEN);
+                break;
+            case "Rook":
+                this.chess.promotePiece(this.promotionMove, Chess.PROMOTION_ROOK);
+                break;
+            case "Knight":
+                this.chess.promotePiece(this.promotionMove, Chess.PROMOTION_KNIGHT);
+                break;
+            case "Bishop":
+                this.chess.promotePiece(this.promotionMove, Chess.PROMOTION_BISHOP);
+                break;
+        }
+
+        this.promotionMove = null;
+
+        String [][] position = this.chess.exportPosition();
+        this.playzone.setPosition(position);
     }
 }

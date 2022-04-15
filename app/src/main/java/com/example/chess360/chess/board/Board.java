@@ -2,8 +2,11 @@ package com.example.chess360.chess.board;
 
 import com.example.chess360.chess.Chess;
 import com.example.chess360.chess.Move;
+import com.example.chess360.chess.pieces.Bishop;
 import com.example.chess360.chess.pieces.King;
+import com.example.chess360.chess.pieces.Knight;
 import com.example.chess360.chess.pieces.Piece;
+import com.example.chess360.chess.pieces.Queen;
 import com.example.chess360.chess.pieces.Rook;
 
 public class Board {
@@ -165,19 +168,67 @@ public class Board {
                 break;
 
             case Chess.PROMOTION_QUEEN:
-                // Do something
+
+                // The piece is set at the destination square, getting replaced by a queen:
+                this.squares[row2][column2].setPiece(new Queen(pieceOrigin.getColor()));
+
+                // The origin square is emptied
+                this.squares[row1][column1].emptySquare();
+
+                // We check whether a piece has been captured:
+                if (pieceDestination != null){
+
+                    this.numPieces--;
+                }
+
                 break;
 
             case Chess.PROMOTION_ROOK:
-                // Do something
-                break;
 
-            case Chess.PROMOTION_BISHOP:
-                // Do something
+                // The piece is set at the destination square, getting replaced by a rook:
+                this.squares[row2][column2].setPiece(new Rook(pieceOrigin.getColor()));
+
+                // The origin square is emptied
+                this.squares[row1][column1].emptySquare();
+
+                // We check whether a piece has been captured:
+                if (pieceDestination != null){
+
+                    this.numPieces--;
+                }
+
                 break;
 
             case Chess.PROMOTION_KNIGHT:
-                // Do something
+
+                // The piece is set at the destination square, getting replaced by a knight:
+                this.squares[row2][column2].setPiece(new Knight(pieceOrigin.getColor()));
+
+                // The origin square is emptied
+                this.squares[row1][column1].emptySquare();
+
+                // We check whether a piece has been captured:
+                if (pieceDestination != null){
+
+                    this.numPieces--;
+                }
+
+                break;
+
+            case Chess.PROMOTION_BISHOP:
+
+                // The piece is set at the destination square, getting replaced by a bishop:
+                this.squares[row2][column2].setPiece(new Bishop(pieceOrigin.getColor()));
+
+                // The origin square is emptied
+                this.squares[row1][column1].emptySquare();
+
+                // We check whether a piece has been captured:
+                if (pieceDestination != null){
+
+                    this.numPieces--;
+                }
+
                 break;
         }
     }
