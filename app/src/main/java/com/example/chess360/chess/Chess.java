@@ -445,4 +445,93 @@ public class Chess {
     public void revokeCastleRights(int index){
         this.castle[index] = false;
     }
+
+    // Method that obtains the king of a player:
+    public Square getKing(){
+
+        int color;
+
+        if (this.whiteTurn){
+            color = Piece.WHITE;
+        }
+        else{
+            color = Piece.BLACK;
+        }
+
+        Square [][] squares = this.board.getSquares();
+
+        boolean found = false;
+        int i=0, j=0;
+
+        while (!found && i<squares.length){
+
+            j = 0;
+
+            while(!found && j<squares[i].length){
+
+                Piece myPiece = squares[i][j].getPiece();
+
+                found = myPiece != null && myPiece instanceof King && myPiece.getColor() == color;
+
+                if (!found){
+                    j++;
+                }
+            }
+
+            if (!found){
+                i++;
+            }
+        }
+
+        return squares[i][j];
+    }
+
+    // Checks wether the King is in check:
+    public boolean isInCheck(){
+
+        int color;
+
+        if (this.whiteTurn){
+            color = Piece.WHITE;
+        }
+        else{
+            color = Piece.BLACK;
+        }
+
+        Square[][] squares = this.board.getSquares();
+
+        // Square where the King is:
+        Square squareKing = this.getKing();
+
+        // Squares where the enemy pieces are:
+        ArrayList<Square> enemyPieces = new ArrayList<>();
+
+        for (int i=0; i<squares.length; i++){
+            for (int j=0; j<squares[i].length; j++){
+
+                Piece myPiece = squares[i][j].getPiece();
+
+                if (myPiece != null && myPiece.getColor() != color){
+                    enemyPieces.add(squares[i][j]);
+                }
+            }
+        }
+
+        // We check whether any of the pieces can take the King:
+        boolean inCheck = false;
+        int pos=0;
+
+        while(!inCheck && pos<enemyPieces.size()){
+
+            Move myMove = new Move(enemyPieces.get(pos),squareKing);
+
+            inCheck = enemyPieces.get(pos).getPiece().movePiece(myMove,this.board) != Chess.ILLEGAL_MOVE;
+
+            if (!inCheck){
+                pos++;
+            }
+        }
+
+        return inCheck;
+    }
 }

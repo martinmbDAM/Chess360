@@ -385,6 +385,8 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
         }
         else{
 
+            this.setOriginalColor();
+
             // If the user has chosen a square different from the previously selected one, it is
             // considered to be a move:
             if (!squareName.equals(this.chosenSquare)){
@@ -392,13 +394,8 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
                 this.exportMove(this.chosenSquare, squareName);
             }
 
-            this.setOriginalColor();
             this.chosenSquare = null;
 
-
-            // Esto es una prueba:
-            String output = this.handler.getFEN().split(" ")[2];
-            prueba.setText(output);
         }
 
     }
@@ -552,5 +549,16 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
     public void onPromotionClick(String input){
 
         this.handler.getPromotionPiece(input);
+    }
+
+    public void highlightRed(String square){
+
+        prueba.setText("El rey está en jaque");
+
+        int [] coordinates = this.translateName(square);
+        int row = coordinates[0];
+        int column = coordinates[1];
+
+        this.squares[row][column].setBackground(getResources().getDrawable(R.drawable.square_check));
     }
 }

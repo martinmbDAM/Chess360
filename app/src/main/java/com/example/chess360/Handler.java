@@ -35,6 +35,19 @@ public class Handler {
 
             String [][] position = this.chess.exportPosition();
             this.playzone.setPosition(position);
+
+
+
+
+            if (this.chess.isInCheck()){
+
+                this.playzone.highlightRed(this.chess.getKing().getName());
+            }
+
+
+
+
+
             //     this.playzone.setApertura(this.chess.getApertura());
         }
     }
