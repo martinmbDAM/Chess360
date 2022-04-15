@@ -395,6 +395,10 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
             this.setOriginalColor();
             this.chosenSquare = null;
 
+
+            // Esto es una prueba:
+            String output = this.handler.getFEN().split(" ")[2];
+            prueba.setText(output);
         }
 
     }

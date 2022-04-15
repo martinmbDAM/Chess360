@@ -15,12 +15,14 @@ public class Board {
     public static final int COLUMNS = 8;
 
     private int numPieces;
+    private Chess chess;
 
     // Squares:
     private final Square[][] squares;
 
-    public Board(){
+    public Board(Chess chess){
         this.squares = new Square[ROWS][COLUMNS];
+        this.chess = chess;
 
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
@@ -70,14 +72,44 @@ public class Board {
         Piece pieceOrigin = myMove.getOrigin().getPiece();
         Piece pieceDestination = myMove.getDestination().getPiece();
 
-        // If the piece is a King or a Rook, the pice is set to have been moved:
+        // If the piece is a King or a Rook, the pice is set to have been moved and castling rights
+        // are removed:
         if (pieceOrigin instanceof King){
 
             ((King) pieceOrigin).setMoved();
+
+            if (pieceOrigin.getColor() == Piece.WHITE){
+                this.chess.revokeCastleRights(0);
+                this.chess.revokeCastleRights(1);
+            }
+            else{
+                this.chess.revokeCastleRights(2);
+                this.chess.revokeCastleRights(3);
+            }
         }
         else if (pieceOrigin instanceof Rook){
 
             ((Rook) pieceOrigin).setMoved();
+
+            if (pieceOrigin.getColor() == Piece.WHITE){
+
+                if (myMove.getOrigin().getName().equals("a1")){
+                    this.chess.revokeCastleRights(1);
+                }
+                else if (myMove.getOrigin().getName().equals("h1")){
+                    this.chess.revokeCastleRights(0);
+                }
+
+            }
+            else{
+
+                if (myMove.getOrigin().getName().equals("a8")){
+                    this.chess.revokeCastleRights(3);
+                }
+                else if (myMove.getOrigin().getName().equals("h8")){
+                    this.chess.revokeCastleRights(2);
+                }
+            }
         }
 
         switch (code) {

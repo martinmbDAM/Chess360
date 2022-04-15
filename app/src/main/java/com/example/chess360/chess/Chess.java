@@ -55,7 +55,7 @@ public class Chess {
         String[] fields = fen.split(" ");
         String[] position = fields[0].split("/");
 
-        Board myBoard = new Board();
+        Board myBoard = new Board(this);
 
         int limit = Board.ROWS - 1;
 
@@ -167,7 +167,25 @@ public class Chess {
         int result = this.checkMove(myMove);
 
         if (result != Chess.ILLEGAL_MOVE) {
-
+/*
+            // Castle:
+            if (result == Chess.CASTLE_LONG){
+                if (myMove.getOrigin().getPiece().getColor() == Piece.WHITE){
+                    castle[1] = false;
+                }
+                else{
+                    castle[3] = false;
+                }
+            }
+            else if (result == Chess.CASTLE_SHORT){
+                if (myMove.getOrigin().getPiece().getColor() == Piece.WHITE){
+                    castle[0] = false;
+                }
+                else{
+                    castle[2] = false;
+                }
+            }
+*/
             if (result == Chess.PROMOTION) {
                 this.handler.requestPromotion(myMove);
             } else {
@@ -277,7 +295,28 @@ public class Chess {
         }
 
         // Castling:
-        fen += " KQkq";
+        if (this.castle[0] || this.castle[1] || this.castle[2] || this.castle[3]){
+            fen += " ";
+
+            if (this.castle[0]){
+                fen += "K";
+            }
+
+            if (this.castle[1]){
+                fen += "Q";
+            }
+
+            if (this.castle[2]){
+                fen += "k";
+            }
+
+            if (this.castle[3]){
+                fen += "q";
+            }
+        }
+        else{
+            fen += " -";
+        }
 
         // Square where the player can take en passant:
         if (this.enPassant == null) {
@@ -401,5 +440,9 @@ public class Chess {
     public void promotePiece(Move promotionMove, int promotionCode) {
 
         this.board.makeMove(promotionMove, promotionCode);
+    }
+
+    public void revokeCastleRights(int index){
+        this.castle[index] = false;
     }
 }
