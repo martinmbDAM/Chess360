@@ -32,7 +32,7 @@ public class Square {
     public Square(int row, int column){
         this.row = row;
         this.column = column;
-        this.name = this.coordinatesToName(row, column);
+        this.name = this.translateCoordinates(row, column);
         this.piece = null;
     }
 
@@ -44,7 +44,7 @@ public class Square {
     }
 
     public Square(String myName){
-        int [] coordinates = this.nameToCoordinates(myName);
+        int [] coordinates = this.translateName(myName);
         this.row = coordinates[0];
         this.column = coordinates[1];
         this.name = myName;
@@ -52,7 +52,7 @@ public class Square {
     }
 
     // Translates coordinates to a name in algebraic notation:
-    private String coordinatesToName(int x, int y) {
+    public static String translateCoordinates(int x, int y) {
 
         String myName;
 
@@ -65,7 +65,7 @@ public class Square {
     }
 
     // Translates a name in algebraic notation to coordinates:
-    private int [] nameToCoordinates(String name){
+    public static int [] translateName(String name){
 
         int [] output = new int [2];
 

@@ -27,6 +27,7 @@ public class Chess {
     //   private final DAO dao; ---> Not implemented yet
     private int halfMoves;
     private int fullMoves;
+    private String enPassant;
 
     private boolean whiteTurn;
 
@@ -34,6 +35,7 @@ public class Chess {
         this.getInitialPosition();
         this.handler = myHandler;
         this.whiteTurn = true;
+        this.enPassant = null;
         //      this.dao = new DAO(this.STARTING_POSITION);
 
         //     this.semiMovimientos = 0;
@@ -161,6 +163,26 @@ public class Chess {
         boolean isValid = checkMove(myMove);
 
         if (isValid) {
+
+            // En passant:
+            if (this.canTakeEnPassant(myMove)){
+
+                int row = myMove.getDestination().getRow();
+                int column = myMove.getDestination().getColumn();
+
+                if (myMove.getOrigin().getPiece().getColor() == Piece.WHITE){
+
+                    this.enPassant = Square.translateCoordinates(row-1,column);
+                }
+                else{
+
+                    this.enPassant = Square.translateCoordinates(row+1, column);
+                }
+            }
+            else{
+                this.enPassant = null;
+            }
+
             this.board.makeMove(myMove);
 
             // If it's a pawn move or a capture, the number of halfmoves gets reseted:
@@ -265,7 +287,12 @@ public class Chess {
         fen += " KQkq";
 
         // Square where the player can take en passant:
-        fen += " -";
+        if (this.enPassant == null){
+            fen += " -";
+        }
+        else{
+            fen += " " + this.enPassant;
+        }
 
         // Half moves:
         fen += " " + this.halfMoves;
@@ -334,5 +361,48 @@ public class Chess {
 
     private void increaseFullMoves(){
         this.fullMoves++;
+    }
+
+    // Checks whether en passant is possible:
+    private boolean canTakeEnPassant(Move myMove){
+
+        boolean enPassant = false;
+
+        // It must be a pawn move:
+        if (myMove.getOrigin().getPiece() instanceof Pawn){
+
+            int [] coordinatesOrigin = Square.translateName(myMove.getOrigin().getName());
+            int [] coordinatesDestination = Square.translateName(myMove.getDestination().getName());
+
+            int row1 = coordinatesOrigin[0];
+            int row2 = coordinatesDestination[0];
+            int column1 = coordinatesOrigin[1];
+            int column2 = coordinatesDestination[1];
+
+            // The pawn must have moved two squares forward:
+            if (column1 == column2 && Math.abs(row1 - row2) == 2){
+
+                int color = myMove.getOrigin().getPiece().getColor();
+                Piece pieceLeft = null;
+                Piece pieceRight = null;
+
+                // Finally, there must be a pawn of the opposite color in an adjacent square:
+                if (column2 > 0){
+                    pieceLeft = this.board.getSquare(Square.translateCoordinates(row2,column2-1)).getPiece();
+                }
+
+                if (column2 < 7){
+                    pieceRight = this.board.getSquare(Square.translateCoordinates(row2,column2+1)).getPiece();
+                }
+
+                if ((pieceLeft != null && pieceLeft instanceof Pawn && color != pieceLeft.getColor()) ||
+                        (pieceRight != null && pieceRight instanceof Pawn && color != pieceRight.getColor())){
+
+                    enPassant = true;
+                }
+            }
+        }
+
+        return enPassant;
     }
 }

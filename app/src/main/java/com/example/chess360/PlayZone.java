@@ -16,7 +16,6 @@ public class PlayZone extends AppCompatActivity {
     private final int COLUMNS = 8;
 
     public ImageButton [][] squares = new ImageButton[8][8];
-    public TextView casilla;
     private String chosenSquare;
     private Handler handler;
 
@@ -31,129 +30,128 @@ public class PlayZone extends AppCompatActivity {
         // No square has been selected so far:
         this.chosenSquare = null;
 
-        // Row 8:
-        squares[0][0] = findViewById(R.id.a8_square);
-        squares[0][1] = findViewById(R.id.b8_square);
-        squares[0][2] = findViewById(R.id.c8_square);
-        squares[0][3] = findViewById(R.id.d8_square);
-        squares[0][4] = findViewById(R.id.e8_square);
-        squares[0][5] = findViewById(R.id.f8_square);
-        squares[0][6] = findViewById(R.id.g8_square);
-        squares[0][7] = findViewById(R.id.h8_square);
-
-        // Row 7:
-        squares[1][0] = findViewById(R.id.a7_square);
-        squares[1][1] = findViewById(R.id.b7_square);
-        squares[1][2] = findViewById(R.id.c7_square);
-        squares[1][3] = findViewById(R.id.d7_square);
-        squares[1][4] = findViewById(R.id.e7_square);
-        squares[1][5] = findViewById(R.id.f7_square);
-        squares[1][6] = findViewById(R.id.g7_square);
-        squares[1][7] = findViewById(R.id.h7_square);
-
-        // Row 6:
-        squares[2][0] = findViewById(R.id.a6_square);
-        squares[2][1] = findViewById(R.id.b6_square);
-        squares[2][2] = findViewById(R.id.c6_square);
-        squares[2][3] = findViewById(R.id.d6_square);
-        squares[2][4] = findViewById(R.id.e6_square);
-        squares[2][5] = findViewById(R.id.f6_square);
-        squares[2][6] = findViewById(R.id.g6_square);
-        squares[2][7]= findViewById(R.id.h6_square);
-
-        // Row 5:
-        squares[3][0] = findViewById(R.id.a5_square);
-        squares[3][1] = findViewById(R.id.b5_square);
-        squares[3][2] = findViewById(R.id.c5_square);
-        squares[3][3] = findViewById(R.id.d5_square);
-        squares[3][4] = findViewById(R.id.e5_square);
-        squares[3][5] = findViewById(R.id.f5_square);
-        squares[3][6] = findViewById(R.id.g5_square);
-        squares[3][7] = findViewById(R.id.h5_square);
-
-        // Row 4:
-        squares[4][0] = findViewById(R.id.a4_square);
-        squares[4][1] = findViewById(R.id.b4_square);
-        squares[4][2] = findViewById(R.id.c4_square);
-        squares[4][3] = findViewById(R.id.d4_square);
-        squares[4][4] = findViewById(R.id.e4_square);
-        squares[4][5] = findViewById(R.id.f4_square);
-        squares[4][6] = findViewById(R.id.g4_square);
-        squares[4][7] = findViewById(R.id.h4_square);
-
-        // Row 3:
-        squares[5][0] = findViewById(R.id.a3_square);
-        squares[5][1] = findViewById(R.id.b3_square);
-        squares[5][2] = findViewById(R.id.c3_square);
-        squares[5][3] = findViewById(R.id.d3_square);
-        squares[5][4] = findViewById(R.id.e3_square);
-        squares[5][5] = findViewById(R.id.f3_square);
-        squares[5][6] = findViewById(R.id.g3_square);
-        squares[5][7] = findViewById(R.id.h3_square);
+        // Row 1:
+        squares[0][0] = findViewById(R.id.a1_square);
+        squares[0][1] = findViewById(R.id.b1_square);
+        squares[0][2] = findViewById(R.id.c1_square);
+        squares[0][3] = findViewById(R.id.d1_square);
+        squares[0][4] = findViewById(R.id.e1_square);
+        squares[0][5] = findViewById(R.id.f1_square);
+        squares[0][6] = findViewById(R.id.g1_square);
+        squares[0][7] = findViewById(R.id.h1_square);
 
         // Row 2:
-        squares[6][0] = findViewById(R.id.a2_square);
-        squares[6][1] = findViewById(R.id.b2_square);
-        squares[6][2] = findViewById(R.id.c2_square);
-        squares[6][3] = findViewById(R.id.d2_square);
-        squares[6][4] = findViewById(R.id.e2_square);
-        squares[6][5] = findViewById(R.id.f2_square);
-        squares[6][6] = findViewById(R.id.g2_square);
-        squares[6][7] = findViewById(R.id.h2_square);
+        squares[1][0] = findViewById(R.id.a2_square);
+        squares[1][1] = findViewById(R.id.b2_square);
+        squares[1][2] = findViewById(R.id.c2_square);
+        squares[1][3] = findViewById(R.id.d2_square);
+        squares[1][4] = findViewById(R.id.e2_square);
+        squares[1][5] = findViewById(R.id.f2_square);
+        squares[1][6] = findViewById(R.id.g2_square);
+        squares[1][7] = findViewById(R.id.h2_square);
 
-        // Row 1:
-        squares[7][0] = findViewById(R.id.a1_square);
-        squares[7][1] = findViewById(R.id.b1_square);
-        squares[7][2] = findViewById(R.id.c1_square);
-        squares[7][3] = findViewById(R.id.d1_square);
-        squares[7][4] = findViewById(R.id.e1_square);
-        squares[7][5] = findViewById(R.id.f1_square);
-        squares[7][6] = findViewById(R.id.g1_square);
-        squares[7][7] = findViewById(R.id.h1_square);
+        // Row 3:
+        squares[2][0] = findViewById(R.id.a3_square);
+        squares[2][1] = findViewById(R.id.b3_square);
+        squares[2][2] = findViewById(R.id.c3_square);
+        squares[2][3] = findViewById(R.id.d3_square);
+        squares[2][4] = findViewById(R.id.e3_square);
+        squares[2][5] = findViewById(R.id.f3_square);
+        squares[2][6] = findViewById(R.id.g3_square);
+        squares[2][7]= findViewById(R.id.h3_square);
+
+        // Row 4:
+        squares[3][0] = findViewById(R.id.a4_square);
+        squares[3][1] = findViewById(R.id.b4_square);
+        squares[3][2] = findViewById(R.id.c4_square);
+        squares[3][3] = findViewById(R.id.d4_square);
+        squares[3][4] = findViewById(R.id.e4_square);
+        squares[3][5] = findViewById(R.id.f4_square);
+        squares[3][6] = findViewById(R.id.g4_square);
+        squares[3][7] = findViewById(R.id.h4_square);
+
+        // Row 5:
+        squares[4][0] = findViewById(R.id.a5_square);
+        squares[4][1] = findViewById(R.id.b5_square);
+        squares[4][2] = findViewById(R.id.c5_square);
+        squares[4][3] = findViewById(R.id.d5_square);
+        squares[4][4] = findViewById(R.id.e5_square);
+        squares[4][5] = findViewById(R.id.f5_square);
+        squares[4][6] = findViewById(R.id.g5_square);
+        squares[4][7] = findViewById(R.id.h5_square);
+
+        // Row 6:
+        squares[5][0] = findViewById(R.id.a6_square);
+        squares[5][1] = findViewById(R.id.b6_square);
+        squares[5][2] = findViewById(R.id.c6_square);
+        squares[5][3] = findViewById(R.id.d6_square);
+        squares[5][4] = findViewById(R.id.e6_square);
+        squares[5][5] = findViewById(R.id.f6_square);
+        squares[5][6] = findViewById(R.id.g6_square);
+        squares[5][7] = findViewById(R.id.h6_square);
+
+        // Row 7:
+        squares[6][0] = findViewById(R.id.a7_square);
+        squares[6][1] = findViewById(R.id.b7_square);
+        squares[6][2] = findViewById(R.id.c7_square);
+        squares[6][3] = findViewById(R.id.d7_square);
+        squares[6][4] = findViewById(R.id.e7_square);
+        squares[6][5] = findViewById(R.id.f7_square);
+        squares[6][6] = findViewById(R.id.g7_square);
+        squares[6][7] = findViewById(R.id.h7_square);
+
+        // Row 8:
+        squares[7][0] = findViewById(R.id.a8_square);
+        squares[7][1] = findViewById(R.id.b8_square);
+        squares[7][2] = findViewById(R.id.c8_square);
+        squares[7][3] = findViewById(R.id.d8_square);
+        squares[7][4] = findViewById(R.id.e8_square);
+        squares[7][5] = findViewById(R.id.f8_square);
+        squares[7][6] = findViewById(R.id.g8_square);
+        squares[7][7] = findViewById(R.id.h8_square);
 
         this.setInitialPosition();
-       // this.setOriginalColor();
 
     }
 
     // Sets the initial position of a game of chess
     private void setInitialPosition(){
 
-        // Black pieces:
-        squares[0][0].setImageResource(R.drawable.black_rook);
-        squares[0][1].setImageResource(R.drawable.black_knight);
-        squares[0][2].setImageResource(R.drawable.black_bishop);
-        squares[0][3].setImageResource(R.drawable.black_queen);
-        squares[0][4].setImageResource(R.drawable.black_king);
-        squares[0][5].setImageResource(R.drawable.black_bishop);
-        squares[0][6].setImageResource(R.drawable.black_knight);
-        squares[0][7].setImageResource(R.drawable.black_rook);
-        squares[1][0].setImageResource(R.drawable.black_pawn);
-        squares[1][1].setImageResource(R.drawable.black_pawn);
-        squares[1][2].setImageResource(R.drawable.black_pawn);
-        squares[1][3].setImageResource(R.drawable.black_pawn);
-        squares[1][4].setImageResource(R.drawable.black_pawn);
-        squares[1][5].setImageResource(R.drawable.black_pawn);
-        squares[1][6].setImageResource(R.drawable.black_pawn);
-        squares[1][7].setImageResource(R.drawable.black_pawn);
-
         // White pieces:
-        squares[7][0].setImageResource(R.drawable.white_rook);
-        squares[7][1].setImageResource(R.drawable.white_knight);
-        squares[7][2].setImageResource(R.drawable.white_bishop);
-        squares[7][3].setImageResource(R.drawable.white_queen);
-        squares[7][4].setImageResource(R.drawable.white_king);
-        squares[7][5].setImageResource(R.drawable.white_bishop);
-        squares[7][6].setImageResource(R.drawable.white_knight);
-        squares[7][7].setImageResource(R.drawable.white_rook);
-        squares[6][0].setImageResource(R.drawable.white_pawn);
-        squares[6][1].setImageResource(R.drawable.white_pawn);
-        squares[6][2].setImageResource(R.drawable.white_pawn);
-        squares[6][3].setImageResource(R.drawable.white_pawn);
-        squares[6][4].setImageResource(R.drawable.white_pawn);
-        squares[6][5].setImageResource(R.drawable.white_pawn);
-        squares[6][6].setImageResource(R.drawable.white_pawn);
-        squares[6][7].setImageResource(R.drawable.white_pawn);
+        squares[0][0].setImageResource(R.drawable.white_rook);
+        squares[0][1].setImageResource(R.drawable.white_knight);
+        squares[0][2].setImageResource(R.drawable.white_bishop);
+        squares[0][3].setImageResource(R.drawable.white_queen);
+        squares[0][4].setImageResource(R.drawable.white_king);
+        squares[0][5].setImageResource(R.drawable.white_bishop);
+        squares[0][6].setImageResource(R.drawable.white_knight);
+        squares[0][7].setImageResource(R.drawable.white_rook);
+        squares[1][0].setImageResource(R.drawable.white_pawn);
+        squares[1][1].setImageResource(R.drawable.white_pawn);
+        squares[1][2].setImageResource(R.drawable.white_pawn);
+        squares[1][3].setImageResource(R.drawable.white_pawn);
+        squares[1][4].setImageResource(R.drawable.white_pawn);
+        squares[1][5].setImageResource(R.drawable.white_pawn);
+        squares[1][6].setImageResource(R.drawable.white_pawn);
+        squares[1][7].setImageResource(R.drawable.white_pawn);
+
+        // Black pieces:
+        squares[7][0].setImageResource(R.drawable.black_rook);
+        squares[7][1].setImageResource(R.drawable.black_knight);
+        squares[7][2].setImageResource(R.drawable.black_bishop);
+        squares[7][3].setImageResource(R.drawable.black_queen);
+        squares[7][4].setImageResource(R.drawable.black_king);
+        squares[7][5].setImageResource(R.drawable.black_bishop);
+        squares[7][6].setImageResource(R.drawable.black_knight);
+        squares[7][7].setImageResource(R.drawable.black_rook);
+        squares[6][0].setImageResource(R.drawable.black_pawn);
+        squares[6][1].setImageResource(R.drawable.black_pawn);
+        squares[6][2].setImageResource(R.drawable.black_pawn);
+        squares[6][3].setImageResource(R.drawable.black_pawn);
+        squares[6][4].setImageResource(R.drawable.black_pawn);
+        squares[6][5].setImageResource(R.drawable.black_pawn);
+        squares[6][6].setImageResource(R.drawable.black_pawn);
+        squares[6][7].setImageResource(R.drawable.black_pawn);
     }
 
     public void selectSquare(View view){
@@ -463,7 +461,7 @@ public class PlayZone extends AppCompatActivity {
 
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
-                this.squares[i][j].setImageDrawable(null); // Comprobar si este es el método correcto
+                this.squares[i][j].setImageDrawable(null);
             }
         }
     }
@@ -473,7 +471,7 @@ public class PlayZone extends AppCompatActivity {
 
         String name;
 
-        int row = 8 - x;
+        int row = x+1;
         char column = (char) ('a' + y);
 
         name = Character.toString(column) + Integer.toString(row);
@@ -482,12 +480,12 @@ public class PlayZone extends AppCompatActivity {
     }
 
     // Translates a name in algebraic notation to coordinates:
-    private int[] translateName(String nombre) {
+    private int[] translateName(String myName) {
 
         int[] coordinates = new int[2];
 
-        coordinates[0] = 8 - Integer.parseInt(Character.toString(nombre.charAt(1)));
-        coordinates[1] = nombre.charAt(0) - 'a';
+        coordinates[0] = Integer.parseInt(Character.toString(myName.charAt(1))) - 1;
+        coordinates[1] = myName.charAt(0) - 'a';
 
         return (coordinates);
     }
@@ -513,7 +511,7 @@ public class PlayZone extends AppCompatActivity {
         int row = coordinates[0];
         int column = coordinates[1];
 
-        if ((row + column) % 2 == 0) {
+        if ((row + column) % 2 != 0) {
 
             this.squares[row][column].setBackground(getResources().getDrawable(R.drawable.square_light));
         } else {
