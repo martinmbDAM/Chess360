@@ -209,26 +209,15 @@ public class Chess {
         return result != Chess.ILLEGAL_MOVE;
     }
 
-    // REVISAR ESTE MÉTODO, É INNECESARIAMENTE ENREVESADO
     private int checkMove(Move myMove) {
 
         int result=-1;
 
-        int originRow = myMove.getOrigin().getRow();
-        int originColumn = myMove.getOrigin().getColumn();
-        int destinationRow = myMove.getDestination().getRow();
-        int destinationColumn = myMove.getDestination().getColumn();
-
-        Piece myPiece = this.board.getSquare(originRow, originColumn).getPiece();
-
-        Square originSquare = this.board.getSquare(originRow, originColumn);
-        Square destinationSquare = this.board.getSquare(destinationRow, destinationColumn);
-
-        Move moveCheck = new Move(originSquare, destinationSquare);
+        Piece myPiece = myMove.getOrigin().getPiece();
 
         if (myPiece != null) {
 
-            result = myPiece.movePiece(moveCheck, this.board);
+            result = myPiece.movePiece(myMove, this.board);
         }
 
         return result;
