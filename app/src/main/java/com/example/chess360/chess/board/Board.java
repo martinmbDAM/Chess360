@@ -2,7 +2,9 @@ package com.example.chess360.chess.board;
 
 import com.example.chess360.chess.Chess;
 import com.example.chess360.chess.Move;
+import com.example.chess360.chess.pieces.King;
 import com.example.chess360.chess.pieces.Piece;
+import com.example.chess360.chess.pieces.Rook;
 
 public class Board {
 
@@ -65,6 +67,16 @@ public class Board {
         Piece pieceOrigin = myMove.getOrigin().getPiece();
         Piece pieceDestination = myMove.getDestination().getPiece();
 
+        // If the piece is a King or a Rook, the pice is set to have been moved:
+        if (pieceOrigin instanceof King){
+
+            ((King) pieceOrigin).setMoved();
+        }
+        else if (pieceOrigin instanceof Rook){
+
+            ((Rook) pieceOrigin).setMoved();
+        }
+
         switch (code) {
 
             case Chess.LEGAL_MOVE:
@@ -107,11 +119,49 @@ public class Board {
                 break;
 
             case Chess.CASTLE_LONG:
-                // Do something
+
+                // The piece is set at the destination square:
+                this.squares[row2][column2].setPiece(pieceOrigin);
+
+                // The origin square is emptied
+                this.squares[row1][column1].emptySquare();
+
+                if (myMove.getOrigin().getPiece().getColor() == Piece.WHITE){
+
+                    Piece myRook = this.getSquare("a1").getPiece();
+                    this.squares[row2][column2+1].setPiece(myRook);
+                    this.squares[row2][0].emptySquare();
+                }
+                else{
+
+                    Piece myRook = this.getSquare("a8").getPiece();
+                    this.squares[row2][column2+1].setPiece(myRook);
+                    this.squares[row2][0].emptySquare();
+                }
+
                 break;
 
             case Chess.CASTLE_SHORT:
-                // Do something
+
+                // The piece is set at the destination square:
+                this.squares[row2][column2].setPiece(pieceOrigin);
+
+                // The origin square is emptied
+                this.squares[row1][column1].emptySquare();
+
+                if (myMove.getOrigin().getPiece().getColor() == Piece.WHITE){
+
+                    Piece myRook = this.getSquare("h1").getPiece();
+                    this.squares[row2][column2-1].setPiece(myRook);
+                    this.squares[row2][7].emptySquare();
+                }
+                else{
+
+                    Piece myRook = this.getSquare("h8").getPiece();
+                    this.squares[row2][column2-1].setPiece(myRook);
+                    this.squares[row2][7].emptySquare();
+                }
+
                 break;
 
             case Chess.PROMOTION_QUEEN:
@@ -158,4 +208,5 @@ public class Board {
 
         return this.squares[i][j];
     }
+
 }

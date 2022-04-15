@@ -96,4 +96,8 @@ public class Square {
     public void emptySquare(){
         this.piece = null;
     }
+
+    public boolean isEmpty(){
+        return this.piece == null;
+    }
 }

@@ -14,11 +14,10 @@ public class Chess {
     public static final int CASTLE_SHORT = 2;
     public static final int CASTLE_LONG = 3;
     public static final int EN_PASSANT = 4;
-    public static final int PROMOTION = 5;  // Maybe it's not useful
-    public static final int PROMOTION_QUEEN = 6;
-    public static final int PROMOTION_ROOK = 7;
-    public static final int PROMOTION_BISHOP = 8;
-    public static final int PROMOTION_KNIGHT = 9;
+    public static final int PROMOTION_QUEEN = 5;
+    public static final int PROMOTION_ROOK = 6;
+    public static final int PROMOTION_BISHOP = 7;
+    public static final int PROMOTION_KNIGHT = 8;
 
     private final String STARTING_POSITION = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
@@ -28,6 +27,7 @@ public class Chess {
     private int halfMoves;
     private int fullMoves;
     private String enPassant;
+    private boolean [] castle;
 
     private boolean whiteTurn;
 
@@ -36,6 +36,9 @@ public class Chess {
         this.handler = myHandler;
         this.whiteTurn = true;
         this.enPassant = null;
+        this.castle = new boolean[]{true,true,true,true}; // K - Q - k - q
+
+
         //      this.dao = new DAO(this.STARTING_POSITION);
 
         //     this.semiMovimientos = 0;
@@ -106,10 +109,10 @@ public class Chess {
                             myPiece = new Queen(Piece.WHITE);
                             break;
                         case 'k':
-                            myPiece = new King(Piece.BLACK);
+                            myPiece = new King(Piece.BLACK,this);
                             break;
                         case 'K':
-                            myPiece = new King(Piece.WHITE);
+                            myPiece = new King(Piece.WHITE,this);
                             break;
                     }
 
