@@ -9,7 +9,9 @@ public class Pawn extends Piece {
     // Letter that represents the pawn:
     private final char PAWN_LETTER = 'P';
 
-    public Pawn(int color) {
+    private final Chess chess;
+
+    public Pawn(int color, Chess chess) {
         super(color);
 
         // Letter:
@@ -19,10 +21,14 @@ public class Pawn extends Piece {
         else{
             this.setLetter(PAWN_LETTER);
         }
+
+        this.chess = chess;
     }
 
     @Override
     public int movePiece(Move move, Board board) {
+
+        boolean enPassant = false;
 
         // The origin and destination square can't be the same:
         boolean isValid = !move.getOrigin().equals(move.getDestination());
@@ -59,10 +65,21 @@ public class Pawn extends Piece {
 
                 if (isValid){
 
-                    // There has to be a piece of the opposite color in the destination square:
+                    // We check whether the player wants to capture en passant or not:
                     Piece myPiece = move.getDestination().getPiece();
 
-                    isValid = myPiece != null && myPiece.getColor() != this.getColor();
+                    if (myPiece != null){
+
+                        isValid = myPiece != null && myPiece.getColor() != this.getColor();
+                    }
+                    else{
+
+                        String enPassantSquare = this.chess.exportFEN().split(" ")[3];
+
+                        isValid = enPassantSquare.equals(move.getDestination().getName());
+                        enPassant = isValid;
+                    }
+
                 }
             }
         }
@@ -71,8 +88,12 @@ public class Pawn extends Piece {
         int output;
 
         if (isValid){
-
-            output = Chess.LEGAL_MOVE;
+            if (enPassant){
+                output = Chess.EN_PASSANT;
+            }
+            else{
+                output = Chess.LEGAL_MOVE;
+            }
         }
         else{
             output = Chess.ILLEGAL_MOVE;

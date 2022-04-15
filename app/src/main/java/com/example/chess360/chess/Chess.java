@@ -76,10 +76,10 @@ public class Chess {
                     switch (letter) {
 
                         case 'p':
-                            myPiece = new Pawn(Piece.BLACK);
+                            myPiece = new Pawn(Piece.BLACK, this);
                             break;
                         case 'P':
-                            myPiece = new Pawn(Piece.WHITE);
+                            myPiece = new Pawn(Piece.WHITE, this);
                             break;
                         case 'r':
                             myPiece = new Rook(Piece.BLACK);
@@ -160,9 +160,9 @@ public class Chess {
                 this.board.getSquare(destination));
 
         // If the move is valid, the board gets updated:
-        boolean isValid = checkMove(myMove);
+        int result = this.checkMove(myMove);
 
-        if (isValid) {
+        if (result != Chess.ILLEGAL_MOVE) {
 
             // En passant:
             if (this.canTakeEnPassant(myMove)){
@@ -183,7 +183,7 @@ public class Chess {
                 this.enPassant = null;
             }
 
-            this.board.makeMove(myMove);
+            this.board.makeMove(myMove, result);
 
             // If it's a pawn move or a capture, the number of halfmoves gets reseted:
             if ((myMove.getOrigin().getPiece() != null &&
@@ -206,32 +206,32 @@ public class Chess {
             //      this.dao.actualizarPosicion(this.exportarFEN()); ---> Not implemented yet
         }
 
-        return isValid;
+        return result != Chess.ILLEGAL_MOVE;
     }
 
-    private boolean checkMove(Move movimiento) {
+    // REVISAR ESTE MÉTODO, É INNECESARIAMENTE ENREVESADO
+    private int checkMove(Move myMove) {
 
-        boolean isValid = false;
+        int result=-1;
 
-        int originRow = movimiento.getOrigin().getRow();
-        int originColumn = movimiento.getOrigin().getColumn();
-        int destinationRow = movimiento.getDestination().getRow();
-        int destinationColumn = movimiento.getDestination().getColumn();
+        int originRow = myMove.getOrigin().getRow();
+        int originColumn = myMove.getOrigin().getColumn();
+        int destinationRow = myMove.getDestination().getRow();
+        int destinationColumn = myMove.getDestination().getColumn();
 
         Piece myPiece = this.board.getSquare(originRow, originColumn).getPiece();
 
         Square originSquare = this.board.getSquare(originRow, originColumn);
         Square destinationSquare = this.board.getSquare(destinationRow, destinationColumn);
 
-        Move myMove = new Move(originSquare, destinationSquare);
+        Move moveCheck = new Move(originSquare, destinationSquare);
 
         if (myPiece != null) {
 
-            int result = myPiece.movePiece(myMove, this.board);
-            isValid = result != Chess.ILLEGAL_MOVE;
+            result = myPiece.movePiece(moveCheck, this.board);
         }
 
-        return isValid;
+        return result;
     }
 
     public String exportFEN() {

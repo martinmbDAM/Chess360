@@ -1,5 +1,6 @@
 package com.example.chess360.chess.board;
 
+import com.example.chess360.chess.Chess;
 import com.example.chess360.chess.Move;
 import com.example.chess360.chess.pieces.Piece;
 
@@ -54,7 +55,7 @@ public class Board {
         this.numPieces = 0;
     }
 
-    public void makeMove(Move myMove){
+    public void makeMove(Move myMove, int code){
 
         int row1 = myMove.getOrigin().getRow();
         int row2 = myMove.getDestination().getRow();
@@ -64,16 +65,70 @@ public class Board {
         Piece pieceOrigin = myMove.getOrigin().getPiece();
         Piece pieceDestination = myMove.getDestination().getPiece();
 
-        // The piece is set at the destination square:
-        this.squares[row2][column2].setPiece(pieceOrigin);
+        switch (code) {
 
-        // The origin square is emptied
-        this.squares[row1][column1].emptySquare();
+            case Chess.LEGAL_MOVE:
 
-        // We check whether a piece has been captured:
-        if (pieceDestination != null){
+                // The piece is set at the destination square:
+                this.squares[row2][column2].setPiece(pieceOrigin);
 
-            this.numPieces--;
+                // The origin square is emptied
+                this.squares[row1][column1].emptySquare();
+
+                // We check whether a piece has been captured:
+                if (pieceDestination != null){
+
+                    this.numPieces--;
+                }
+
+                break;
+
+            case Chess.EN_PASSANT:
+
+                // The other pawn is removed:
+                if (myMove.getOrigin().getPiece().getColor() == Piece.WHITE){
+
+                    this.squares[row2-1][column2].emptySquare();
+                }
+                else{
+
+                    this.squares[row2+1][column2].emptySquare();
+                }
+
+                // The piece is set at the destination square:
+                this.squares[row2][column2].setPiece(pieceOrigin);
+
+                // The origin square is emptied
+                this.squares[row1][column1].emptySquare();
+
+                // A piece has been captured:
+                this.numPieces--;
+
+                break;
+
+            case Chess.CASTLE_LONG:
+                // Do something
+                break;
+
+            case Chess.CASTLE_SHORT:
+                // Do something
+                break;
+
+            case Chess.PROMOTION_QUEEN:
+                // Do something
+                break;
+
+            case Chess.PROMOTION_ROOK:
+                // Do something
+                break;
+
+            case Chess.PROMOTION_BISHOP:
+                // Do something
+                break;
+
+            case Chess.PROMOTION_KNIGHT:
+                // Do something
+                break;
         }
     }
 
