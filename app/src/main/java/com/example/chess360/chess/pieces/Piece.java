@@ -1,5 +1,6 @@
 package com.example.chess360.chess.pieces;
 
+import com.example.chess360.chess.Chess;
 import com.example.chess360.chess.Move;
 import com.example.chess360.chess.board.Board;
 

@@ -21,6 +21,11 @@ public class Knight extends Piece {
         }
     }
 
+    public Knight(Knight knight){
+        super(((Piece)knight).getColor());
+        this.setLetter(knight.getLetter());
+    }
+
     public int movePiece(Move move, Board board) {
 
         // The origin and destination square can't be the same:

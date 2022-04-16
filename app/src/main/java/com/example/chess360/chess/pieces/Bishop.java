@@ -22,6 +22,11 @@ public class Bishop extends Piece{
         }
     }
 
+    public Bishop(Bishop bishop){
+        super(((Piece)bishop).getColor());
+        this.setLetter(bishop.getLetter());
+    }
+
     public int movePiece(Move move, Board board) {
 
         // The origin and destination square can't be the same

@@ -1,6 +1,6 @@
 package com.example.chess360.chess.board;
 
-import com.example.chess360.chess.pieces.Piece;
+import com.example.chess360.chess.pieces.*;
 
 public class Square {
 
@@ -40,7 +40,34 @@ public class Square {
         this.row = square.getRow();
         this.column = square.getColumn();
         this.name = square.getName();
-        this.piece = square.getPiece();
+
+        if (square.getPiece() == null){
+            this.piece = null;
+        }
+        else{
+
+            Piece myPiece = square.getPiece();
+
+            if (myPiece instanceof Pawn){
+                this.piece = new Pawn((Pawn)myPiece);
+            }
+            else if (myPiece instanceof Rook){
+                this.piece = new Rook((Rook)myPiece);
+            }
+            else if (myPiece instanceof Knight){
+                this.piece = new Knight((Knight)myPiece);
+            }
+            else if (myPiece instanceof Bishop){
+                this.piece = new Bishop((Bishop)myPiece);
+            }
+            else if (myPiece instanceof Queen){
+                this.piece = new Queen((Queen)myPiece);
+            }
+            else if (myPiece instanceof King){
+                this.piece = new King((King)myPiece);
+            }
+        }
+
     }
 
     public Square(String myName){

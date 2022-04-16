@@ -9,7 +9,7 @@ public class Pawn extends Piece {
     // Letter that represents the pawn:
     private final char PAWN_LETTER = 'P';
 
-    private final Chess chess;
+    private Chess chess;
 
     public Pawn(int color, Chess chess) {
         super(color);
@@ -23,6 +23,17 @@ public class Pawn extends Piece {
         }
 
         this.chess = chess;
+
+    }
+
+    public Chess getChess(){
+        return this.chess;
+    }
+
+    public Pawn(Pawn pawn){
+        super(((Piece)pawn).getColor());
+        this.setLetter(pawn.getLetter());
+        this.chess = pawn.getChess();
     }
 
     @Override
@@ -102,6 +113,7 @@ public class Pawn extends Piece {
         else{
             output = Chess.ILLEGAL_MOVE;
         }
+
         return (output);
     }
 }

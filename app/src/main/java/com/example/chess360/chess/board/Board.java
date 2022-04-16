@@ -16,6 +16,7 @@ public class Board {
 
     private int numPieces;
     private Chess chess;
+    private boolean[] castle;
 
     // Squares:
     private final Square[][] squares;
@@ -23,6 +24,7 @@ public class Board {
     public Board(Chess chess){
         this.squares = new Square[ROWS][COLUMNS];
         this.chess = chess;
+        this.castle = new boolean[]{true, true, true, true}; // K - Q - k - q
 
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
@@ -34,6 +36,12 @@ public class Board {
     public Board(Board board){
         this.squares = new Square[ROWS][COLUMNS];
         Square[][] squaresCopy = board.getSquares();
+        this.chess = board.getChess();
+        this.castle = new boolean[board.getCastle().length];
+
+        for (int i=0; i<board.getCastle().length; i++){
+            this.castle[i] = board.getCastle()[i];
+        }
 
         for (int i = 0; i < squaresCopy.length; i++) {
             for (int j = 0; j < squaresCopy[i].length; j++) {
@@ -58,8 +66,12 @@ public class Board {
         return this.numPieces;
     }
 
-    public void emptyBoard(){
-        this.numPieces = 0;
+    public Chess getChess(){
+        return this.chess;
+    }
+
+    public boolean [] getCastle(){
+        return this.castle;
     }
 
     public void makeMove(Move myMove, int code){
@@ -79,12 +91,12 @@ public class Board {
             ((King) pieceOrigin).setMoved();
 
             if (pieceOrigin.getColor() == Piece.WHITE){
-                this.chess.revokeCastleRights(0);
-                this.chess.revokeCastleRights(1);
+                this.revokeCastleRights(0);
+                this.revokeCastleRights(1);
             }
             else{
-                this.chess.revokeCastleRights(2);
-                this.chess.revokeCastleRights(3);
+                this.revokeCastleRights(2);
+                this.revokeCastleRights(3);
             }
         }
         else if (pieceOrigin instanceof Rook){
@@ -94,20 +106,20 @@ public class Board {
             if (pieceOrigin.getColor() == Piece.WHITE){
 
                 if (myMove.getOrigin().getName().equals("a1")){
-                    this.chess.revokeCastleRights(1);
+                    this.revokeCastleRights(1);
                 }
                 else if (myMove.getOrigin().getName().equals("h1")){
-                    this.chess.revokeCastleRights(0);
+                    this.revokeCastleRights(0);
                 }
 
             }
             else{
 
                 if (myMove.getOrigin().getName().equals("a8")){
-                    this.chess.revokeCastleRights(3);
+                    this.revokeCastleRights(3);
                 }
                 else if (myMove.getOrigin().getName().equals("h8")){
-                    this.chess.revokeCastleRights(2);
+                    this.revokeCastleRights(2);
                 }
             }
         }
@@ -290,6 +302,14 @@ public class Board {
         }
 
         return this.squares[i][j];
+    }
+
+    public boolean getCastlingRights(int index){
+        return this.castle[index];
+    }
+
+    private void revokeCastleRights(int index){
+        this.castle[index] = false;
     }
 
 }

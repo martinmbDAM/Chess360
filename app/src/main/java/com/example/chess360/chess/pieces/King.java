@@ -11,7 +11,7 @@ public class King extends Piece {
 
     private boolean isMoved;
 
-    private final Chess chess;
+    private Chess chess;
 
     public King(int color, Chess chess) {
         super(color);
@@ -28,6 +28,17 @@ public class King extends Piece {
         this.isMoved = false;
 
         this.chess = chess;
+    }
+
+    public Chess getChess(){
+        return this.chess;
+    }
+
+    public King(King king){
+        super(((Piece)king).getColor());
+        this.setLetter(king.getLetter());
+        this.isMoved = king.isMoved();
+        this.chess = king.getChess();
     }
 
     public boolean isMoved() {
@@ -117,6 +128,7 @@ public class King extends Piece {
         } else {
             output = Chess.ILLEGAL_MOVE;
         }
+
         return (output);
     }
 }

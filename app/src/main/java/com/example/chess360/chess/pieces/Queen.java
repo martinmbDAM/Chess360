@@ -21,6 +21,11 @@ public class Queen extends Piece{
         }
     }
 
+    public Queen(Queen queen){
+        super(((Piece)queen).getColor());
+        this.setLetter(queen.getLetter());
+    }
+
     public int movePiece(Move move, Board board) {
 
         // A queen move is valid if it is also valid either for a rook or a bishop:
@@ -30,11 +35,11 @@ public class Queen extends Piece{
         boolean validRook = myRook.movePiece(move,board) == Chess.LEGAL_MOVE;
         boolean validBishop = myBishop.movePiece(move,board) == Chess.LEGAL_MOVE;
 
-        boolean validQueen = validRook || validBishop;
+        boolean isValid = validRook || validBishop;
 
         // Result outptu:
         int output;
-        if (validQueen){
+        if (isValid){
             output = Chess.LEGAL_MOVE;
         }
         else{

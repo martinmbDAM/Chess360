@@ -28,7 +28,6 @@ public class Chess {
     private int halfMoves;
     private int fullMoves;
     private String enPassant;
-    private boolean[] castle;
 
     private boolean whiteTurn;
 
@@ -37,7 +36,6 @@ public class Chess {
         this.handler = myHandler;
         this.whiteTurn = true;
         this.enPassant = null;
-        this.castle = new boolean[]{true, true, true, true}; // K - Q - k - q
 
 
         //      this.dao = new DAO(this.STARTING_POSITION);
@@ -166,26 +164,17 @@ public class Chess {
         // If the move is valid, the board gets updated:
         int result = this.checkMove(myMove);
 
+        // Even if the move is valid, we have to consider the possibility of leaving the King in check:
+        boolean inCheck = this.leavesKingInCheck(myMove, result);
+
+        if (inCheck){
+            result = Chess.ILLEGAL_MOVE;
+
+
+        }
+
         if (result != Chess.ILLEGAL_MOVE) {
-/*
-            // Castle:
-            if (result == Chess.CASTLE_LONG){
-                if (myMove.getOrigin().getPiece().getColor() == Piece.WHITE){
-                    castle[1] = false;
-                }
-                else{
-                    castle[3] = false;
-                }
-            }
-            else if (result == Chess.CASTLE_SHORT){
-                if (myMove.getOrigin().getPiece().getColor() == Piece.WHITE){
-                    castle[0] = false;
-                }
-                else{
-                    castle[2] = false;
-                }
-            }
-*/
+
             if (result == Chess.PROMOTION) {
                 this.handler.requestPromotion(myMove);
             } else {
@@ -240,7 +229,7 @@ public class Chess {
 
         if (myPiece != null) {
 
-            result = myPiece.movePiece(myMove, this.board);
+            result = myPiece.movePiece(myMove,this.board);
         }
 
         return result;
@@ -295,22 +284,23 @@ public class Chess {
         }
 
         // Castling:
-        if (this.castle[0] || this.castle[1] || this.castle[2] || this.castle[3]){
+        if (this.getCastlingRights(0) || this.getCastlingRights(1) ||
+                this.getCastlingRights(2) || this.getCastlingRights(3)){
             fen += " ";
 
-            if (this.castle[0]){
+            if (this.getCastlingRights(0)){
                 fen += "K";
             }
 
-            if (this.castle[1]){
+            if (this.getCastlingRights(1)){
                 fen += "Q";
             }
 
-            if (this.castle[2]){
+            if (this.getCastlingRights(2)){
                 fen += "k";
             }
 
-            if (this.castle[3]){
+            if (this.getCastlingRights(3)){
                 fen += "q";
             }
         }
@@ -348,12 +338,17 @@ public class Chess {
 
                     Square destination = this.board.getSquare(i, j);
                     Move myMove = new Move(origin, destination);
-                    boolean isValid = myPiece.movePiece(myMove, this.board) !=
-                            Chess.ILLEGAL_MOVE;
+                    int result = myPiece.movePiece(myMove,this.board);
 
-                    if (isValid) {
+                    if (result != Chess.ILLEGAL_MOVE) {
 
-                        mySquares.add(destination.getName());
+                        // Even if the move is valid, we have to make sure it doesn't leave the King in check:
+                        boolean inCheck = this.leavesKingInCheck(myMove,result);
+
+                        if (!inCheck){
+                            mySquares.add(destination.getName());
+                        }
+
                     }
 
                 }
@@ -442,12 +437,12 @@ public class Chess {
         this.board.makeMove(promotionMove, promotionCode);
     }
 
-    public void revokeCastleRights(int index){
-        this.castle[index] = false;
+    public boolean getCastlingRights(int index){
+        return this.board.getCastlingRights(index);
     }
 
     // Method that obtains the king of a player:
-    public Square getKing(){
+    public Square getKing(Board myBoard){
 
         int color;
 
@@ -458,7 +453,7 @@ public class Chess {
             color = Piece.BLACK;
         }
 
-        Square [][] squares = this.board.getSquares();
+        Square [][] squares = myBoard.getSquares();
 
         boolean found = false;
         int i=0, j=0;
@@ -487,21 +482,21 @@ public class Chess {
     }
 
     // Checks wether the King is in check:
-    public boolean isInCheck(){
+    public boolean isInCheck(boolean isWhiteTurn, Board myBoard){
 
         int color;
 
-        if (this.whiteTurn){
+        if (isWhiteTurn){
             color = Piece.WHITE;
         }
         else{
             color = Piece.BLACK;
         }
 
-        Square[][] squares = this.board.getSquares();
+        Square[][] squares = myBoard.getSquares();
 
         // Square where the King is:
-        Square squareKing = this.getKing();
+        Square squareKing = this.getKing(myBoard);
 
         // Squares where the enemy pieces are:
         ArrayList<Square> enemyPieces = new ArrayList<>();
@@ -525,12 +520,31 @@ public class Chess {
 
             Move myMove = new Move(enemyPieces.get(pos),squareKing);
 
-            inCheck = enemyPieces.get(pos).getPiece().movePiece(myMove,this.board) != Chess.ILLEGAL_MOVE;
+            inCheck = enemyPieces.get(pos).getPiece().movePiece(myMove,myBoard) != Chess.ILLEGAL_MOVE;
 
             if (!inCheck){
                 pos++;
             }
         }
+
+        return inCheck;
+    }
+
+    public boolean isWhiteTurn(){
+        return whiteTurn;
+    }
+
+    // Checks whether a move would leave the King in check:
+    public boolean leavesKingInCheck(Move move, int code){
+
+        // Copy of the board:
+        Board boardCopy = new Board(this.board);
+
+        // We make the move:
+        boardCopy.makeMove(move,code);
+
+        // We check whether the King is in check:
+        boolean inCheck = this.isInCheck(this.whiteTurn,boardCopy);
 
         return inCheck;
     }

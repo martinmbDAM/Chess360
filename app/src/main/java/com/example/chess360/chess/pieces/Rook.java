@@ -27,6 +27,12 @@ public class Rook extends Piece{
         this.isMoved = false;
     }
 
+    public Rook(Rook rook){
+        super(((Piece)rook).getColor());
+        this.setLetter(rook.getLetter());
+        this.isMoved = rook.isMoved();
+    }
+
     public boolean isMoved(){
         return this.isMoved;
     }

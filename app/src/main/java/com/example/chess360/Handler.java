@@ -39,9 +39,9 @@ public class Handler {
 
 
 
-            if (this.chess.isInCheck()){
+            if (this.chess.isInCheck(this.chess.isWhiteTurn(),this.chess.getBoard())){
 
-                this.playzone.highlightRed(this.chess.getKing().getName());
+                this.playzone.highlightRed(this.chess.getKing(this.chess.getBoard()).getName());
             }
 
 
