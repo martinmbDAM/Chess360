@@ -1,7 +1,10 @@
 package com.example.chess360.vo;
 
+import com.example.chess360.dao.Dao;
+
 public class User {
 
+    private int id;
     private String username;
     private String email;
     private String password;
@@ -10,6 +13,7 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.id = Dao.generateID_User();
     }
 
     public User(String user){
@@ -39,5 +43,9 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getId() {
+        return id;
     }
 }
