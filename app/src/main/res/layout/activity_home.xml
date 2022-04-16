@@ -10,13 +10,13 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textColor="@color/black"
-        android:text="IMPLEMENTAR ANIMACIÓN" />
+        android:text="IMPLEMENTAR HOME" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lanzar Login"
-        android:onClick="launchLogin"
+        android:text="JUGAR"
+        android:onClick="launchPlayZone"
         android:layout_marginTop="50dp"/>
 
 </LinearLayout>

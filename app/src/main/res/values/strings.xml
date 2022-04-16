@@ -1,5 +1,8 @@
 <resources>
+    <!-- Name of the app -->
     <string name="app_name">chess360</string>
+
+    <!-- Names of the squares of the chessboard -->
     <string name="a8">A8 Square</string>
     <string name="b8">B8 Square</string>
     <string name="c8">C8 Square</string>
@@ -64,4 +67,53 @@
     <string name="f1">F1 Square</string>
     <string name="g1">G1 Square</string>
     <string name="h1">H1 Square</string>
+
+    <!-- Text used in the login screen -->
+    <string name="login_username">Username or email</string>
+    <string name="login_password">Password</string>
+    <string name="login_login_button">Log in</string>
+    <string name="login_no_account">Don\'t have an account yet?</string>
+    <string name="login_sign_up_button">Sign up</string>
+
+    <!-- Text used in the signup form -->
+    <string name="signup_first_name">First name</string>
+    <string name="signup_last_name">Last name</string>
+    <string name="signup_username">Username</string>
+    <string name="signup_email">Email</string>
+    <string name="signup_confirm_pass">Confirm password</string>
+    <string name="signup_title">Sign up form</string>
+
+    <!-- Text used in the dialogs -->
+    <string name="dialog_user_added">User added succesfully!</string>
+    <string name="dialog_user_added_title">You\'re in!</string>
+    <string name="dialog_continue">CONTINUE</string>
+    <string name="dialog_confirm">CONFIRM</string>
+    <string name="dialog_discard">DISCARD</string>
+    <string name="error">Oops, an error ocurred</string>
+    <string name="error_login">Username/email and password do not match</string>
+    <string name="error_user_exists">User already exists</string>
+    <string name="error_pass_dont_match">Passwords do not match</string>
+    <string name="error_missing_user">Username/email is not registered</string>
+    <string name="error_empty">You can\'t leave empty fields</string>
+    <string name="error_email">Email is not valid</string>
+    <string name="error_num_stops">You haven\'t chosen the number of stops</string>
+    <string name="error_passengers">You haven\'t chosen the number of passengers</string>
+    <string name="error_incorrect_date">Invalid date</string>
+    <string name="error_switched_dates">Your return date is previous to your departure date</string>
+    <string name="error_passed_dates">You can\'t choose a date previous to today</string>
+    <string name="error_future_dates">No flights scheduled yet for that date</string>
+    <string name="error_invalid_route">Invalid route</string>
+    <string name="error_repeated_city">You have chosen the same city twice</string>
+    <string name="error_not_enough_seats_1">Not enough empty seats for</string>
+    <string name="error_not_enough_seats_2">passengers</string>
+    <string name="error_full_flight">This flight is full</string>
+    <string name="error_non_numeric_characters">You can\'t type nonnumeric characters</string>
+    <string name="error_invalid_number">Number must be between 1 and 19</string>
+    <string name="error_passed_flight">This action is not available for a passed flight</string>
+    <string name="error_passed_hour">You can\'t set an alarm for a passed hour</string>
+    <string name="error_future_hour">You can\'t set an alarm for after the flight</string>
+    <string name="error_48_hours">You can\'t modify or cancel a reservation if your flight leaves
+    in less than 48 hours</string>
+    <string name="error_invalid_pass">Password must be 8 characters long and have at least
+    an upper case, lower case and digit</string>
 </resources>

@@ -6,8 +6,11 @@
         <entry key="..\:/Users/marti/AndroidStudioProjects/chess360/app/src/main/res/drawable/square.xml" value="0.2265" />
         <entry key="..\:/Users/marti/AndroidStudioProjects/chess360/app/src/main/res/drawable/square_check.xml" value="0.2265" />
         <entry key="..\:/Users/marti/AndroidStudioProjects/chess360/app/src/main/res/drawable/square_selected.xml" value="0.2265" />
+        <entry key="..\:/Users/marti/AndroidStudioProjects/chess360/app/src/main/res/layout/activity_home.xml" value="0.22282608695652173" />
+        <entry key="..\:/Users/marti/AndroidStudioProjects/chess360/app/src/main/res/layout/activity_login.xml" value="0.22282608695652173" />
         <entry key="..\:/Users/marti/AndroidStudioProjects/chess360/app/src/main/res/layout/activity_main.xml" value="0.22282608695652173" />
         <entry key="..\:/Users/marti/AndroidStudioProjects/chess360/app/src/main/res/layout/activity_play_zone.xml" value="0.22282608695652173" />
+        <entry key="..\:/Users/marti/AndroidStudioProjects/chess360/app/src/main/res/layout/signup.xml" value="0.22282608695652173" />
       </map>
     </option>
   </component>
