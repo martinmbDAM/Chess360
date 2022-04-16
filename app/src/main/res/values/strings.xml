@@ -82,6 +82,11 @@
     <string name="signup_email">Email</string>
     <string name="signup_confirm_pass">Confirm password</string>
     <string name="signup_title">Sign up form</string>
+    <string name="signup_elo">FIDE elo</string>
+    <string name="signup_phone">Phone</string>
+    <string name="signup_location">Location</string>
+    <string name="signup_name">Name</string>
+    <string name="signup_checkbox">He leído y acepto los términos y condiciones de uso</string>
 
     <!-- Text used in the dialogs -->
     <string name="dialog_user_added">User added succesfully!</string>
@@ -116,4 +121,5 @@
     in less than 48 hours</string>
     <string name="error_invalid_pass">Password must be 8 characters long and have at least
     an upper case, lower case and digit</string>
+    <string name="error_checkbox">You have not accepted the legal agreement</string>
 </resources>

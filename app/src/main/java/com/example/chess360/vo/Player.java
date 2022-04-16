@@ -3,8 +3,7 @@ package com.example.chess360.vo;
 public class Player extends User{
 
     private String name;
-    private String surname1;
-    private String surname2;
+    private String surname;
     private int elo;
     private Club club;
     private Player coach;
@@ -21,20 +20,12 @@ public class Player extends User{
         this.name = name;
     }
 
-    public String getSurname1() {
-        return surname1;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setSurname1(String surname1) {
-        this.surname1 = surname1;
-    }
-
-    public String getSurname2() {
-        return surname2;
-    }
-
-    public void setSurname2(String surname2) {
-        this.surname2 = surname2;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public int getElo() {
