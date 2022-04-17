@@ -53,22 +53,11 @@ public class Login extends AppCompatActivity implements ListenerSignUp, Listener
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void searchUser(View view) {
 
-        // CÓDIGO TEMPORAL:
-        Intent data = new Intent(Login.this, HomeActivity.class);
-        data.putExtra("LOGIN", user.getText().toString());
-        startActivity(data);
-        finish();
-
-
-
-
-
-/*
         User newUser = new User(user.getText().toString());
 
         int pos = Dao.getUsers().indexOf(newUser);
 
-        // El usuario no existe:
+        // The user doesn't exist:
         if (pos == -1){
 
             ErrorDialog message = new ErrorDialog(ErrorDialog.USER_DOESNT_EXIST);
@@ -77,18 +66,26 @@ public class Login extends AppCompatActivity implements ListenerSignUp, Listener
         }
         else{
 
-            // Contraseña encriptada:
+            // Encrypted password:
             String encrypted = encryptPass(pass.getText().toString());
 
-            // El usuario existe pero la contraseña es incorrecta:
+            // The user exists but the password is incorrect
             if (!Dao.getUsers().get(pos).getPassword().equals(encrypted)){
 
                 ErrorDialog message = new ErrorDialog(ErrorDialog.INCORRECT_PASS);
                 message.show(getSupportFragmentManager(), "AlertDialog");
             }
-            // Usuario y contraseña coinciden:
+            // User and password match:
             else{
+                /* OLD CODE
                 Intent data = new Intent(Login.this,HomeActivity.class);
+                data.putExtra("LOGIN", user.getText().toString());
+                startActivity(data);
+                finish();
+                */
+
+                // CÓDIGO TEMPORAL:
+                Intent data = new Intent(Login.this, HomeActivity.class);
                 data.putExtra("LOGIN", user.getText().toString());
                 startActivity(data);
                 finish();
@@ -97,7 +94,7 @@ public class Login extends AppCompatActivity implements ListenerSignUp, Listener
 
         user.setText("");
         pass.setText("");
-*/
+
     }
 
     // Shows the user the form to introduce their data:

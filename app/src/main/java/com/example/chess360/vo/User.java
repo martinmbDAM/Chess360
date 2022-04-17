@@ -56,7 +56,8 @@ public class User {
 
         if (o instanceof User){
             User myUser = (User) o;
-            output = this.username.equals(myUser.getUsername());
+            output = this.username.equals(myUser.getUsername()) ||
+                     this.email.equals(myUser.getEmail());
         }
 
         return output;

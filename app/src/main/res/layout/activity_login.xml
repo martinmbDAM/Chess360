@@ -35,7 +35,9 @@
         android:hint="@string/login_username"
         android:gravity="center_vertical"
         android:textSize="20sp"
-        android:paddingLeft="10dp"/>
+        android:paddingLeft="10dp"
+        android:inputType="text"
+        android:imeOptions="actionNext"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -59,8 +61,9 @@
         android:hint="@string/login_password"
         android:gravity="center_vertical"
         android:textSize="20sp"
+        android:paddingLeft="10dp"
         android:inputType="textPassword"
-        android:paddingLeft="10dp"/>
+        android:imeOptions="actionDone"/>
 
     <Button
         android:id="@+id/login_button"

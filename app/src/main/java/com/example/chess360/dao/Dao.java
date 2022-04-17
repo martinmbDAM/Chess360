@@ -137,11 +137,11 @@ public abstract class Dao {
 
             // Add several users:
             Player myPlayer = new Player("Martín", "Mato Búa", "martincheckmate",
-                    "martinmb.dam@gmail.com", 2000, "mato1997");
+                    "martinmb.dam@gmail.com", 2000, "Whvw4567&");
             Club myClub = new Club("Club de Ajedrez Maracena", "camaracena", "Granada", "686626393",
-                    "caMaracena@gmail.com", "maracena1234");
+                    "caMaracena@gmail.com", "Whvw4567&");
             Organizer myOrganizer = new Organizer("Abanca", "abanca", "Santiago de Compostela",
-                    "986180760", "abanca@gmail.com", "abanca1234");
+                    "986180760", "abanca@gmail.com", "Whvw4567&");
 
             Dao.addPlayer(myPlayer);
             Dao.addClub(myClub);
