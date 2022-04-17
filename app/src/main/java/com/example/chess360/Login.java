@@ -243,81 +243,66 @@ public class Login extends AppCompatActivity implements ListenerSignUp, Listener
         }
 
         // The user has left empty fields:
-        if (this.thereAreEmptyFields(data)) {
+        if (this.thereAreEmptyFields(data)){
 
             ErrorDialog message = new ErrorDialog(ErrorDialog.EMPTY_FIELDS);
             message.show(getSupportFragmentManager(), "AlertDialog");
-        } else {
-            // Passwords don't match
-            if (!this.passwordsMatch(pass1, pass2)) {
-
-                ErrorDialog message = new ErrorDialog(ErrorDialog.PASS_DONT_MATCH);
-                message.show(getSupportFragmentManager(), "AlertDialog");
-            } else {
-
-                // The user is already registered:
-                if (this.userExists(user)) {
-
-                    ErrorDialog message = new ErrorDialog(ErrorDialog.USER_EXISTS);
-                    message.show(getSupportFragmentManager(), "AlertDialog");
-                } else {
-                    // The email has an incorrect format:
-                    if (!this.emailHasValidFormat(email)) {
-
-                        ErrorDialog message = new ErrorDialog(ErrorDialog.INCORRECT_EMAIL);
-                        message.show(getSupportFragmentManager(), "AlertDialog");
-                    } else {
-                        // Password doesn't have a valid format:
-                        if (!isValidPassword(pass1)) {
-
-                            ErrorDialog message = new ErrorDialog(ErrorDialog.INVALID_PASSWORD);
-                            message.show(getSupportFragmentManager(), "AlertDialog");
-                        } else {
-
-                            // The user hasn't accepted the legal agreement:
-                            if (!this.hasAcceptedLegalAgreement(legal_agreement)) {
-
-                                ErrorDialog message = new ErrorDialog(ErrorDialog.CHECKBOX_NOT_SELECTED);
-                                message.show(getSupportFragmentManager(), "AlertDialog");
-                            }
-                            else {
-
-                                // The phone has nonnumeric characters:
-                                if (this.hasNonnumericCharacters(phone)){
-
-                                    ErrorDialog message = new ErrorDialog(ErrorDialog.NONNUMERIC_CHARACTERS);
-                                    message.show(getSupportFragmentManager(), "AlertDialog");
-                                }
-                                else{
-                                    // The email has already been used:
-                                    if (this.emailExists(email)){
-
-                                        ErrorDialog message = new ErrorDialog(ErrorDialog.EMAIL_IN_USE);
-                                        message.show(getSupportFragmentManager(), "AlertDialog");
-                                    }
-                                    // The data is correct. The user is registered.
-                                    else{
-
-                                        // The password is encrypted:
-                                        String encrypted = encryptPass(data[5]);
-
-                                        // The user is added:
-                                        // Dao.addUser(new User(data[0], data[1], data[2], data[3],encrypted));
-
-                                        ConfirmationDialog message = new ConfirmationDialog(ConfirmationDialog.USER_ADDED);
-                                        message.show(getSupportFragmentManager(), "AlertDialog");
-
-                                    }
-
-                                }
-                            }
-                        }
-                    }
-
-                }
-
-            }
         }
+        // Passwords don't match
+        else if (!this.passwordsMatch(pass1, pass2)){
+
+            ErrorDialog message = new ErrorDialog(ErrorDialog.PASS_DONT_MATCH);
+            message.show(getSupportFragmentManager(), "AlertDialog");
+        }
+        // The user is already registered:
+        else if (this.userExists(user)){
+
+            ErrorDialog message = new ErrorDialog(ErrorDialog.USER_EXISTS);
+            message.show(getSupportFragmentManager(), "AlertDialog");
+        }
+        // The email has already been used:
+        else if (this.emailExists(email)){
+
+            ErrorDialog message = new ErrorDialog(ErrorDialog.EMAIL_IN_USE);
+            message.show(getSupportFragmentManager(), "AlertDialog");
+        }
+        // The email has an incorrect format:
+        else if (!this.emailHasValidFormat(email)){
+
+            ErrorDialog message = new ErrorDialog(ErrorDialog.INCORRECT_EMAIL);
+            message.show(getSupportFragmentManager(), "AlertDialog");
+        }
+        // Password doesn't have a valid format:
+        else if (!isValidPassword(pass1)){
+
+            ErrorDialog message = new ErrorDialog(ErrorDialog.INVALID_PASSWORD);
+            message.show(getSupportFragmentManager(), "AlertDialog");
+        }
+        // The phone has nonnumeric characters:
+        else if (this.hasNonnumericCharacters(phone)){
+
+            ErrorDialog message = new ErrorDialog(ErrorDialog.NONNUMERIC_CHARACTERS);
+            message.show(getSupportFragmentManager(), "AlertDialog");
+        }
+        // The user hasn't accepted the legal agreement:
+        else if (!this.hasAcceptedLegalAgreement(legal_agreement)){
+
+            ErrorDialog message = new ErrorDialog(ErrorDialog.CHECKBOX_NOT_SELECTED);
+            message.show(getSupportFragmentManager(), "AlertDialog");
+        }
+        // The data is correct. The user is registered.
+        else{
+
+            // The password is encrypted:
+            String encrypted = encryptPass(data[5]);
+
+            // The user is added:
+            // Dao.addUser(new User(data[0], data[1], data[2], data[3],encrypted));
+
+            ConfirmationDialog message = new ConfirmationDialog(ConfirmationDialog.USER_ADDED);
+            message.show(getSupportFragmentManager(), "AlertDialog");
+        }
+
     }
 
     private boolean thereAreEmptyFields(String[] data) {
