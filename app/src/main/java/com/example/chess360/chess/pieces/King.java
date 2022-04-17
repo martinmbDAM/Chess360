@@ -3,6 +3,7 @@ package com.example.chess360.chess.pieces;
 import com.example.chess360.chess.Chess;
 import com.example.chess360.chess.Move;
 import com.example.chess360.chess.board.Board;
+import com.example.chess360.chess.board.Square;
 
 public class King extends Piece {
 
@@ -75,28 +76,74 @@ public class King extends Piece {
 
                 if (isValid){
 
-                    // Short castle:
-                    if (column1 == 4 && column2 == 6){
+                    // The square in between can't be in check:
+                    Square inBetween = null;
+                    int code = -1;
 
-                        // The rook can't have been moved, the destination square must be empty and the
-                        // square in between must be empty as well:
-                        isValid = !((Rook) board.getSquare(row1, column2+1).getPiece()).isMoved() &&
-                                move.getDestination().isEmpty() &&
-                                board.getSquare(row1, column2-1).isEmpty();
+                    if (this.chess.isWhiteTurn()){
 
-                        castleShort = isValid;
+                        if (move.getDestination().getName().equals("g1")){
+
+                            inBetween = new Square("f1");
+                            code = Chess.CASTLE_SHORT;
+                        }
+                        else if (move.getDestination().getName().equals("c1")){
+
+                            inBetween = new Square("d1");
+                            code = Chess.CASTLE_LONG;
+                        }
                     }
-                    // Long castle:
-                    else if (column1 == 4 && column2 == 2){
+                    else{
 
-                        // The rook can't have been moved, the destination square must be empty and the
-                        // square in between must be empty as well:
-                        isValid = !((Rook) board.getSquare(row1, column2-2).getPiece()).isMoved() &&
-                                move.getDestination().isEmpty() &&
-                                board.getSquare(row1, column2+1).isEmpty();
+                        if (move.getDestination().getName().equals("g8")){
 
-                        castleLong = isValid;
+                            inBetween = new Square("f8");
+                            code = Chess.CASTLE_SHORT;
+                        }
+                        else if (move.getDestination().getName().equals("c8")){
+
+                            inBetween = new Square("d8");
+                            code = Chess.CASTLE_LONG;
+                        }
                     }
+
+                    // Copy of the board
+                    Board boardCopy = new Board(board);
+
+                    // New move:
+                    Move newMove = new Move(move.getOrigin(),inBetween);
+
+                    // The King is set at the new square:
+                    boardCopy.makeMove(newMove,code);
+
+                    isValid = !this.chess.isInCheck(this.chess.isWhiteTurn(), boardCopy);
+
+                    if (isValid){
+
+                        // Short castle:
+                        if (column1 == 4 && column2 == 6){
+
+                            // The rook can't have been moved, the destination square must be empty and the
+                            // square in between must be empty as well:
+                            isValid = !((Rook) board.getSquare(row1, column2+1).getPiece()).isMoved() &&
+                                    move.getDestination().isEmpty() &&
+                                    board.getSquare(row1, column2-1).isEmpty();
+
+                            castleShort = isValid;
+                        }
+                        // Long castle:
+                        else if (column1 == 4 && column2 == 2){
+
+                            // The rook can't have been moved, the destination square must be empty and the
+                            // square in between must be empty as well:
+                            isValid = !((Rook) board.getSquare(row1, column2-2).getPiece()).isMoved() &&
+                                    move.getDestination().isEmpty() &&
+                                    board.getSquare(row1, column2+1).isEmpty();
+
+                            castleLong = isValid;
+                        }
+                    }
+
                 }
 
             }
