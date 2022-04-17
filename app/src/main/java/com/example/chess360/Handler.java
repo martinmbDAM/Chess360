@@ -79,19 +79,19 @@ public class Handler {
         this.promotionMove = myMove;
     }
 
-    public void getPromotionPiece(String piece){
+    public void getPromotionPiece(int option){
 
-        switch(piece){
-            case "Queen":
+        switch(option){
+            case Chess.PROMOTION_QUEEN:
                 this.chess.promotePiece(this.promotionMove, Chess.PROMOTION_QUEEN);
                 break;
-            case "Rook":
+            case Chess.PROMOTION_ROOK:
                 this.chess.promotePiece(this.promotionMove, Chess.PROMOTION_ROOK);
                 break;
-            case "Knight":
+            case Chess.PROMOTION_KNIGHT:
                 this.chess.promotePiece(this.promotionMove, Chess.PROMOTION_KNIGHT);
                 break;
-            case "Bishop":
+            case Chess.PROMOTION_BISHOP:
                 this.chess.promotePiece(this.promotionMove, Chess.PROMOTION_BISHOP);
                 break;
         }

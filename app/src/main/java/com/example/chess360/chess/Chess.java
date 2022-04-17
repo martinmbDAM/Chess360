@@ -9,16 +9,16 @@ import java.util.ArrayList;
 
 public class Chess {
 
-    public static final int LEGAL_MOVE = 0;
-    public static final int ILLEGAL_MOVE = 1;
-    public static final int CASTLE_SHORT = 2;
-    public static final int CASTLE_LONG = 3;
-    public static final int EN_PASSANT = 4;
-    public static final int PROMOTION = 5;
-    public static final int PROMOTION_QUEEN = 6;
-    public static final int PROMOTION_ROOK = 7;
-    public static final int PROMOTION_BISHOP = 8;
-    public static final int PROMOTION_KNIGHT = 9;
+    public static final int PROMOTION_QUEEN = 0;
+    public static final int PROMOTION_ROOK = 1;
+    public static final int PROMOTION_BISHOP = 2;
+    public static final int PROMOTION_KNIGHT = 3;
+    public static final int PROMOTION = 4;
+    public static final int LEGAL_MOVE = 5;
+    public static final int ILLEGAL_MOVE = 6;
+    public static final int CASTLE_SHORT = 7;
+    public static final int CASTLE_LONG = 8;
+    public static final int EN_PASSANT = 9;
 
     private final String STARTING_POSITION = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 

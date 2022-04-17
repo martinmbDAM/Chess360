@@ -17,6 +17,10 @@ import com.example.chess360.vo.User;
 
 public class Login extends AppCompatActivity implements ListenerSignUp, ListenerSignUpForm {
 
+    public static final int LOGIN_PLAYER = 0;
+    public static final int LOGIN_CLUB = 1;
+    public static final int LOGIN_ORGANIZER = 2;
+
     // Minimum number of charachters the password must have:
     private final int MIN_CHARACTERS = 8;
 
@@ -101,82 +105,10 @@ public class Login extends AppCompatActivity implements ListenerSignUp, Listener
 
         SignUpDialog message = new SignUpDialog();
         message.show(getSupportFragmentManager(), "AlertDialog");
-/*
-        OldSignUpDialog message = new OldSignUpDialog();
-        message.show(getSupportFragmentManager(), "AlertDialog"); */
 
         user.setText("");
         pass.setText("");
     }
-
-    /*Método al que se llama cuando el usuario completa el formulario de registro. 4
-      escenarios posibles:
-
-      1. El usuario no ha cubierto todos los campos -> Se muestra un mensaje de error
-      2. Las contraseñas no coinciden -> Se muestra un mensaje de error
-      3. El usuario ya existe -> Se muestra un mensaje de error
-      4. El email no es válido -> Se muestra un mensaje de error
-      5. La contraseña no tiene formato correcto (al menos 8 caracteres y debe contener
-         minúsculas, mayúsculasy dígitos) -> Se muestra un mensaje de error
-      6. Los datos son correctos -> Se registra al usuario
-
-     */
-
-    /*
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void onSignUpClick(String[] data) {
-
-        if (data[0].isEmpty() || data[1].isEmpty() || data[2].isEmpty() ||
-                data[3].isEmpty() || data[4].isEmpty() || data[5].isEmpty()) {
-
-            ErrorDialog message = new ErrorDialog(ErrorDialog.EMPTY_FIELDS);
-            message.show(getSupportFragmentManager(), "AlertDialog");
-        } else {
-            // Las contraseñas no coinciden:
-            if (!data[4].equals(data[5])) {
-
-                ErrorDialog message = new ErrorDialog(ErrorDialog.PASS_DONT_MATCH);
-                message.show(getSupportFragmentManager(), "AlertDialog");
-            } else {
-
-                // El usuario está repetido:
-                //      if (Dao.getUsers().indexOf(new User(data[3])) != -1){
-                if (true) {
-
-                    ErrorDialog message = new ErrorDialog(ErrorDialog.USER_EXISTS);
-                    message.show(getSupportFragmentManager(), "AlertDialog");
-                } else {
-                    // El email es incorrecto:
-                    if (!data[2].contains("@")) {
-
-                        ErrorDialog message = new ErrorDialog(ErrorDialog.INCORRECT_EMAIL);
-                        message.show(getSupportFragmentManager(), "AlertDialog");
-                    } else {
-                        // La contraseña no tiene un formato válido:
-                        if (!isValidPassword(data[4])) {
-
-                            ErrorDialog message = new ErrorDialog(ErrorDialog.INVALID_PASSWORD);
-                            message.show(getSupportFragmentManager(), "AlertDialog");
-                        }
-                        // Datos correctos. Se registra al usuario:
-                        else {
-
-                            // Se encripta la contraseña:
-                            String encrypted = encryptPass(data[4]);
-
-                            // Se añade el nuevo usuario:
-                            //     Dao.addUser(new User(data[0], data[1], data[2], data[3],encrypted));
-
-                            ConfirmationDialog message = new ConfirmationDialog(ConfirmationDialog.USER_ADDED);
-                            message.show(getSupportFragmentManager(), "AlertDialog");
-                        }
-                    }
-
-                }
-
-            }
-        }
-    } */
 
     // Método que comprueba si una contraseña llega al mínimo de caracteres:
     private boolean isLongEnough(String pass) {
@@ -262,19 +194,19 @@ public class Login extends AppCompatActivity implements ListenerSignUp, Listener
         return (String.valueOf(chars));
     }
 
-    public void onSignUpClick(String input) {
+    public void onSignUpClick(int option) {
 
-        switch (input) {
+        switch (option) {
 
-            case "Player":
+            case Login.LOGIN_PLAYER:
                 SignUpPlayer dialogPlayer = new SignUpPlayer();
                 dialogPlayer.show(getSupportFragmentManager(), "AlertDialog");
                 break;
-            case "Chess club":
+            case Login.LOGIN_CLUB:
                 SignUpClub dialogClub = new SignUpClub();
                 dialogClub.show(getSupportFragmentManager(), "AlertDialog");
                 break;
-            case "Tournament organizer":
+            case Login.LOGIN_ORGANIZER:
                 SignUpOrganizer dialogOrganizer = new SignUpOrganizer();
                 dialogOrganizer.show(getSupportFragmentManager(), "AlertDialog");
                 break;

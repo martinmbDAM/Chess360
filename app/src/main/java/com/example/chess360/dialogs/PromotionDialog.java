@@ -32,15 +32,16 @@ public class PromotionDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(R.drawable.icon);
-        builder.setTitle("Choose a piece");
+        builder.setTitle(R.string.promotion_title);
         ArrayAdapter<CharSequence> myAdapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.promotion,
                 android.R.layout.simple_list_item_1);
         builder.setAdapter(myAdapter, new DialogInterface.OnClickListener(){
 
             public void onClick(DialogInterface dialog, int option){
-                CharSequence strName = myAdapter.getItem(option);
-                listener.onPromotionClick((String) strName);
+     //           CharSequence strName = myAdapter.getItem(option);
+     //           listener.onPromotionClick((String) strName);
+                listener.onPromotionClick(option);
             }
         });
         return builder.create();

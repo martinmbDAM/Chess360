@@ -546,14 +546,12 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
         promotionDialog.show(getSupportFragmentManager(), "AlertDialog");
     }
 
-    public void onPromotionClick(String input){
+    public void onPromotionClick(int option){
 
-        this.handler.getPromotionPiece(input);
+        this.handler.getPromotionPiece(option);
     }
 
     public void highlightRed(String square){
-
-        prueba.setText("El rey está en jaque");
 
         int [] coordinates = this.translateName(square);
         int row = coordinates[0];

@@ -32,15 +32,16 @@ public class SignUpDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setIcon(R.drawable.pen);
-        builder.setTitle("Choose a category");
+        builder.setTitle(R.string.signup_title);
         ArrayAdapter<CharSequence> myAdapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.signup,
                 android.R.layout.simple_list_item_1);
         builder.setAdapter(myAdapter, new DialogInterface.OnClickListener(){
 
             public void onClick(DialogInterface dialog, int option){
-                CharSequence strName = myAdapter.getItem(option);
-                listener.onSignUpClick((String) strName);
+     //           CharSequence strName = myAdapter.getItem(option);
+     //           listener.onSignUpClick((String) strName);
+                listener.onSignUpClick(option);
             }
         });
         return builder.create();

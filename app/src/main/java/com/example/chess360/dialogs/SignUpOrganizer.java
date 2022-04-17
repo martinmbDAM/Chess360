@@ -41,7 +41,7 @@ public class SignUpOrganizer extends DialogFragment {
         View inflate = li.inflate(R.layout.signup_organizer,null);
 
         builder.setIcon(R.drawable.pen);
-        builder.setTitle(R.string.signup_title);
+        builder.setTitle(R.string.signup_title_organizer);
         builder.setView(inflate);
 
         EditText name = inflate.findViewById(R.id.signup_name_organizer);

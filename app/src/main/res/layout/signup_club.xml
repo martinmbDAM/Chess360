@@ -30,6 +30,7 @@
             android:layout_marginLeft="10dp"
             android:hint="@string/signup_name"
             android:textSize="20sp"
+            android:inputType="text"
             android:imeOptions="actionNext"/>
 
         <TextView
@@ -48,6 +49,7 @@
             android:layout_marginLeft="10dp"
             android:hint="@string/signup_username"
             android:textSize="20sp"
+            android:inputType="text"
             android:imeOptions="actionNext"/>
 
         <TextView
@@ -84,6 +86,7 @@
             android:layout_marginLeft="10dp"
             android:hint="@string/signup_email"
             android:textSize="20sp"
+            android:inputType="textEmailAddress"
             android:imeOptions="actionNext"/>
 
         <TextView
@@ -102,6 +105,7 @@
             android:layout_marginLeft="10dp"
             android:hint="@string/signup_location"
             android:textSize="20sp"
+            android:inputType="text"
             android:imeOptions="actionNext"/>
 
         <TextView
@@ -118,10 +122,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/login_password"
-            android:inputType="textPassword"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:textSize="20sp"
+            android:inputType="textPassword"
             android:imeOptions="actionNext"/>
 
         <TextView

@@ -41,7 +41,7 @@ public class SignUpPlayer extends DialogFragment {
         View inflate = li.inflate(R.layout.signup_player,null);
 
         builder.setIcon(R.drawable.pen);
-        builder.setTitle(R.string.signup_title);
+        builder.setTitle(R.string.signup_title_player);
         builder.setView(inflate);
 
         EditText firstName = inflate.findViewById(R.id.signup_first_name);
