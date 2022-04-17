@@ -57,7 +57,7 @@
             android:textSize="20sp"/>
 
         <EditText
-            android:id="@+id/signup_username"
+            android:id="@+id/signup_username_player"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"

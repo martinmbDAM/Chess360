@@ -6,8 +6,8 @@ public class Coach extends Player {
 
     private ArrayList<Player> coachedPlayers;
 
-    public Coach (String username, String email, String password){
-        super(username, email, password);
+    public Coach (String name, String surname, String username, String email, int elo, String password){
+        super(name, surname, username, email, elo, password);
         this.coachedPlayers = new ArrayList<>();
     }
 

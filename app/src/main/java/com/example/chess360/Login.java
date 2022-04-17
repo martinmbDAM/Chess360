@@ -35,6 +35,8 @@ public class Login extends AppCompatActivity implements ListenerSignUp, Listener
         user = (EditText) findViewById(R.id.login_user);
         pass = (EditText) findViewById(R.id.login_pass);
 
+        // Initialize database:
+        Dao.initialize();
     }
 
     /* Method that is called when the user tries to log in. There are 3 possible scenarios:
@@ -245,7 +247,7 @@ public class Login extends AppCompatActivity implements ListenerSignUp, Listener
 
         return (isLongEnough(pass) && hasUpperCase(pass) &&
                 hasLowerCase(pass) && hasDigit(pass) &&
-                !hasNonAlphaNumeric(pass));
+                hasNonAlphaNumeric(pass));
     }
 
     // Algoritmo que encripta una contraseña:
@@ -294,18 +296,18 @@ public class Login extends AppCompatActivity implements ListenerSignUp, Listener
             case ListenerSignUpForm.SIGN_UP_PLAYER:
                 pass1 = data[5];
                 pass2 = data[6];
-                user = data[2];
-                email = data[3];
+                user = data[3];
+                email = data[2];
                 legal_agreement = data[7];
                 break;
             case ListenerSignUpForm.SIGN_UP_CLUB:
             case ListenerSignUpForm.SIGN_UP_ORGANIZER:
-                pass1 = data[4];
-                pass2 = data[5];
-                user = data[2];
-                email = data[2];
-                phone = data[1];
-                legal_agreement = data[6];
+                pass1 = data[5];
+                pass2 = data[6];
+                user = data[1];
+                email = data[3];
+                phone = data[2];
+                legal_agreement = data[7];
                 break;
         }
 
@@ -342,7 +344,7 @@ public class Login extends AppCompatActivity implements ListenerSignUp, Listener
                         } else {
 
                             // The user hasn't accepted the legal agreement:
-                            if (this.hasAcceptedLegalAgreement(legal_agreement)) {
+                            if (!this.hasAcceptedLegalAgreement(legal_agreement)) {
 
                                 ErrorDialog message = new ErrorDialog(ErrorDialog.CHECKBOX_NOT_SELECTED);
                                 message.show(getSupportFragmentManager(), "AlertDialog");

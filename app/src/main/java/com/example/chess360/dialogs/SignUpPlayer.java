@@ -44,21 +44,21 @@ public class SignUpPlayer extends DialogFragment {
         builder.setTitle(R.string.signup_title);
         builder.setView(inflate);
 
-        EditText firstName = (EditText) inflate.findViewById(R.id.signup_first_name);
-        EditText lastName = (EditText) inflate.findViewById(R.id.signup_last_name);
-        EditText user = (EditText) inflate.findViewById(R.id.signup_username);
-        EditText email = (EditText) inflate.findViewById(R.id.signup_email_player);
-        EditText elo = (EditText) inflate.findViewById(R.id.signup_elo);
-        EditText pass = (EditText) inflate.findViewById(R.id.signup_password_player);
-        EditText pass2 = (EditText) inflate.findViewById(R.id.signup_confirm_password_player);
-        CheckBox check = (CheckBox) inflate.findViewById(R.id.signup_checkbox_player);
+        EditText firstName = inflate.findViewById(R.id.signup_first_name);
+        EditText lastName = inflate.findViewById(R.id.signup_last_name);
+        EditText user = inflate.findViewById(R.id.signup_username_player);
+        EditText email = inflate.findViewById(R.id.signup_email_player);
+        EditText elo = inflate.findViewById(R.id.signup_elo);
+        EditText pass = inflate.findViewById(R.id.signup_password_player);
+        EditText pass2 = inflate.findViewById(R.id.signup_confirm_password_player);
+        CheckBox check = inflate.findViewById(R.id.signup_checkbox_player);
 
         builder.setPositiveButton(R.string.dialog_confirm, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
 
-                String outputCheckbox = new String();
+                String outputCheckbox;
 
-                if (check.isSelected()){
+                if (check.isChecked()){
                     outputCheckbox = "YES";
                 }
                 else{

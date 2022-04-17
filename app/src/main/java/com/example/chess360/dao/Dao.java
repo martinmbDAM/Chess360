@@ -11,7 +11,7 @@ public abstract class Dao {
     private static int current_id_game = 1;
 
     // Checks whether the arraylists have been initialized:
-    private boolean initialized = false;
+    private static boolean initialized = false;
 
     private static final ArrayList<User> users = new ArrayList<>();
     private static final ArrayList<Player> players = new ArrayList<>();
@@ -125,6 +125,32 @@ public abstract class Dao {
     public static int generateID_Game(){
         Dao.current_id_game++;
         return Dao.current_id_game -1;
+    }
+
+    /********************************************************************************************/
+
+    public static void initialize(){
+
+        if (!Dao.initialized){
+
+            Dao.initialized = true;
+
+            // Add several users:
+            Player myPlayer = new Player("Martín", "Mato Búa", "martincheckmate",
+                    "martinmb.dam@gmail.com", 2000, "mato1997");
+            Club myClub = new Club("Club de Ajedrez Maracena", "camaracena", "Granada", "686626393",
+                    "caMaracena@gmail.com", "maracena1234");
+            Organizer myOrganizer = new Organizer("Abanca", "abanca", "Santiago de Compostela",
+                    "986180760", "abanca@gmail.com", "abanca1234");
+
+            Dao.addPlayer(myPlayer);
+            Dao.addClub(myClub);
+            Dao.addOrganizer(myOrganizer);
+
+            Dao.addUser(myPlayer);
+            Dao.addUser(myClub);
+            Dao.addUser(myOrganizer);
+        }
     }
 
 }

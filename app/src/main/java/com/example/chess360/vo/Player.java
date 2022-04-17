@@ -8,8 +8,13 @@ public class Player extends User{
     private Club club;
     private Player coach;
 
-    public Player(String username, String email, String password){
-        super(username,email,password);
+    public Player(String name, String surname, String username, String email, int elo, String password){
+        super(username, email,password);
+        this.name = name;
+        this.surname = surname;
+        this.elo = elo;
+        this.club = null;
+        this.coach = null;
     }
 
     public String getName() {

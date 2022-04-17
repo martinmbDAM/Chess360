@@ -44,20 +44,21 @@ public class SignUpClub extends DialogFragment {
         builder.setTitle(R.string.signup_title);
         builder.setView(inflate);
 
-        EditText name = (EditText) inflate.findViewById(R.id.signup_name_club);
-        EditText phone = (EditText) inflate.findViewById(R.id.signup_phone_club);
-        EditText email = (EditText) inflate.findViewById(R.id.signup_email_club);
-        EditText location = (EditText) inflate.findViewById(R.id.signup_location_club);
-        EditText pass = (EditText) inflate.findViewById(R.id.signup_password_club);
-        EditText pass2 = (EditText) inflate.findViewById(R.id.signup_confirm_password_club);
-        CheckBox check = (CheckBox) inflate.findViewById(R.id.signup_checkbox_club);
+        EditText name = inflate.findViewById(R.id.signup_name_club);
+        EditText username = inflate.findViewById(R.id.signup_username_club);
+        EditText phone = inflate.findViewById(R.id.signup_phone_club);
+        EditText email = inflate.findViewById(R.id.signup_email_club);
+        EditText location = inflate.findViewById(R.id.signup_location_club);
+        EditText pass = inflate.findViewById(R.id.signup_password_club);
+        EditText pass2 = inflate.findViewById(R.id.signup_confirm_password_club);
+        CheckBox check = inflate.findViewById(R.id.signup_checkbox_club);
 
         builder.setPositiveButton(R.string.dialog_confirm, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
 
-                String outputCheckbox = new String();
+                String outputCheckbox;
 
-                if (check.isSelected()){
+                if (check.isChecked()){
                     outputCheckbox = "YES";
                 }
                 else{
@@ -65,6 +66,7 @@ public class SignUpClub extends DialogFragment {
                 }
 
                 String [] userData = {name.getText().toString(),
+                        username.getText().toString(),
                         phone.getText().toString(),
                         email.getText().toString(),
                         location.getText().toString(),

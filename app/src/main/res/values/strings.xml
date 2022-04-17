@@ -112,7 +112,7 @@
     <string name="error_not_enough_seats_1">Not enough empty seats for</string>
     <string name="error_not_enough_seats_2">passengers</string>
     <string name="error_full_flight">This flight is full</string>
-    <string name="error_non_numeric_characters">You can\'t type nonnumeric characters</string>
+    <string name="error_non_numeric_characters">You can\'t type nonnumeric characters in the phone field</string>
     <string name="error_invalid_number">Number must be between 1 and 19</string>
     <string name="error_passed_flight">This action is not available for a passed flight</string>
     <string name="error_passed_hour">You can\'t set an alarm for a passed hour</string>
@@ -120,6 +120,6 @@
     <string name="error_48_hours">You can\'t modify or cancel a reservation if your flight leaves
     in less than 48 hours</string>
     <string name="error_invalid_pass">Password must be 8 characters long and have at least
-    an upper case, lower case and digit</string>
+    an upper case, lower case, digit and nonnumeric character</string>
     <string name="error_checkbox">You have not accepted the legal agreement</string>
 </resources>

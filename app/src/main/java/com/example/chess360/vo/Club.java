@@ -6,8 +6,11 @@ public class Club extends User {
     private String location;
     private String phone;
 
-    public Club (String username, String email, String password){
-        super(username,email,password);
+    public Club (String name, String username, String location, String phone, String email, String password){
+        super(username, email,password);
+        this.name = name;
+        this.location = location;
+        this.phone = phone;
     }
 
     public String getName() {

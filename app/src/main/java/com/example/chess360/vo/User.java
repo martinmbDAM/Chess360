@@ -48,4 +48,17 @@ public class User {
     public int getId() {
         return id;
     }
+
+    @Override
+    public boolean equals(Object o){
+
+        boolean output = false;
+
+        if (o instanceof User){
+            User myUser = (User) o;
+            output = this.username.equals(myUser.getUsername());
+        }
+
+        return output;
+    }
 }
