@@ -150,6 +150,9 @@ public abstract class Dao {
             Dao.addUser(myPlayer);
             Dao.addUser(myClub);
             Dao.addUser(myOrganizer);
+
+            // Usuario para hacer pruebas:
+            Dao.addUser(new User("test","fakeMail@test.com","whvw"));
         }
     }
 

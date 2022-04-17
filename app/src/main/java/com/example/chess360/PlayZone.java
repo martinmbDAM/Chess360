@@ -395,7 +395,7 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
             }
 
             this.chosenSquare = null;
-
+            this.handler.isInCheck();
         }
 
     }

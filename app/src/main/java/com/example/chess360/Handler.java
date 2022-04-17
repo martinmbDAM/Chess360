@@ -101,4 +101,11 @@ public class Handler {
         String [][] position = this.chess.exportPosition();
         this.playzone.setPosition(position);
     }
+
+    public void isInCheck(){
+        if (this.chess.isInCheck(this.chess.isWhiteTurn(),this.chess.getBoard())){
+
+            this.playzone.highlightRed(this.chess.getKing(this.chess.getBoard()).getName());
+        }
+    }
 }
