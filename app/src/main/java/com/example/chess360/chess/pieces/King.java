@@ -70,28 +70,35 @@ public class King extends Piece {
                ((move.getOrigin().getPiece().getColor() == Piece.WHITE && row1 == 0) ||
                (move.getOrigin().getPiece().getColor() == Piece.BLACK && row1 == 7))){
 
-                // Short castle:
-                if (column1 == 4 && column2 == 6){
+                // The King can't be in check:
+                isValid = !this.chess.isInCheck(this.chess.isWhiteTurn(), board);
 
-                    // The rook can't have been moved, the destination square must be empty and the
-                    // square in between must be empty as well:
-                    isValid = !((Rook) board.getSquare(row1, column2+1).getPiece()).isMoved() &&
-                            move.getDestination().isEmpty() &&
-                            board.getSquare(row1, column2-1).isEmpty();
+                if (isValid){
 
-                    castleShort = isValid;
+                    // Short castle:
+                    if (column1 == 4 && column2 == 6){
+
+                        // The rook can't have been moved, the destination square must be empty and the
+                        // square in between must be empty as well:
+                        isValid = !((Rook) board.getSquare(row1, column2+1).getPiece()).isMoved() &&
+                                move.getDestination().isEmpty() &&
+                                board.getSquare(row1, column2-1).isEmpty();
+
+                        castleShort = isValid;
+                    }
+                    // Long castle:
+                    else if (column1 == 4 && column2 == 2){
+
+                        // The rook can't have been moved, the destination square must be empty and the
+                        // square in between must be empty as well:
+                        isValid = !((Rook) board.getSquare(row1, column2-2).getPiece()).isMoved() &&
+                                move.getDestination().isEmpty() &&
+                                board.getSquare(row1, column2+1).isEmpty();
+
+                        castleLong = isValid;
+                    }
                 }
-                // Long castle:
-                else if (column1 == 4 && column2 == 2){
 
-                    // The rook can't have been moved, the destination square must be empty and the
-                    // square in between must be empty as well:
-                    isValid = !((Rook) board.getSquare(row1, column2-2).getPiece()).isMoved() &&
-                            move.getDestination().isEmpty() &&
-                            board.getSquare(row1, column2+1).isEmpty();
-
-                    castleLong = isValid;
-                }
             }
             else{
 
