@@ -15,6 +15,8 @@ import com.example.chess360.dao.Dao;
 import com.example.chess360.dialogs.*;
 import com.example.chess360.vo.User;
 
+import java.util.ArrayList;
+
 public class Login extends AppCompatActivity implements ListenerSignUp, ListenerSignUpForm {
 
     public static final int LOGIN_PLAYER = 0;
@@ -286,17 +288,27 @@ public class Login extends AppCompatActivity implements ListenerSignUp, Listener
                                     ErrorDialog message = new ErrorDialog(ErrorDialog.NONNUMERIC_CHARACTERS);
                                     message.show(getSupportFragmentManager(), "AlertDialog");
                                 }
-                                // Correct data. The password is registered:
                                 else{
+                                    // The email has already been used:
+                                    if (this.emailExists(email)){
 
-                                    // The password is encrypted:
-                                    String encrypted = encryptPass(data[5]);
+                                        ErrorDialog message = new ErrorDialog(ErrorDialog.EMAIL_IN_USE);
+                                        message.show(getSupportFragmentManager(), "AlertDialog");
+                                    }
+                                    // The data is correct. The user is registered.
+                                    else{
 
-                                    // The user is added:
-                                    // Dao.addUser(new User(data[0], data[1], data[2], data[3],encrypted));
+                                        // The password is encrypted:
+                                        String encrypted = encryptPass(data[5]);
 
-                                    ConfirmationDialog message = new ConfirmationDialog(ConfirmationDialog.USER_ADDED);
-                                    message.show(getSupportFragmentManager(), "AlertDialog");
+                                        // The user is added:
+                                        // Dao.addUser(new User(data[0], data[1], data[2], data[3],encrypted));
+
+                                        ConfirmationDialog message = new ConfirmationDialog(ConfirmationDialog.USER_ADDED);
+                                        message.show(getSupportFragmentManager(), "AlertDialog");
+
+                                    }
+
                                 }
                             }
                         }
@@ -331,6 +343,25 @@ public class Login extends AppCompatActivity implements ListenerSignUp, Listener
 
     private boolean userExists(String user) {
         return Dao.getUsers().indexOf(new User(user)) != -1;
+    }
+
+    private boolean emailExists(String email){
+
+        ArrayList<User> users = Dao.getUsers();
+
+        boolean found = false;
+        int pos = 0;
+
+        while (!found && pos<users.size()){
+
+            found = users.get(pos).getEmail().equals(email);
+
+            if (!found){
+                pos++;
+            }
+        }
+
+        return found;
     }
 
     private boolean emailHasValidFormat(String email) {

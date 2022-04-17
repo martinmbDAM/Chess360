@@ -38,6 +38,9 @@ public class ErrorDialog extends DialogFragment {
     // The legal agreement hasn't been accepted:
     public static final int CHECKBOX_NOT_SELECTED = 8;
 
+    // There's already an account with that email:
+    public static final int EMAIL_IN_USE = 9;
+
     private String message;
     private int option;
 
@@ -66,7 +69,7 @@ public class ErrorDialog extends DialogFragment {
                 message = getActivity().getString(R.string.error_missing_user);
                 break;
             case ErrorDialog.INCORRECT_EMAIL:
-                message = getActivity().getString(R.string.error_email);
+                message = getActivity().getString(R.string.error_email_invalid);
                 break;
             case ErrorDialog.NONNUMERIC_CHARACTERS:
                 message = getActivity().getString(R.string.error_non_numeric_characters);
@@ -76,6 +79,9 @@ public class ErrorDialog extends DialogFragment {
                 break;
             case ErrorDialog.CHECKBOX_NOT_SELECTED:
                 message = getResources().getString(R.string.error_checkbox);
+                break;
+            case ErrorDialog.EMAIL_IN_USE:
+                message = getResources().getString(R.string.error_email_in_use);
                 break;
         }
 

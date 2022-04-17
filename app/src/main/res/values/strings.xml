@@ -103,11 +103,12 @@
     <string name="error_pass_dont_match">Las contraseñas no coinciden</string>
     <string name="error_missing_user">El nombre de usuario/email no está registrado</string>
     <string name="error_empty">No puedes dejar campos en blanco</string>
-    <string name="error_email">El email no es válido</string>
+    <string name="error_email_invalid">El email no es válido</string>
     <string name="error_non_numeric_characters">No puedes escribir caracteres no numéricos en el teléfono</string>
     <string name="error_invalid_pass">La contraseña debe tener al menos 8 caracteres e incluir
     una mayúscula, una minúscula, un número y un caracter especial</string>
     <string name="error_checkbox">No has aceptado los términos y condiciones de uso</string>
+    <string name="error_email_in_use">El email ya ha sido utilizado para crear una cuenta</string>
 
     <!-- Text used in the piece promotion -->
     <string name="promotion_title">Elige una pieza</string>
