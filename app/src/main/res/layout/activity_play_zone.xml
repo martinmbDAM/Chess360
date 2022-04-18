@@ -5,7 +5,37 @@
     android:orientation="vertical"
     android:gravity="center">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/player_black_name"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:text="Player Black"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:id="@+id/player_black_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_gravity="right"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp"/>
+
+    </LinearLayout>
+
     <GridLayout
+        android:id="@+id/chessboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:columnCount="8"
@@ -525,10 +555,40 @@
 
     </GridLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/player_white_name"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:text="Player White"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:id="@+id/player_white_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_gravity="left"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp"/>
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/prueba"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Esto es un texto de prueba" />
+        android:text="Esto es un texto de prueba"
+        android:layout_marginTop="30dp"/>
 
 </LinearLayout>
