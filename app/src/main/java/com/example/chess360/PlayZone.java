@@ -24,6 +24,9 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
 
     private TextView prueba;
 
+    // Players:
+    private TextView player_white_name, player_black_name, player_white_time, player_black_time;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,8 +120,15 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
         squares[7][6] = findViewById(R.id.g8_square);
         squares[7][7] = findViewById(R.id.h8_square);
 
-        this.setInitialPosition();
+        // Players' names:
+        this.player_white_name = findViewById(R.id.player_white_name);
+        this.player_black_name = findViewById(R.id.player_black_name);
+        this.player_white_time = findViewById(R.id.player_white_time);
+        this.player_black_time = findViewById(R.id.player_black_time);
 
+        this.setInitialPosition();
+        this.setPlayersNames();
+        this.handler.showPlayersTimes();
     }
 
     // Sets the initial position of a game of chess
@@ -558,5 +568,16 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
         int column = coordinates[1];
 
         this.squares[row][column].setBackground(getResources().getDrawable(R.drawable.square_check));
+    }
+
+    private void setPlayersNames(){
+        String [] names = this.handler.getPlayersNames();
+        this.player_white_name.setText(names[0]);
+        this.player_black_name.setText(names[1]);
+    }
+
+    public void showPlayersTimes(String [] times){
+        this.player_white_time.setText(times[0]);
+        this.player_black_time.setText(times[1]);
     }
 }

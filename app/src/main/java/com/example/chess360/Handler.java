@@ -108,4 +108,21 @@ public class Handler {
             this.playzone.highlightRed(this.chess.getKing(this.chess.getBoard()).getName());
         }
     }
+
+    public String [] getPlayersNames(){
+
+        String [] names = new String[2];
+        names[0] = this.chess.getWhitePlayer().getName();
+        names[1] = this.chess.getBlackPlayer().getName();
+
+        return names;
+    }
+
+    public void showPlayersTimes(){
+        String [] times = new String[2];
+        times[0] = this.chess.getWhitePlayer().getClock().getFormattedTime();
+        times[1] = this.chess.getBlackPlayer().getClock().getFormattedTime();
+
+        this.playzone.showPlayersTimes(times);
+    }
 }

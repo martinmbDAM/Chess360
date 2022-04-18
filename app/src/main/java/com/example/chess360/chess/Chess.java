@@ -4,6 +4,7 @@ import com.example.chess360.Handler;
 import com.example.chess360.chess.board.Board;
 import com.example.chess360.chess.board.Square;
 import com.example.chess360.chess.pieces.*;
+import com.example.chess360.chess.player.Player;
 
 import java.util.ArrayList;
 
@@ -31,12 +32,16 @@ public class Chess {
 
     private boolean whiteTurn;
 
+    // Players:
+    private Player playerWhite, playerBlack;
+
     public Chess(Handler myHandler) {
         this.getInitialPosition();
         this.handler = myHandler;
         this.whiteTurn = true;
         this.enPassant = null;
-
+        this.playerWhite = new Player("Player1", Player.WHITE, 180, this);
+        this.playerBlack = new Player("Player2", Player.BLACK, 180, this);
 
         //      this.dao = new DAO(this.STARTING_POSITION);
 
@@ -547,5 +552,13 @@ public class Chess {
         boolean inCheck = this.isInCheck(this.whiteTurn,boardCopy);
 
         return inCheck;
+    }
+
+    public Player getWhitePlayer(){
+        return this.playerWhite;
+    }
+
+    public Player getBlackPlayer(){
+        return this.playerBlack;
     }
 }
