@@ -5,13 +5,13 @@ import com.example.chess360.chess.Move;
 
 import java.util.ArrayList;
 
-public class Handler {
+public class ChessHandler {
 
     private PlayZone playzone;
     private Chess chess;
     private Move promotionMove;
 
-    public Handler(PlayZone myPlayZone){
+    public ChessHandler(PlayZone myPlayZone){
         this.playzone = myPlayZone;
         this.chess = new Chess(this);
         this.promotionMove = null;
@@ -117,12 +117,12 @@ public class Handler {
 
         return names;
     }
-
+/*
     public void showPlayersTimes(){
         String [] times = new String[2];
         times[0] = this.chess.getWhitePlayer().getClock().getFormattedTime();
         times[1] = this.chess.getBlackPlayer().getClock().getFormattedTime();
 
         this.playzone.showPlayersTimes(times);
-    }
+    } */
 }

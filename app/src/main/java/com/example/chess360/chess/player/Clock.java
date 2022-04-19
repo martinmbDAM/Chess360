@@ -1,26 +1,41 @@
 package com.example.chess360.chess.player;
 
+import android.os.Handler;
+
 public class Clock {
 
     // Time in seconds
     private int time;
 
+    // The clock is running:
+    private boolean running;
+
     public Clock(int myTime){
         this.time = myTime;
+        this.running = false;
+        this.startChessClock();
     }
 
-    public void reduceTime(){
-        if (time >0){
-            time--;
-        }
-    }
+    private void startChessClock() {
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
 
-    public int getTime() {
-        return time;
-    }
+            @Override
+            public void run() {
 
-    public void setTime(int time) {
-        this.time = time;
+                if (running){
+
+                    time--;
+
+                    if (time==0){
+
+                        running = false;
+                    }
+
+                    handler.postDelayed(this, 1000);
+                }
+            }
+        });
     }
 
     public String getFormattedTime(){
@@ -32,8 +47,12 @@ public class Clock {
         return (output);
     }
 
-    public boolean isActive(){
-        return(this.time >0);
+    public void startTime(){
+        this.running = true;
+    }
+
+    public void stopTime(){
+        this.running = false;
     }
 }
 

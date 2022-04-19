@@ -6,7 +6,7 @@ import com.example.chess360.chess.board.Square;
 
 import java.util.ArrayList;
 
-public class Player {
+public class ChessPlayer {
 
     // Static constants for the color
     public final static int WHITE = 0;
@@ -24,15 +24,15 @@ public class Player {
     private int color;
 
     // Clock:
-    private Clock clock;
+ //   private Clock clock;
 
     // Chess:
     private Chess chess;
 
-    public Player(String myName, int myColor, int myTime, Chess chess){
+    public ChessPlayer(String myName, int myColor, int myTime, Chess chess){
         this.name = myName;
         this.color = myColor;
-        this.clock = new Clock(myTime);
+     //   this.clock = new Clock(myTime);
         this.chess = chess;
     }
 
@@ -56,9 +56,9 @@ public class Player {
     public boolean equals(Object myObject){
         boolean output = false;
 
-        if (myObject instanceof Player){
-            Player myPlayer = (Player) myObject;
-            output = myPlayer.getName().equals(this.name);
+        if (myObject instanceof ChessPlayer){
+            ChessPlayer myChessPlayer = (ChessPlayer) myObject;
+            output = myChessPlayer.getName().equals(this.name);
         }
 
         return(output);
@@ -119,22 +119,22 @@ public class Player {
         int output;
 
         if (hasOptions){
-            output = Player.PLAYING;
+            output = ChessPlayer.PLAYING;
         }
         else{
             if (inCheck){
-                output = Player.CHECK_MATE;
+                output = ChessPlayer.CHECK_MATE;
             }
             else{
-                output = Player.STALEMATE;
+                output = ChessPlayer.STALEMATE;
             }
         }
 
         return(output);
     }
 
-    public Clock getClock() {
-        return clock;
-    }
+ //   public Clock getClock() {
+  //      return clock;
+   // }
 
 }

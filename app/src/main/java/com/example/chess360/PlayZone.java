@@ -3,6 +3,7 @@ package com.example.chess360;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -20,12 +21,14 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
 
     public ImageButton [][] squares = new ImageButton[8][8];
     private String chosenSquare;
-    private Handler handler;
+    private ChessHandler chessHandler;
 
     private TextView prueba;
+    private int timeWhite = 180, timeBlack=180;
+    private boolean started = false, whiteTurn = false;
 
     // Players:
-    private TextView player_white_name, player_black_name, player_white_time, player_black_time;
+    private TextView player_white_name, player_black_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,7 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
         prueba = findViewById(R.id.prueba);
 
         // Handler:
-        this.handler = new Handler(this);
+        this.chessHandler = new ChessHandler(this);
 
         // No square has been selected so far:
         this.chosenSquare = null;
@@ -123,12 +126,17 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
         // Players' names:
         this.player_white_name = findViewById(R.id.player_white_name);
         this.player_black_name = findViewById(R.id.player_black_name);
-        this.player_white_time = findViewById(R.id.player_white_time);
-        this.player_black_time = findViewById(R.id.player_black_time);
+
+        // It's white to play:
+        this.whiteTurn = true;
+
+        // The game hasn't started yet:
+        this.started = false;
 
         this.setInitialPosition();
         this.setPlayersNames();
-        this.handler.showPlayersTimes();
+    //    this.chessHandler.showPlayersTimes();
+
     }
 
     // Sets the initial position of a game of chess
@@ -385,7 +393,7 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
                 this.chosenSquare = squareName;
 
                 // Available squares are highlighted:
-                ArrayList<String> availableSquares = this.handler.requestAvailableSquares(squareName);
+                ArrayList<String> availableSquares = this.chessHandler.requestAvailableSquares(squareName);
 
                 for (int i = 0; i < availableSquares.size(); i++) {
                     this.highlightSquare(availableSquares.get(i));
@@ -402,10 +410,19 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
             if (!squareName.equals(this.chosenSquare)){
 
                 this.exportMove(this.chosenSquare, squareName);
+
+                // The game is started:
+                if (!this.started){
+                    this.started = true;
+                    this.startChessClock();
+                }
+
+                // The turn changes:
+                this.whiteTurn = !this.whiteTurn;
             }
 
             this.chosenSquare = null;
-            this.handler.isInCheck();
+            this.chessHandler.isInCheck();
         }
 
     }
@@ -540,15 +557,15 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
 
     private void exportMove(String origin, String destination){
 
-        this.handler.getMove(origin, destination);
+        this.chessHandler.getMove(origin, destination);
     }
 
     private boolean isOccupied(String square){
-        return this.handler.isOccupied(square);
+        return this.chessHandler.isOccupied(square);
     }
 
     private boolean isPlayerTurn(String square){
-        return this.handler.isPlayerTurn(square);
+        return this.chessHandler.isPlayerTurn(square);
     }
 
     public void launchPromotionDialog(){
@@ -558,7 +575,7 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
 
     public void onPromotionClick(int option){
 
-        this.handler.getPromotionPiece(option);
+        this.chessHandler.getPromotionPiece(option);
     }
 
     public void highlightRed(String square){
@@ -571,13 +588,60 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
     }
 
     private void setPlayersNames(){
-        String [] names = this.handler.getPlayersNames();
+        String [] names = this.chessHandler.getPlayersNames();
         this.player_white_name.setText(names[0]);
         this.player_black_name.setText(names[1]);
     }
 
-    public void showPlayersTimes(String [] times){
-        this.player_white_time.setText(times[0]);
-        this.player_black_time.setText(times[1]);
+    private void startChessClock() {
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+
+        TextView player_white_time = findViewById(R.id.player_white_time);
+        TextView player_black_time = findViewById(R.id.player_black_time);
+
+        public String formatTime(int time){
+            int minutes = time / 60;
+            int seconds = time % 60;
+
+            String output = String.format("%02d:%02d", minutes, seconds);
+
+            return output;
+        }
+
+            @Override
+            public void run() {
+
+            player_white_time.setText(formatTime(timeWhite));
+            player_black_time.setText(formatTime(timeBlack));
+
+                if (started){
+
+                    handler.postDelayed(this, 1000);
+
+                    if (whiteTurn){
+                        timeWhite--;
+                        player_white_time.setText(formatTime(timeWhite));
+                    }
+                    else{
+                        timeBlack--;
+                        player_black_time.setText(formatTime(timeBlack));
+                    }
+
+                    if (timeWhite==0){
+
+                        Toast.makeText(getApplicationContext(),"White has lost", Toast.LENGTH_LONG).show();
+                        started = false;
+                    }
+                    else if (timeBlack == 0){
+
+                        Toast.makeText(getApplicationContext(),"Black has lost", Toast.LENGTH_LONG).show();
+                        started = false;
+                    }
+
+                }
+            }
+        });
     }
+
 }

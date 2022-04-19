@@ -1,10 +1,10 @@
 package com.example.chess360.chess;
 
-import com.example.chess360.Handler;
+import com.example.chess360.ChessHandler;
 import com.example.chess360.chess.board.Board;
 import com.example.chess360.chess.board.Square;
 import com.example.chess360.chess.pieces.*;
-import com.example.chess360.chess.player.Player;
+import com.example.chess360.chess.player.ChessPlayer;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ public class Chess {
     private final String STARTING_POSITION = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
     private Board board;
-    private Handler handler;
+    private ChessHandler chessHandler;
     //   private final DAO dao; ---> Not implemented yet
     private int halfMoves;
     private int fullMoves;
@@ -33,15 +33,15 @@ public class Chess {
     private boolean whiteTurn;
 
     // Players:
-    private Player playerWhite, playerBlack;
+    private ChessPlayer chessPlayerWhite, chessPlayerBlack;
 
-    public Chess(Handler myHandler) {
+    public Chess(ChessHandler myChessHandler) {
         this.getInitialPosition();
-        this.handler = myHandler;
+        this.chessHandler = myChessHandler;
         this.whiteTurn = true;
         this.enPassant = null;
-        this.playerWhite = new Player("Player1", Player.WHITE, 180, this);
-        this.playerBlack = new Player("Player2", Player.BLACK, 180, this);
+        this.chessPlayerWhite = new ChessPlayer("Player1", ChessPlayer.WHITE, 180, this);
+        this.chessPlayerBlack = new ChessPlayer("Player2", ChessPlayer.BLACK, 180, this);
 
         //      this.dao = new DAO(this.STARTING_POSITION);
 
@@ -181,7 +181,7 @@ public class Chess {
         if (result != Chess.ILLEGAL_MOVE) {
 
             if (result == Chess.PROMOTION) {
-                this.handler.requestPromotion(myMove);
+                this.chessHandler.requestPromotion(myMove);
             } else {
                 // En passant:
                 if (this.canTakeEnPassant(myMove)) {
@@ -220,6 +220,8 @@ public class Chess {
             }
 
             this.changeTurn();
+      //      this.updateTime();
+      //      this.chessHandler.showPlayersTimes();
             //      this.dao.actualizarPosicion(this.exportarFEN()); ---> Not implemented yet
         }
 
@@ -554,11 +556,23 @@ public class Chess {
         return inCheck;
     }
 
-    public Player getWhitePlayer(){
-        return this.playerWhite;
+    public ChessPlayer getWhitePlayer(){
+        return this.chessPlayerWhite;
     }
 
-    public Player getBlackPlayer(){
-        return this.playerBlack;
+    public ChessPlayer getBlackPlayer(){
+        return this.chessPlayerBlack;
     }
+/*
+    private void updateTime(){
+
+        if (this.whiteTurn){
+            this.chessPlayerWhite.getClock().startTime();
+            this.chessPlayerBlack.getClock().stopTime();
+        }
+        else{
+            this.chessPlayerBlack.getClock().startTime();
+            this.chessPlayerWhite.getClock().stopTime();
+        }
+    } */
 }
