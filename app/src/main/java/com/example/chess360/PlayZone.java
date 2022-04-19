@@ -28,7 +28,7 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
     private boolean started = false, whiteTurn = false;
 
     // Players:
-    private TextView player_white_name, player_black_name;
+    private TextView player_white_name, player_black_name, player_white_time, player_black_time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +126,12 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
         // Players' names:
         this.player_white_name = findViewById(R.id.player_white_name);
         this.player_black_name = findViewById(R.id.player_black_name);
+
+        // Player's clocks:
+        this.player_white_time = findViewById(R.id.player_white_time);
+        this.player_black_time = findViewById(R.id.player_black_time);
+        this.player_white_time.setText(this.formatTime(this.timeWhite));
+        this.player_black_time.setText(this.formatTime(this.timeBlack));
 
         // It's white to play:
         this.whiteTurn = true;
@@ -600,6 +606,8 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
         TextView player_white_time = findViewById(R.id.player_white_time);
         TextView player_black_time = findViewById(R.id.player_black_time);
 
+        boolean firstSecond = true;
+
         public String formatTime(int time){
             int minutes = time / 60;
             int seconds = time % 60;
@@ -617,31 +625,47 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
 
                 if (started){
 
-                    handler.postDelayed(this, 1000);
-
-                    if (whiteTurn){
-                        timeWhite--;
-                        player_white_time.setText(formatTime(timeWhite));
+                    if (firstSecond){
+                        handler.postDelayed(this, 1000);
+                        firstSecond = false;
                     }
                     else{
-                        timeBlack--;
-                        player_black_time.setText(formatTime(timeBlack));
-                    }
 
-                    if (timeWhite==0){
+                        handler.postDelayed(this, 1000);
 
-                        Toast.makeText(getApplicationContext(),"White has lost", Toast.LENGTH_LONG).show();
-                        started = false;
-                    }
-                    else if (timeBlack == 0){
+                        if (whiteTurn){
+                            timeWhite--;
+                            player_white_time.setText(formatTime(timeWhite));
+                        }
+                        else{
+                            timeBlack--;
+                            player_black_time.setText(formatTime(timeBlack));
+                        }
 
-                        Toast.makeText(getApplicationContext(),"Black has lost", Toast.LENGTH_LONG).show();
-                        started = false;
+                        if (timeWhite==0){
+
+                            Toast.makeText(getApplicationContext(),"White has lost on time", Toast.LENGTH_LONG).show();
+                            started = false;
+                        }
+                        else if (timeBlack == 0){
+
+                            Toast.makeText(getApplicationContext(),"Black has lost on time", Toast.LENGTH_LONG).show();
+                            started = false;
+                        }
                     }
 
                 }
             }
         });
+    }
+
+    public String formatTime(int time){
+        int minutes = time / 60;
+        int seconds = time % 60;
+
+        String output = String.format("%02d:%02d", minutes, seconds);
+
+        return output;
     }
 
 }
