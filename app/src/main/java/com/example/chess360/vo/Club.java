@@ -13,6 +13,10 @@ public class Club extends User {
         this.phone = phone;
     }
 
+    public Club(String name){
+        super(name);
+    }
+
     public String getName() {
         return name;
     }

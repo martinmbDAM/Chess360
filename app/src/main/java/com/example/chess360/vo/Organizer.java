@@ -13,6 +13,10 @@ public class Organizer extends User {
         this.phone = phone;
     }
 
+    public Organizer(String name){
+        super(name);
+    }
+
     public String getName() {
         return name;
     }

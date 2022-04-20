@@ -79,18 +79,18 @@ public class Login extends AppCompatActivity implements ListenerSignUp, Listener
             }
             // User and password match:
             else{
-                /* OLD CODE
+
                 Intent data = new Intent(Login.this,HomeActivity.class);
                 data.putExtra("LOGIN", user.getText().toString());
                 startActivity(data);
                 finish();
-                */
 
+/*
                 // CÓDIGO TEMPORAL:
                 Intent data = new Intent(Login.this, HomeActivity.class);
                 data.putExtra("LOGIN", user.getText().toString());
                 startActivity(data);
-                finish();
+                finish(); */
             }
         }
 

@@ -17,6 +17,10 @@ public class Player extends User{
         this.coach = null;
     }
 
+    public Player(String name){
+        super(name);
+    }
+
     public String getName() {
         return name;
     }

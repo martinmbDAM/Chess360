@@ -30,7 +30,7 @@ public abstract class Dao {
         return(users);
     }
 
-    public static int getPos(User user){
+    public static int getUser(User user){
         return(users.indexOf(user));
     }
 
@@ -43,8 +43,23 @@ public abstract class Dao {
         return(players);
     }
 
-    public static int getPlayer(Player player){
+    public static int getPlayerIndex(Player player){
         return(players.indexOf(player));
+    }
+
+    public static Player getPlayer(String name){
+
+        Player newPlayer = new Player(name);
+        int index = Dao.getPlayerIndex(newPlayer);
+
+        Player myPlayer = null;
+
+        if (index != -1){
+
+            myPlayer = Dao.getPlayers().get(index);
+        }
+
+        return myPlayer;
     }
 
     // Clubs
@@ -56,7 +71,7 @@ public abstract class Dao {
         return(clubs);
     }
 
-    public static int getPos(Club club){
+    public static int getClub(Club club){
         return(clubs.indexOf(club));
     }
 
@@ -69,7 +84,7 @@ public abstract class Dao {
         return(organizers);
     }
 
-    public static int getPos(Organizer organizer){
+    public static int getOrganizer(Organizer organizer){
         return(organizers.indexOf(organizer));
     }
 
@@ -82,7 +97,7 @@ public abstract class Dao {
         return(tournaments);
     }
 
-    public static int getPos(Tournament tournament){
+    public static int getTournament(Tournament tournament){
         return(tournaments.indexOf(tournament));
     }
 
@@ -95,7 +110,7 @@ public abstract class Dao {
         return(games);
     }
 
-    public static int getPos(Game game){
+    public static int getGame(Game game){
         return(games.indexOf(game));
     }
 
@@ -108,7 +123,7 @@ public abstract class Dao {
         return(tournamentRecords);
     }
 
-    public static int getPos(TournamentRecord tournamentRecord){
+    public static int getTournamentRecord(TournamentRecord tournamentRecord){
         return(tournamentRecords.indexOf(tournamentRecord));
     }
 
@@ -137,7 +152,7 @@ public abstract class Dao {
 
             // Add several users:
             Player myPlayer = new Player("Martín", "Mato Búa", "martincheckmate",
-                    "martinmb.dam@gmail.com", 2000, "Whvw4567&");
+                    "martinmb.dam@gmail.com", 2000, "whvw");
             Club myClub = new Club("Club de Ajedrez Maracena", "camaracena", "Granada", "686626393",
                     "caMaracena@gmail.com", "Whvw4567&");
             Organizer myOrganizer = new Organizer("Abanca", "abanca", "Santiago de Compostela",
@@ -152,8 +167,22 @@ public abstract class Dao {
             Dao.addUser(myOrganizer);
 
             // Usuario para hacer pruebas:
-            Dao.addUser(new User("test","fakeMail@test.com","whvw"));
+            Player test = new Player("test","test test", "test","fakeMail@test.com", 1500,"whvw");
+            Dao.addUser(test);
+            Dao.addPlayer(test);
         }
+    }
+
+    public static boolean isPlayer(String user){
+        return Dao.getPlayerIndex(new Player(user)) != -1;
+    }
+
+    public static boolean isClub(String user){
+        return Dao.getClub(new Club(user)) != -1;
+    }
+
+    public static boolean isOrganizer(String user){
+        return Dao.getOrganizer(new Organizer(user)) != -1;
     }
 
 }

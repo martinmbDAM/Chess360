@@ -19,4 +19,11 @@
         android:onClick="launchPlayZone"
         android:layout_marginTop="50dp"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MI PERFIL"
+        android:onClick="launchProfile"
+        android:layout_marginTop="50dp"/>
+
 </LinearLayout>
