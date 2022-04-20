@@ -117,12 +117,28 @@ public class ChessHandler {
 
         return names;
     }
-/*
-    public void showPlayersTimes(){
-        String [] times = new String[2];
-        times[0] = this.chess.getWhitePlayer().getClock().getFormattedTime();
-        times[1] = this.chess.getBlackPlayer().getClock().getFormattedTime();
 
-        this.playzone.showPlayersTimes(times);
-    } */
+    public int checkPlayersStatus(){
+
+        int currentState =this.chess.checkPlayersStatus();
+        int output = -1;
+
+        switch(currentState){
+            case Chess.WHITE_WINS_CHECKMATE:
+                output = PlayZone.WHITE_WINS_CHECKMATE;
+                break;
+            case Chess.BLACK_WINS_CHECKMATE:
+                output = PlayZone.BLACK_WINS_CHECKMATE;
+                break;
+       //     case Chess.WHITE_STALEMATE:
+       //     case Chess.BLACK_STALEMATE:
+         //       output = PlayZone.STALEMATE;
+           //     break;
+            default:
+                output = Chess.PLAYING;
+                break;
+        }
+
+        return output;
+    }
 }

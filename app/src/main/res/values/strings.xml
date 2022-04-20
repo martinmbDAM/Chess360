@@ -112,4 +112,11 @@
 
     <!-- Text used in the piece promotion -->
     <string name="promotion_title">Elige una pieza</string>
+
+    <!-- Text used for the outcome of the chess game -->
+    <string name="white_lost_on_time">El jugador blanco se ha quedado sin tiempo</string>
+    <string name="black_lost_on_time">El jugdador negro se ha quedado sin tiempo</string>
+    <string name="white_won_checkmate">El jugador blanco gana por jaque mate</string>
+    <string name="black_won_checkmate">El jugador negro gana por jaque mate</string>
+    <string name="stalemate">Tablas por ahogado</string>
 </resources>

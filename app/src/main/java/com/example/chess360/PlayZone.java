@@ -16,6 +16,11 @@ import java.util.ArrayList;
 
 public class PlayZone extends AppCompatActivity implements ListenerPromotion {
 
+    public static final int WHITE_WINS_CHECKMATE = 0;
+    public static final int BLACK_WINS_CHECKMATE = 1;
+  //  public static final int STALEMATE = 2;
+    public static final int PLAYING = 3;
+
     private final int ROWS = 8;
     private final int COLUMNS = 8;
 
@@ -26,6 +31,7 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
     private TextView prueba;
     private int timeWhite = 180, timeBlack=180;
     private boolean started = false, whiteTurn = false;
+    private int status;
 
     // Players:
     private TextView player_white_name, player_black_name, player_white_time, player_black_time;
@@ -142,6 +148,7 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
         this.setInitialPosition();
         this.setPlayersNames();
     //    this.chessHandler.showPlayersTimes();
+        this.status = PlayZone.PLAYING;
 
     }
 
@@ -425,6 +432,20 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
 
                 // The turn changes:
                 this.whiteTurn = !this.whiteTurn;
+
+                // After every move, we check the player status:
+                this.status = this.checkPlayerStatus();
+
+                switch(this.status){
+                    case PlayZone.PLAYING:
+                    case PlayZone.WHITE_WINS_CHECKMATE:
+                        Toast.makeText(getApplicationContext(),getResources().getString(R.string.white_won_checkmate),Toast.LENGTH_LONG).show();
+                        break;
+                    case PlayZone.BLACK_WINS_CHECKMATE:_WINS_CHECKMATE:
+                        Toast.makeText(getApplicationContext(),getResources().getString(R.string.black_won_checkmate),Toast.LENGTH_LONG).show();
+                        break;
+            //        case PlayZone.STALEMATE:
+                }
             }
 
             this.chosenSquare = null;
@@ -644,12 +665,12 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
 
                         if (timeWhite==0){
 
-                            Toast.makeText(getApplicationContext(),"White has lost on time", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),getResources().getString(R.string.white_lost_on_time), Toast.LENGTH_LONG).show();
                             started = false;
                         }
                         else if (timeBlack == 0){
 
-                            Toast.makeText(getApplicationContext(),"Black has lost on time", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),getResources().getString(R.string.black_lost_on_time), Toast.LENGTH_LONG).show();
                             started = false;
                         }
                     }
@@ -666,6 +687,10 @@ public class PlayZone extends AppCompatActivity implements ListenerPromotion {
         String output = String.format("%02d:%02d", minutes, seconds);
 
         return output;
+    }
+
+    public int checkPlayerStatus(){
+        return this.chessHandler.checkPlayersStatus();
     }
 
 }

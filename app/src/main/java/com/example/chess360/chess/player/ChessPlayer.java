@@ -14,7 +14,7 @@ public class ChessPlayer {
 
     // Static constants for the player state:
     public final static int CHECK_MATE = 2;
-    public final static int STALEMATE = 3;
+  //  public final static int STALEMATE = 3;
     public final static int PLAYING = 4;
 
     // Name of the player:
@@ -125,16 +125,15 @@ public class ChessPlayer {
             if (inCheck){
                 output = ChessPlayer.CHECK_MATE;
             }
+            // Temporal:
             else{
-                output = ChessPlayer.STALEMATE;
+                output = ChessPlayer.PLAYING;
             }
+        /*    else{
+                output = ChessPlayer.STALEMATE;
+            } */
         }
 
         return(output);
     }
-
- //   public Clock getClock() {
-  //      return clock;
-   // }
-
 }

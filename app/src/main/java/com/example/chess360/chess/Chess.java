@@ -20,6 +20,11 @@ public class Chess {
     public static final int CASTLE_SHORT = 7;
     public static final int CASTLE_LONG = 8;
     public static final int EN_PASSANT = 9;
+    public static final int WHITE_WINS_CHECKMATE = 10;
+    public static final int BLACK_WINS_CHECKMATE = 11;
+   // public static final int WHITE_STALEMATE = 12;
+  //  public static final int BLACK_STALEMATE = 13;
+    public static final int PLAYING = 14;
 
     private final String STARTING_POSITION = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
@@ -542,7 +547,7 @@ public class Chess {
     }
 
     // Checks whether a move would leave the King in check:
-    public boolean leavesKingInCheck(Move move, int code){
+    private boolean leavesKingInCheck(Move move, int code){
 
         // Copy of the board:
         Board boardCopy = new Board(this.board);
@@ -563,16 +568,26 @@ public class Chess {
     public ChessPlayer getBlackPlayer(){
         return this.chessPlayerBlack;
     }
-/*
-    private void updateTime(){
 
-        if (this.whiteTurn){
-            this.chessPlayerWhite.getClock().startTime();
-            this.chessPlayerBlack.getClock().stopTime();
+    public int checkPlayersStatus(){
+        int output = -1;
+
+        if (this.whiteTurn && this.chessPlayerWhite.getPlayerState(this.getBoard()) == ChessPlayer.CHECK_MATE){
+            output = Chess.BLACK_WINS_CHECKMATE;
         }
+        else if (!this.whiteTurn && this.chessPlayerBlack.getPlayerState(this.getBoard()) == ChessPlayer.CHECK_MATE){
+            output = Chess.WHITE_WINS_CHECKMATE;
+        }
+    /*    else if (this.whiteTurn && this.chessPlayerWhite.getPlayerState(this.getBoard()) == ChessPlayer.STALEMATE){
+            output = Chess.WHITE_STALEMATE;
+        }
+        else if (!this.whiteTurn && this.chessPlayerBlack.getPlayerState(this.getBoard()) == ChessPlayer.STALEMATE){
+            output = Chess.BLACK_STALEMATE;
+        } */
         else{
-            this.chessPlayerBlack.getClock().startTime();
-            this.chessPlayerWhite.getClock().stopTime();
+            output = Chess.PLAYING;
         }
-    } */
+
+        return output;
+    }
 }
