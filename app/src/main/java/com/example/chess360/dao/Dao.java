@@ -71,8 +71,23 @@ public abstract class Dao {
         return(clubs);
     }
 
-    public static int getClub(Club club){
+    public static int getClubIndex(Club club){
         return(clubs.indexOf(club));
+    }
+
+    public static Club getClub(String name){
+
+        Club newClub = new Club(name);
+        int index = Dao.getClubIndex(newClub);
+
+        Club myClub = null;
+
+        if (index != -1){
+
+            myClub = Dao.getClubs().get(index);
+        }
+
+        return myClub;
     }
 
     // Organizers
@@ -84,8 +99,23 @@ public abstract class Dao {
         return(organizers);
     }
 
-    public static int getOrganizer(Organizer organizer){
+    public static int getOrganizerIndex(Organizer organizer){
         return(organizers.indexOf(organizer));
+    }
+
+    public static Organizer getOrganizer(String name){
+
+        Organizer newOrganizer = new Organizer(name);
+        int index = Dao.getOrganizerIndex(newOrganizer);
+
+        Organizer myOrganizer = null;
+
+        if (index != -1){
+
+            myOrganizer = Dao.getOrganizers().get(index);
+        }
+
+        return myOrganizer;
     }
 
     // Tournaments
@@ -154,7 +184,7 @@ public abstract class Dao {
             Player myPlayer = new Player("Martín", "Mato Búa", "martincheckmate",
                     "martinmb.dam@gmail.com", 2000, "whvw");
             Club myClub = new Club("Club de Ajedrez Maracena", "camaracena", "Granada", "686626393",
-                    "caMaracena@gmail.com", "Whvw4567&");
+                    "caMaracena@gmail.com", "whvw");
             Organizer myOrganizer = new Organizer("Abanca", "abanca", "Santiago de Compostela",
                     "986180760", "abanca@gmail.com", "Whvw4567&");
 
@@ -178,11 +208,11 @@ public abstract class Dao {
     }
 
     public static boolean isClub(String user){
-        return Dao.getClub(new Club(user)) != -1;
+        return Dao.getClubIndex(new Club(user)) != -1;
     }
 
     public static boolean isOrganizer(String user){
-        return Dao.getOrganizer(new Organizer(user)) != -1;
+        return Dao.getOrganizerIndex(new Organizer(user)) != -1;
     }
 
 }
