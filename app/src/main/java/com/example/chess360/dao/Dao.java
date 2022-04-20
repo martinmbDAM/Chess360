@@ -186,7 +186,7 @@ public abstract class Dao {
             Club myClub = new Club("Club de Ajedrez Maracena", "camaracena", "Granada", "686626393",
                     "caMaracena@gmail.com", "whvw");
             Organizer myOrganizer = new Organizer("Abanca", "abanca", "Santiago de Compostela",
-                    "986180760", "abanca@gmail.com", "Whvw4567&");
+                    "986180760", "abanca@gmail.com", "whvw");
 
             Dao.addPlayer(myPlayer);
             Dao.addClub(myClub);
