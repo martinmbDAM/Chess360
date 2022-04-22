@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -91,5 +94,35 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    // Creates the option menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.home_menu, menu);
+        return true;
+    }
+
+    // Método que da funcionalidad al menú de opciones:
+    @Override
+    public boolean
+    onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.home_log_out_button:
+                launchLogin();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    // Log out:
+    private void launchLogin(){
+        Intent intent = new Intent(this, Login.class);
+        startActivity(intent);
+   //     reset();
+        finish();
     }
 }

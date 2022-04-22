@@ -126,4 +126,7 @@
     <string name="post_confirmation">¡Tu publicación se ha lanzado!</string>
     <string name="post_confirmation_title">Publicación lanzada</string>
 
+    <!-- Text used in the options menu -->
+    <string name="log_out_button">Cerrar Sesión</string>
+
 </resources>
