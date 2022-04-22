@@ -119,4 +119,11 @@
     <string name="white_won_checkmate">El jugador blanco gana por jaque mate</string>
     <string name="black_won_checkmate">El jugador negro gana por jaque mate</string>
     <string name="stalemate">Tablas por ahogado</string>
+
+    <!-- Text used in posts -->
+    <string name="post_hint">¿En qué estás pensando?</string>
+    <string name="post_title">Escribe tu publicación</string>
+    <string name="post_confirmation">¡Tu publicación se ha lanzado!</string>
+    <string name="post_confirmation_title">Publicación lanzada</string>
+
 </resources>

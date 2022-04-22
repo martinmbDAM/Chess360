@@ -85,12 +85,6 @@ public class Login extends AppCompatActivity implements ListenerSignUp, Listener
                 startActivity(data);
                 finish();
 
-/*
-                // CÓDIGO TEMPORAL:
-                Intent data = new Intent(Login.this, HomeActivity.class);
-                data.putExtra("LOGIN", user.getText().toString());
-                startActivity(data);
-                finish(); */
             }
         }
 

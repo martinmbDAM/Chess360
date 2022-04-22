@@ -20,6 +20,7 @@ public abstract class Dao {
     private static final ArrayList<Tournament> tournaments = new ArrayList<>();
     private static final ArrayList<Game> games = new ArrayList<>();
     private static final ArrayList<TournamentRecord> tournamentRecords = new ArrayList<>();
+    private static final ArrayList<Post> posts = new ArrayList<>();
 
     // Users
     public static void addUser(User newUser){
@@ -30,8 +31,23 @@ public abstract class Dao {
         return(users);
     }
 
-    public static int getUser(User user){
+    public static int getUserIndex(User user){
         return(users.indexOf(user));
+    }
+
+    public static User getUser(String name){
+
+        User newUser = new User(name);
+        int index = Dao.getUserIndex(newUser);
+
+        User myUser = null;
+
+        if (index != -1){
+
+            myUser = Dao.getPlayers().get(index);
+        }
+
+        return myUser;
     }
 
     // Players
@@ -142,6 +158,29 @@ public abstract class Dao {
 
     public static int getGame(Game game){
         return(games.indexOf(game));
+    }
+
+    // Posts:
+    public static void addPost(Post newPost){
+        posts.add(newPost);
+    }
+
+    public static ArrayList<Post> getPosts(){
+        return posts;
+    }
+
+    public static int getPostIndex(Post myPost){
+        return posts.indexOf(myPost);
+    }
+
+    public static Post getPost(int index){
+        Post myPost = null;
+
+        if (index >= 0 && index <posts.size()){
+            myPost = posts.get(index);
+        }
+
+        return myPost;
     }
 
     // Tournament records
