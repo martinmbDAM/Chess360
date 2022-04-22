@@ -128,5 +128,7 @@
 
     <!-- Text used in the options menu -->
     <string name="log_out_button">Cerrar Sesión</string>
+    <string name="go_back_button">Ir atrás</string>
+    <string name="home_intent_text">Has salido sin pulsar el botón de login</string>
 
 </resources>

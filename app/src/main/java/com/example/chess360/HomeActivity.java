@@ -1,10 +1,18 @@
 package com.example.chess360;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,6 +31,35 @@ public class HomeActivity extends AppCompatActivity {
     private ListView postsList;
     private PostList lAdapter;
     private ArrayList availablePosts;
+
+    // ActivityResultLauncher to launch several activities:
+    ActivityResultLauncher<Intent> launcher = registerForActivityResult(
+
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+
+                @RequiresApi(api = Build.VERSION_CODES.O)
+                @Override
+                public void onActivityResult(ActivityResult result) {
+
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+
+                        Intent data = result.getData();
+
+                        if (data.hasExtra("LOGOUT")){
+                            if (data.getExtras().getString("LOGOUT").equals("YES")){
+                                launchLogin();
+                            }
+                    //        else{
+                     //           initializeSpinners();
+                       //     }
+                        }
+
+                    } else
+                        Log.d("tag", String.valueOf(R.string.home_intent_text));
+                }
+            }
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,22 +91,19 @@ public class HomeActivity extends AppCompatActivity {
 
             Intent data = new Intent(HomeActivity.this,ProfilePlayer.class);
             data.putExtra("PROFILE_PLAYER", user);
-            startActivity(data);
-            finish();
+            launcher.launch(data);
         }
         else if (Dao.isClub(this.user)){
 
             Intent data = new Intent(HomeActivity.this,ProfileClub.class);
             data.putExtra("PROFILE_CLUB", user);
-            startActivity(data);
-            finish();
+            launcher.launch(data);
         }
         else if (Dao.isOrganizer(this.user)){
 
             Intent data = new Intent(HomeActivity.this,ProfileOrganizer.class);
             data.putExtra("PROFILE_ORGANIZER", user);
-            startActivity(data);
-            finish();
+            launcher.launch(data);
         }
     }
 

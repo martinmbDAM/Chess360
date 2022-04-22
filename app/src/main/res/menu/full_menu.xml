@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+ <item
+ android:id="@+id/full_menu_go_back_button"
+ android:orderInCategory="100"
+ app:showAsAction="always"
+ android:title="@string/go_back_button"/>
+
+ <item
+     android:id="@+id/full_menu_log_out_button"
+     android:orderInCategory="100"
+     app:showAsAction="always"
+     android:title="@string/log_out_button"/>
+</menu>

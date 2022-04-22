@@ -3,8 +3,12 @@ package com.example.chess360;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -68,5 +72,37 @@ public class ProfilePlayer extends AppCompatActivity implements ListenerPost {
 
         MakePostDialog myDialog = new MakePostDialog();
         myDialog.show(getSupportFragmentManager(), "AlertDialog");
+    }
+
+    // Creates the option menu:
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.full_menu, menu);
+        return true;
+    }
+
+    // Sets the functionality of the options menu:
+    @Override
+    public boolean
+    onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.full_menu_go_back_button:
+                Intent i = new Intent(this, HomeActivity.class);
+                i.putExtra("LOGOUT","NO");
+                setResult(RESULT_OK, i);
+                finish();
+                return true;
+            case R.id.full_menu_log_out_button:
+                i = new Intent(this, HomeActivity.class);
+                i.putExtra("LOGOUT","YES");
+                setResult(RESULT_OK, i);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 }
