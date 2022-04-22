@@ -239,6 +239,23 @@ public abstract class Dao {
             Player test = new Player("test","test test", "test","fakeMail@test.com", 1500,"whvw");
             Dao.addUser(test);
             Dao.addPlayer(test);
+
+            // Publicaciones para hacer pruebas:
+            Post post1 = new Post("Buenas tardes",myPlayer);
+            Post post2 = new Post("Hola Mundo",myClub);
+            Post post3 = new Post("Hola Mundo",myClub);
+            Post post4 = new Post("Hola Mundo",myClub);
+            Post post5 = new Post("Hola Mundo",myClub);
+            Post post6 = new Post("Hola Mundo",myClub);
+            Post post7 = new Post("Hola Mundo",myClub);
+
+            Dao.addPost(post1);
+            Dao.addPost(post2);
+            Dao.addPost(post3);
+            Dao.addPost(post4);
+            Dao.addPost(post5);
+            Dao.addPost(post6);
+            Dao.addPost(post7);
         }
     }
 

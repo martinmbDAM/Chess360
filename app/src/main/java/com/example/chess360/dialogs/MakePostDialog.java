@@ -42,7 +42,7 @@ public class MakePostDialog extends DialogFragment {
 
         String infService = Context.LAYOUT_INFLATER_SERVICE;
         LayoutInflater li = (LayoutInflater) getActivity().getSystemService(infService);
-        View inflate = li.inflate(R.layout.post,null);
+        View inflate = li.inflate(R.layout.make_post,null);
 
         builder.setIcon(R.drawable.pen);
         builder.setTitle(R.string.post_title);

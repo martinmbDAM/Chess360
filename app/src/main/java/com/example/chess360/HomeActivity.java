@@ -2,25 +2,40 @@ package com.example.chess360;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.example.chess360.dao.Dao;
+import com.example.chess360.lists.PostList;
+
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
     private String user;
-
+    private ListView postsList;
+    private PostList lAdapter;
+    private ArrayList availablePosts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        postsList = findViewById(R.id.user_post_list);
+
         // User that has logged in:
         this.user = retrieveLoginData();
+
+        this.availablePosts = Dao.getPosts();
+
+        // Show posts of the users this user follows:
+        this.showPosts();
+
     }
 
     public void launchPlayZone(View view){
@@ -60,5 +75,21 @@ public class HomeActivity extends AppCompatActivity {
         String  myUser = extras.getString("LOGIN");
 
         return(myUser);
+    }
+
+    private void showPosts(){
+
+        // We fill the list with the available posts:
+        lAdapter = new PostList(HomeActivity.this, availablePosts);
+        postsList.setAdapter(lAdapter);
+        postsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+               // chosenFlight = i;
+               // bookFlight();
+            }
+        });
+
     }
 }

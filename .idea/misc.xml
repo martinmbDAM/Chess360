@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/marti/AndroidStudioProjects/chess360/app/src/main/res/drawable/list_style.xml" value="0.124" />
         <entry key="..\:/Users/marti/AndroidStudioProjects/chess360/app/src/main/res/drawable/square.xml" value="0.2265" />
         <entry key="..\:/Users/marti/AndroidStudioProjects/chess360/app/src/main/res/drawable/square_check.xml" value="0.2265" />
         <entry key="..\:/Users/marti/AndroidStudioProjects/chess360/app/src/main/res/drawable/square_selected.xml" value="0.2265" />
@@ -18,6 +19,7 @@
         <entry key="..\:/Users/marti/AndroidStudioProjects/chess360/app/src/main/res/layout/signup_club.xml" value="0.22282608695652173" />
         <entry key="..\:/Users/marti/AndroidStudioProjects/chess360/app/src/main/res/layout/signup_organizer.xml" value="0.22282608695652173" />
         <entry key="..\:/Users/marti/AndroidStudioProjects/chess360/app/src/main/res/layout/signup_player.xml" value="0.22282608695652173" />
+        <entry key="..\:/Users/marti/AndroidStudioProjects/chess360/app/src/main/res/layout/view_post.xml" value="0.4" />
       </map>
     </option>
   </component>
