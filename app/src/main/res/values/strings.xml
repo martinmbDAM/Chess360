@@ -140,5 +140,7 @@
     <!-- Text used in the user profile -->
     <string name="profile_follow">SEGUIR</string>
     <string name="profile_unfollow">DEJAR DE SEGUIR</string>
+    <string name="profile_post">PUBLICAR</string>
+    <string name="profile_delete_account">BORRAR CUENTA</string>
 
 </resources>

@@ -96,6 +96,50 @@ public abstract class Dao {
         return myUser;
     }
 
+    public static void deleteUser(String username){
+
+        // First, we delete all the relationships where this user is involved:
+        for (int i=0; i<relationships.size(); i++){
+            Relationship myRelationship = relationships.get(i);
+            if (myRelationship.getFollowingUser().getUsername().equals(username) ||
+                myRelationship.getFollowedUser().getUsername().equals(username)){
+
+                relationships.remove(i);
+                i--;
+            }
+        }
+
+        // Then, we delete all the posts made by this user:
+        for (int i=0; i<posts.size(); i++){
+            Post myPost = posts.get(i);
+            if (myPost.getUser().getUsername().equals(username)){
+                posts.remove(i);
+                i--;
+            }
+        }
+
+        // Then, we delete the user from the list of players/clubs/organizers:
+        User myUser = Dao.getUser(username);
+        int index;
+
+        if (myUser instanceof Player){
+            index = Dao.getPlayerIndex((Player) myUser);
+            players.remove(index);
+        }
+        else if (myUser instanceof Club){
+            index = Dao.getClubIndex((Club) myUser);
+            clubs.remove(index);
+        }
+        else if (myUser instanceof Organizer){
+            index = Dao.getOrganizerIndex((Organizer) myUser);
+            organizers.remove(index);
+        }
+
+        // Finally, we delete the user from the list of users:
+        index = Dao.getUserIndex(myUser);
+        users.remove(index);
+    }
+
     // Players
     public static void addPlayer(Player newPlayer){
         players.add(newPlayer);

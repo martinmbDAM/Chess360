@@ -30,7 +30,7 @@ public class ProfilePlayer extends AppCompatActivity implements ListenerPost {
     private boolean searchingUser;
     private boolean isFollowing;
 
-    private Button post, follow;
+    private Button post, follow, delete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +40,7 @@ public class ProfilePlayer extends AppCompatActivity implements ListenerPost {
         // Buttons:
         post = findViewById(R.id.profile_player_post_button);
         follow = findViewById(R.id.profile_player_follow_button);
+        delete = findViewById(R.id.profile_player_delete_button);
 
         // User input:
         String [] userInput = retrieveHomeData();
@@ -61,10 +62,12 @@ public class ProfilePlayer extends AppCompatActivity implements ListenerPost {
         if (this.searchingUser && !this.userProfile.equals(this.userSearch)){
             post.setVisibility(View.GONE);
             follow.setVisibility(View.VISIBLE);
+            delete.setVisibility(View.GONE);
         }
         else{
             post.setVisibility(View.VISIBLE);
             follow.setVisibility(View.GONE);
+            delete.setVisibility(View.VISIBLE);
         }
     }
 
@@ -185,5 +188,13 @@ public class ProfilePlayer extends AppCompatActivity implements ListenerPost {
             }
         }
 
+    }
+
+    public void deleteAccount(View view){
+        Intent i = new Intent(this, HomeActivity.class);
+        i.putExtra("LOGOUT","YES");
+        setResult(RESULT_OK, i);
+        Dao.deleteUser(this.userProfile);
+        finish();
     }
 }
