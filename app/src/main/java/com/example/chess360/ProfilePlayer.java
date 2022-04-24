@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.chess360.dao.Dao;
@@ -20,36 +21,71 @@ import com.example.chess360.vo.Player;
 import com.example.chess360.vo.Post;
 import com.example.chess360.vo.User;
 
-import java.time.LocalDateTime;
-
 public class ProfilePlayer extends AppCompatActivity implements ListenerPost {
 
-    private String user;
+    private String userProfile;
+    private String userSearch;
     private TextView username;
+    private boolean searchingUser;
+
+    private Button post, follow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_player);
 
-        // User that has logged in:
-        this.user = retrieveHomeData();
+        // Buttons:
+        post = findViewById(R.id.profile_player_post_button);
+        follow = findViewById(R.id.profile_player_follow_button);
+
+        // User input:
+        String [] userInput = retrieveHomeData();
+        this.userProfile = userInput[0];
+        this.userSearch = userInput[1];
+
+        // Searching user?:
+        this.searchingUser = this.userSearch==null? false:true;
 
         this.username = findViewById(R.id.profile_player_username);
 
         this.setUsername();
+        this.showButtons();
     }
 
-    private String retrieveHomeData(){
-        Bundle extras = getIntent().getExtras();
-        String  myUser = extras.getString("PROFILE_PLAYER");
+    private void showButtons(){
 
-        return(myUser);
+        if (this.searchingUser && !this.userProfile.equals(this.userSearch)){
+            post.setVisibility(View.GONE);
+            follow.setVisibility(View.VISIBLE);
+        }
+        else{
+            post.setVisibility(View.VISIBLE);
+            follow.setVisibility(View.GONE);
+        }
+    }
+
+    private String[] retrieveHomeData(){
+
+        String [] output = new String[2];
+        Bundle extras = getIntent().getExtras();
+        output[0] = extras.getString("CURRENT_USER");
+        output[1] = extras.getString("SEARCHED_USER");
+
+        return(output);
     }
 
     private void setUsername(){
 
-        Player myPlayer = Dao.getPlayer(this.user);
+        Player myPlayer;
+
+        if (!this.searchingUser){
+            myPlayer = Dao.getPlayer(this.userProfile);
+        }
+        else{
+            myPlayer = Dao.getPlayer(this.userSearch);
+        }
+
         String output = "@";
         output += myPlayer.getUsername();
         this.username.setText(output);
@@ -106,6 +142,10 @@ public class ProfilePlayer extends AppCompatActivity implements ListenerPost {
             default:
                 return super.onOptionsItemSelected(item);
         }
+
+    }
+
+    public void followPlayer(View view){
 
     }
 }

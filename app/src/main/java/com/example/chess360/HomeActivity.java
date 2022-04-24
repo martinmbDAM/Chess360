@@ -91,30 +91,31 @@ public class HomeActivity extends AppCompatActivity implements ListenerSearch {
 
     public void launchProfile(View view){
 
-        this.launchProfile(this.user);
+        this.launchProfile(this.user, null);
     }
 
-    public void launchProfile(String username){
+    public void launchProfile(String currentUser, String searchedUser){
 
         // We check whether the user is a player, a club or an organizer:
-        if (Dao.isPlayer(username)){
-
+        if ((searchedUser!=null && Dao.isPlayer(searchedUser)) || (searchedUser==null && Dao.isPlayer(currentUser))){
             Intent data = new Intent(HomeActivity.this,ProfilePlayer.class);
-            data.putExtra("PROFILE_PLAYER", username);
+            data.putExtra("CURRENT_USER", currentUser);
+            data.putExtra("SEARCHED_USER", searchedUser);
             launcher.launch(data);
         }
-        else if (Dao.isClub(username)){
-
+        else if ((searchedUser!=null && Dao.isClub(searchedUser)) || (searchedUser==null && Dao.isClub(currentUser))){
             Intent data = new Intent(HomeActivity.this,ProfileClub.class);
-            data.putExtra("PROFILE_CLUB", username);
+            data.putExtra("CURRENT_USER", currentUser);
+            data.putExtra("SEARCHED_USER", searchedUser);
             launcher.launch(data);
         }
-        else if (Dao.isOrganizer(username)){
-
+        else if ((searchedUser!=null && Dao.isOrganizer(searchedUser)) || (searchedUser==null && Dao.isOrganizer(currentUser))){
             Intent data = new Intent(HomeActivity.this,ProfileOrganizer.class);
-            data.putExtra("PROFILE_ORGANIZER", username);
+            data.putExtra("CURRENT_USER", currentUser);
+            data.putExtra("SEARCHED_USER", searchedUser);
             launcher.launch(data);
         }
+
     }
 
     private String retrieveLoginData(){
@@ -204,7 +205,7 @@ public class HomeActivity extends AppCompatActivity implements ListenerSearch {
             // The user exists:
             if (myUser != null){
 
-                this.launchProfile(myUser.getUsername());
+                this.launchProfile(this.user, myUser.getUsername());
             }
             // The user doesn't exist:
             else{

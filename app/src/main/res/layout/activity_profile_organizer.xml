@@ -20,4 +20,18 @@
         android:textSize="20dp"
         android:textStyle="bold"/>
 
+    <Button
+        android:id="@+id/profile_organizer_post_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PUBLICAR"
+        android:onClick="makePost"/>
+
+    <Button
+        android:id="@+id/profile_organizer_follow_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SEGUIR"
+        android:onClick="followPlayer"/>
+
 </LinearLayout>
