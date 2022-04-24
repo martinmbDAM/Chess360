@@ -59,10 +59,13 @@ public class ProfilePlayer extends AppCompatActivity implements ListenerPost {
     public void onPostClick(String post){
 
         // User:
-        User myUser = Dao.getUser(this.username.getText().toString());
+        User myUser = Dao.getUser(this.username.getText().toString().substring(1));
 
         // Post:
         Post myPost = new Post(post,myUser);
+
+        // Post is added:
+        Dao.addPost(myPost);
 
         ConfirmationDialog message = new ConfirmationDialog(ConfirmationDialog.POST_PUBLISHED);
         message.show(getSupportFragmentManager(), "AlertDialog");

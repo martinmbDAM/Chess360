@@ -19,13 +19,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.chess360.dao.Dao;
+import com.example.chess360.dialogs.ConfirmationDialog;
+import com.example.chess360.dialogs.ErrorDialog;
+import com.example.chess360.dialogs.ListenerSearch;
+import com.example.chess360.dialogs.SearchUserDialog;
 import com.example.chess360.lists.PostList;
+import com.example.chess360.vo.User;
 
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements ListenerSearch {
 
     private String user;
     private ListView postsList;
@@ -50,9 +56,9 @@ public class HomeActivity extends AppCompatActivity {
                             if (data.getExtras().getString("LOGOUT").equals("YES")){
                                 launchLogin();
                             }
-                    //        else{
-                     //           initializeSpinners();
-                       //     }
+                            else{
+                                showPosts();
+                            }
                         }
 
                     } else
@@ -61,6 +67,7 @@ public class HomeActivity extends AppCompatActivity {
             }
     );
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,8 +77,6 @@ public class HomeActivity extends AppCompatActivity {
 
         // User that has logged in:
         this.user = retrieveLoginData();
-
-        this.availablePosts = Dao.getPosts();
 
         // Show posts of the users this user follows:
         this.showPosts();
@@ -86,23 +91,28 @@ public class HomeActivity extends AppCompatActivity {
 
     public void launchProfile(View view){
 
+        this.launchProfile(this.user);
+    }
+
+    public void launchProfile(String username){
+
         // We check whether the user is a player, a club or an organizer:
-        if (Dao.isPlayer(this.user)){
+        if (Dao.isPlayer(username)){
 
             Intent data = new Intent(HomeActivity.this,ProfilePlayer.class);
-            data.putExtra("PROFILE_PLAYER", user);
+            data.putExtra("PROFILE_PLAYER", username);
             launcher.launch(data);
         }
-        else if (Dao.isClub(this.user)){
+        else if (Dao.isClub(username)){
 
             Intent data = new Intent(HomeActivity.this,ProfileClub.class);
-            data.putExtra("PROFILE_CLUB", user);
+            data.putExtra("PROFILE_CLUB", username);
             launcher.launch(data);
         }
-        else if (Dao.isOrganizer(this.user)){
+        else if (Dao.isOrganizer(username)){
 
             Intent data = new Intent(HomeActivity.this,ProfileOrganizer.class);
-            data.putExtra("PROFILE_ORGANIZER", user);
+            data.putExtra("PROFILE_ORGANIZER", username);
             launcher.launch(data);
         }
     }
@@ -114,7 +124,10 @@ public class HomeActivity extends AppCompatActivity {
         return(myUser);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void showPosts(){
+
+        this.availablePosts = Dao.getPosts();
 
         // We fill the list with the available posts:
         lAdapter = new PostList(HomeActivity.this, availablePosts);
@@ -158,5 +171,47 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
    //     reset();
         finish();
+    }
+
+    public void searchUser(View view){
+
+        SearchUserDialog myDialog = new SearchUserDialog();
+        myDialog.show(getSupportFragmentManager(), "AlertDialog");
+    }
+
+    public void onSearchClick(String [] input){
+
+        User myUser = null;
+        String name = input[0];
+        String username = input[1];
+
+        if (name.equals("") && username.equals("")){
+
+            ErrorDialog message = new ErrorDialog(ErrorDialog.BOTH_FIELDS_EMPTY);
+            message.show(getSupportFragmentManager(), "AlertDialog");
+        }
+        else{
+            // First, we search by username:
+            if (username != ""){
+                myUser = Dao.getUser(input[1]);
+            }
+
+            // If the search by username wasn't succesful, we search by name:
+            if (myUser == null && !name.equals("")){
+                myUser = Dao.getUserByName(name);
+            }
+
+            // The user exists:
+            if (myUser != null){
+
+                this.launchProfile(myUser.getUsername());
+            }
+            // The user doesn't exist:
+            else{
+                ErrorDialog message = new ErrorDialog(ErrorDialog.USER_DOESNT_EXIST);
+                message.show(getSupportFragmentManager(), "AlertDialog");
+            }
+        }
+
     }
 }

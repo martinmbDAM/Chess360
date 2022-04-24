@@ -41,6 +41,9 @@ public class ErrorDialog extends DialogFragment {
     // There's already an account with that email:
     public static final int EMAIL_IN_USE = 9;
 
+    // The user tries to search for a member without providing neither the name nor the username:
+    public static final int BOTH_FIELDS_EMPTY = 10;
+
     private String message;
     private int option;
 
@@ -82,6 +85,9 @@ public class ErrorDialog extends DialogFragment {
                 break;
             case ErrorDialog.EMAIL_IN_USE:
                 message = getResources().getString(R.string.error_email_in_use);
+                break;
+            case ErrorDialog.BOTH_FIELDS_EMPTY:
+                message = getResources().getString(R.string.error_search);
                 break;
         }
 

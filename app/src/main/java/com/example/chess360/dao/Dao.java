@@ -35,16 +35,56 @@ public abstract class Dao {
         return(users.indexOf(user));
     }
 
-    public static User getUser(String name){
+    public static User getUser(String username){
 
-        User newUser = new User(name);
+        User newUser = new User(username);
         int index = Dao.getUserIndex(newUser);
 
         User myUser = null;
 
         if (index != -1){
 
-            myUser = Dao.getPlayers().get(index);
+            myUser = Dao.getUsers().get(index);
+        }
+
+        return myUser;
+    }
+
+    public static User getUserByName(String name){
+
+        User myUser = null;
+
+        boolean found = false;
+        int index = 0;
+
+        while(!found && index<users.size()){
+
+            User user = users.get(index);
+            String userName = new String();
+
+            if (user instanceof Player){
+
+                userName = ((Player) user).getName() + " " + ((Player) user).getSurname();
+            }
+            else if (user instanceof Club){
+
+                userName = ((Club) user).getName();
+            }
+            else if (user instanceof Organizer){
+
+                userName = ((Organizer) user).getName();
+            }
+
+            found = name.equals(userName);
+
+            if (!found){
+                index++;
+            }
+        }
+
+        if (found){
+
+            myUser = users.get(index);
         }
 
         return myUser;
@@ -239,7 +279,7 @@ public abstract class Dao {
             Player test = new Player("test","test test", "test","fakeMail@test.com", 1500,"whvw");
             Dao.addUser(test);
             Dao.addPlayer(test);
-
+/*
             // Publicaciones para hacer pruebas:
             Post post1 = new Post("Buenas tardes",myPlayer);
             Post post2 = new Post("Hola Mundo",myClub);
@@ -255,7 +295,7 @@ public abstract class Dao {
             Dao.addPost(post4);
             Dao.addPost(post5);
             Dao.addPost(post6);
-            Dao.addPost(post7);
+            Dao.addPost(post7); */
         }
     }
 
