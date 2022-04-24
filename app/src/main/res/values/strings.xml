@@ -137,4 +137,8 @@
     <string name="search_username">Nombre en chess360</string>
     <string name="error_search">No puedes dejar ambos campos en blanco</string>
 
+    <!-- Text used in the user profile -->
+    <string name="profile_follow">SEGUIR</string>
+    <string name="profile_unfollow">DEJAR DE SEGUIR</string>
+
 </resources>

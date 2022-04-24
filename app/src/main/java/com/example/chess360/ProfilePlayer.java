@@ -19,6 +19,7 @@ import com.example.chess360.dialogs.ListenerPost;
 import com.example.chess360.dialogs.MakePostDialog;
 import com.example.chess360.vo.Player;
 import com.example.chess360.vo.Post;
+import com.example.chess360.vo.Relationship;
 import com.example.chess360.vo.User;
 
 public class ProfilePlayer extends AppCompatActivity implements ListenerPost {
@@ -27,6 +28,7 @@ public class ProfilePlayer extends AppCompatActivity implements ListenerPost {
     private String userSearch;
     private TextView username;
     private boolean searchingUser;
+    private boolean isFollowing;
 
     private Button post, follow;
 
@@ -50,6 +52,7 @@ public class ProfilePlayer extends AppCompatActivity implements ListenerPost {
         this.username = findViewById(R.id.profile_player_username);
 
         this.setUsername();
+        this.isFollowing();
         this.showButtons();
     }
 
@@ -146,6 +149,41 @@ public class ProfilePlayer extends AppCompatActivity implements ListenerPost {
     }
 
     public void followPlayer(View view){
+
+        User myUserProfile = Dao.getUser(this.userProfile);
+        User myUserSearch = Dao.getUser(this.userSearch);
+        Relationship newRelationship = new Relationship(myUserProfile, myUserSearch);
+
+        if (!this.isFollowing){
+            Dao.addRelationship(newRelationship);
+        }
+        else{
+            Dao.deleteRelationship(newRelationship);
+        }
+
+        isFollowing();
+    }
+
+    private void isFollowing(){
+
+        if (this.searchingUser){
+
+            User myUserProfile = Dao.getUser(this.userProfile);
+            User myUserSearch = Dao.getUser(this.userSearch);
+
+            // We check whether the user follows this player:
+            Relationship myRelationship = new Relationship(myUserProfile,myUserSearch);
+            int index = Dao.getRelationshipIndex(myRelationship);
+
+            if (index != -1){
+                follow.setText(getResources().getString(R.string.profile_unfollow));
+                this.isFollowing = true;
+            }
+            else{
+                follow.setText(getResources().getString(R.string.profile_follow));
+                this.isFollowing = false;
+            }
+        }
 
     }
 }

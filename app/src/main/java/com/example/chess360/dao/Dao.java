@@ -1,5 +1,7 @@
 package com.example.chess360.dao;
 
+import android.provider.ContactsContract;
+
 import com.example.chess360.vo.*;
 
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public abstract class Dao {
     private static final ArrayList<Game> games = new ArrayList<>();
     private static final ArrayList<TournamentRecord> tournamentRecords = new ArrayList<>();
     private static final ArrayList<Post> posts = new ArrayList<>();
+    private static final ArrayList<Relationship> relationships = new ArrayList<>();
 
     // Users
     public static void addUser(User newUser){
@@ -249,6 +252,39 @@ public abstract class Dao {
     public static int generateID_Game(){
         Dao.current_id_game++;
         return Dao.current_id_game -1;
+    }
+
+    // Following:
+    public static void addRelationship(Relationship newRelationship){
+        relationships.add(newRelationship);
+    }
+
+    public static ArrayList<Relationship> getRelationships(){
+        return(relationships);
+    }
+
+    public static int getRelationshipIndex(Relationship relationship){
+        return(relationships.indexOf(relationship));
+    }
+
+    public static void deleteRelationship(Relationship relationship){
+        int index = Dao.getRelationshipIndex(relationship);
+
+        if (index != -1){
+
+            Dao.relationships.remove(index);
+        }
+    }
+
+    public static Relationship getRelationship(int index){
+
+        Relationship myRelationship = null;
+
+        if (index >= 0 && index < relationships.size()){
+            myRelationship = relationships.get(index);
+        }
+
+        return myRelationship;
     }
 
     /********************************************************************************************/

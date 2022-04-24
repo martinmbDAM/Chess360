@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.example.chess360.dao.Dao;
 import com.example.chess360.vo.Club;
 import com.example.chess360.vo.Player;
+import com.example.chess360.vo.Relationship;
+import com.example.chess360.vo.User;
 
 public class ProfileClub extends AppCompatActivity {
 
@@ -114,5 +116,14 @@ public class ProfileClub extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    public void followClub(View view){
+
+        User myUserProfile = Dao.getUser(this.userProfile);
+        User myUserSearch = Dao.getUser(this.userSearch);
+
+        Relationship newRelationship = new Relationship(myUserProfile, myUserSearch);
+        Dao.addRelationship(newRelationship);
     }
 }
