@@ -24,6 +24,7 @@ public class ProfileOrganizer extends AppCompatActivity {
     private String userSearch;
     private TextView username;
     private boolean searchingUser;
+    private boolean isFollowing;
 
     private Button post, follow;
 
@@ -124,8 +125,38 @@ public class ProfileOrganizer extends AppCompatActivity {
 
         User myUserProfile = Dao.getUser(this.userProfile);
         User myUserSearch = Dao.getUser(this.userSearch);
-
         Relationship newRelationship = new Relationship(myUserProfile, myUserSearch);
-        Dao.addRelationship(newRelationship);
+
+        if (!this.isFollowing){
+            Dao.addRelationship(newRelationship);
+        }
+        else{
+            Dao.deleteRelationship(newRelationship);
+        }
+
+        isFollowing();
+    }
+
+    private void isFollowing(){
+
+        if (this.searchingUser){
+
+            User myUserProfile = Dao.getUser(this.userProfile);
+            User myUserSearch = Dao.getUser(this.userSearch);
+
+            // We check whether the user follows this player:
+            Relationship myRelationship = new Relationship(myUserProfile,myUserSearch);
+            int index = Dao.getRelationshipIndex(myRelationship);
+
+            if (index != -1){
+                follow.setText(getResources().getString(R.string.profile_unfollow));
+                this.isFollowing = true;
+            }
+            else{
+                follow.setText(getResources().getString(R.string.profile_follow));
+                this.isFollowing = false;
+            }
+        }
+
     }
 }
