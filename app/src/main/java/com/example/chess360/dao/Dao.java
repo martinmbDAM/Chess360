@@ -1,6 +1,9 @@
 package com.example.chess360.dao;
 
+import android.os.Build;
 import android.provider.ContactsContract;
+
+import androidx.annotation.RequiresApi;
 
 import com.example.chess360.vo.*;
 
@@ -212,6 +215,75 @@ public abstract class Dao {
         return posts;
     }
 
+    // Posts made by a user:
+    public static ArrayList<Post> getPosts(String username){
+
+        ArrayList<Post> myPosts = new ArrayList<>();
+
+        for (int i=0; i<posts.size(); i++){
+
+            String currentUser = posts.get(i).getUser().getUsername();
+
+            if (username.equals(currentUser)){
+                myPosts.add(posts.get(i));
+            }
+        }
+
+        return myPosts;
+    }
+
+    // Posts available for a user:
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static ArrayList<Post> getAvailablePosts(String username){
+
+        ArrayList<Post> myPosts = new ArrayList<>();
+
+        // First, we fetch the posts made by the user:
+        myPosts = Dao.getPosts(username);
+
+        // Then, we retrieve all the users that this user follows:
+        ArrayList<User> following = new ArrayList<>();
+
+        for (int i=0; i<relationships.size(); i++){
+
+            if (relationships.get(i).getFollowingUser().getUsername().equals(username)){
+                following.add(relationships.get(i).getFollowedUser());
+            }
+        }
+
+        // We add the posts made by the following users:
+        for (int i=0; i<following.size(); i++){
+            ArrayList<Post> userPosts = Dao.getPosts(following.get(i).getUsername());
+
+            for (int j=0; j<userPosts.size(); j++){
+                myPosts.add(userPosts.get(j));
+            }
+        }
+
+        // Finally, the posts are sorted by date:
+        Dao.sortPostsByDate(myPosts);
+
+        return myPosts;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static void sortPostsByDate(ArrayList<Post> myPosts){
+
+        boolean sorted = false;
+        Post temp;
+        while(!sorted) {
+            sorted = true;
+            for (int i = 0; i < myPosts.size() - 1; i++) {
+                if (myPosts.get(i).getDate().isAfter(myPosts.get(i+1).getDate())) {
+                    temp = myPosts.get(i);
+                    myPosts.set(i,myPosts.get(i+1));
+                    myPosts.set(i+1,temp);
+                    sorted = false;
+                }
+            }
+        }
+    }
+
     public static int getPostIndex(Post myPost){
         return posts.indexOf(myPost);
     }
@@ -315,23 +387,17 @@ public abstract class Dao {
             Player test = new Player("test","test test", "test","fakeMail@test.com", 1500,"whvw");
             Dao.addUser(test);
             Dao.addPlayer(test);
-/*
+
             // Publicaciones para hacer pruebas:
             Post post1 = new Post("Buenas tardes",myPlayer);
-            Post post2 = new Post("Hola Mundo",myClub);
-            Post post3 = new Post("Hola Mundo",myClub);
-            Post post4 = new Post("Hola Mundo",myClub);
-            Post post5 = new Post("Hola Mundo",myClub);
-            Post post6 = new Post("Hola Mundo",myClub);
-            Post post7 = new Post("Hola Mundo",myClub);
+            Post post2 = new Post("Esto es un test",test);
+            Post post3 = new Post("¡Únete al club!",myClub);
+            Post post4 = new Post("Torneo próximamente",myOrganizer);
 
             Dao.addPost(post1);
             Dao.addPost(post2);
             Dao.addPost(post3);
             Dao.addPost(post4);
-            Dao.addPost(post5);
-            Dao.addPost(post6);
-            Dao.addPost(post7); */
         }
     }
 

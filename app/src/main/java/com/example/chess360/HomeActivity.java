@@ -27,6 +27,7 @@ import com.example.chess360.dialogs.ErrorDialog;
 import com.example.chess360.dialogs.ListenerSearch;
 import com.example.chess360.dialogs.SearchUserDialog;
 import com.example.chess360.lists.PostList;
+import com.example.chess360.vo.Post;
 import com.example.chess360.vo.User;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class HomeActivity extends AppCompatActivity implements ListenerSearch {
     private String user;
     private ListView postsList;
     private PostList lAdapter;
-    private ArrayList availablePosts;
+    private ArrayList<Post> availablePosts;
 
     // ActivityResultLauncher to launch several activities:
     ActivityResultLauncher<Intent> launcher = registerForActivityResult(
@@ -128,7 +129,7 @@ public class HomeActivity extends AppCompatActivity implements ListenerSearch {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void showPosts(){
 
-        this.availablePosts = Dao.getPosts();
+        this.availablePosts = this.getAvailablePosts();
 
         // We fill the list with the available posts:
         lAdapter = new PostList(HomeActivity.this, availablePosts);
@@ -214,5 +215,10 @@ public class HomeActivity extends AppCompatActivity implements ListenerSearch {
             }
         }
 
+    }
+
+    private ArrayList<Post> getAvailablePosts(){
+
+        return Dao.getAvailablePosts(this.user);
     }
 }
