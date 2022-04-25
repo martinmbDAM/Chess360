@@ -20,6 +20,76 @@
         android:textSize="20dp"
         android:textStyle="bold"/>
 
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rowCount="3"
+        android:columnCount="2"
+        android:layout_gravity="center"
+        android:background="@drawable/round_style"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/profile_organizer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="@string/profile_name"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/profile_organizer_name_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            tools:text="miNombre"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/profile_organizer_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="@string/profile_location"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/profile_organizer_location_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            tools:text="myLocation"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/profile_organizer_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="@string/profile_phone"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/profile_organizer_phone_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            tools:text="myPhone"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"/>
+
+    </GridLayout>
+
     <Button
         android:id="@+id/profile_organizer_post_button"
         android:layout_width="wrap_content"

@@ -15,9 +15,7 @@ import com.example.chess360.dao.Dao;
 import com.example.chess360.dialogs.ConfirmationDialog;
 import com.example.chess360.dialogs.DialogDeleteAccount;
 import com.example.chess360.dialogs.ListenerDeleteAccount;
-import com.example.chess360.vo.Club;
 import com.example.chess360.vo.Organizer;
-import com.example.chess360.vo.Player;
 import com.example.chess360.vo.Relationship;
 import com.example.chess360.vo.User;
 
@@ -31,6 +29,8 @@ public class ProfileOrganizer extends AppCompatActivity implements ListenerDelet
 
     private Button post, follow, delete;
 
+    private TextView name, location, phone;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +41,12 @@ public class ProfileOrganizer extends AppCompatActivity implements ListenerDelet
         follow = findViewById(R.id.profile_organizer_follow_button);
         delete = findViewById(R.id.profile_organizer_delete_button);
 
+        // User data:
+        this.username = findViewById(R.id.profile_organizer_username);
+        this.name = findViewById(R.id.profile_organizer_name_input);
+        this.location = findViewById(R.id.profile_organizer_location_input);
+        this.phone = findViewById(R.id.profile_organizer_phone_input);
+
         // User input:
         String [] userInput = retrieveHomeData();
         this.userProfile = userInput[0];
@@ -49,9 +55,7 @@ public class ProfileOrganizer extends AppCompatActivity implements ListenerDelet
         // Searching user?:
         this.searchingUser = this.userSearch==null? false:true;
 
-        this.username = findViewById(R.id.profile_organizer_username);
-
-        this.setUsername();
+        this.showUserData();
         this.showButtons();
     }
 
@@ -79,7 +83,7 @@ public class ProfileOrganizer extends AppCompatActivity implements ListenerDelet
         return(output);
     }
 
-    private void setUsername(){
+    private void showUserData(){
 
         Organizer myOrganizer;
 
@@ -90,9 +94,19 @@ public class ProfileOrganizer extends AppCompatActivity implements ListenerDelet
             myOrganizer = Dao.getOrganizer(this.userSearch);
         }
 
+        // Username:
         String output = "@";
         output += myOrganizer.getUsername();
         this.username.setText(output);
+
+        // Name:
+        this.name.setText(myOrganizer.getName());
+
+        // Location:
+        this.location.setText(myOrganizer.getLocation());
+
+        // Phone:
+        this.phone.setText(myOrganizer.getPhone());
     }
 
     // Creates the option menu:

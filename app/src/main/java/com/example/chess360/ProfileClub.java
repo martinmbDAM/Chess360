@@ -16,7 +16,6 @@ import com.example.chess360.dialogs.ConfirmationDialog;
 import com.example.chess360.dialogs.DialogDeleteAccount;
 import com.example.chess360.dialogs.ListenerDeleteAccount;
 import com.example.chess360.vo.Club;
-import com.example.chess360.vo.Player;
 import com.example.chess360.vo.Relationship;
 import com.example.chess360.vo.User;
 
@@ -30,6 +29,8 @@ public class ProfileClub extends AppCompatActivity implements ListenerDeleteAcco
 
     private Button post, follow, delete;
 
+    private TextView name, location, phone;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +41,12 @@ public class ProfileClub extends AppCompatActivity implements ListenerDeleteAcco
         follow = findViewById(R.id.profile_club_follow_button);
         delete = findViewById(R.id.profile_club_delete_button);
 
+        // User data:
+        this.username = findViewById(R.id.profile_club_username);
+        this.name = findViewById(R.id.profile_club_name_input);
+        this.location = findViewById(R.id.profile_club_location_input);
+        this.phone = findViewById(R.id.profile_club_phone_input);
+
         // User input:
         String [] userInput = retrieveHomeData();
         this.userProfile = userInput[0];
@@ -48,9 +55,7 @@ public class ProfileClub extends AppCompatActivity implements ListenerDeleteAcco
         // Searching user?:
         this.searchingUser = this.userSearch==null? false:true;
 
-        this.username = findViewById(R.id.profile_club_username);
-
-        this.setUsername();
+        this.showUserData();
         this.showButtons();
     }
 
@@ -78,7 +83,7 @@ public class ProfileClub extends AppCompatActivity implements ListenerDeleteAcco
         return(output);
     }
 
-    private void setUsername(){
+    private void showUserData(){
 
         Club myClub;
 
@@ -88,9 +93,20 @@ public class ProfileClub extends AppCompatActivity implements ListenerDeleteAcco
         else{
             myClub = Dao.getClub(this.userSearch);
         }
+
+        // Username:
         String output = "@";
         output += myClub.getUsername();
         this.username.setText(output);
+
+        // Name:
+        this.name.setText(myClub.getName());
+
+        // Location:
+        this.location.setText(myClub.getLocation());
+
+        // Phone:
+        this.phone.setText(myClub.getPhone());
     }
 
     // Creates the option menu:

@@ -147,6 +147,8 @@
     <string name="profile_elo">Elo FIDE:</string>
     <string name="profile_club">Club:</string>
     <string name="profile_coach">Entrenador:</string>
+    <string name="profile_location">Localización:</string>
+    <string name="profile_phone">Teléfono:</string>
 
     <!-- Text used int the delete account dialog -->
     <string name="delete_title">Borrar cuenta</string>
