@@ -56,6 +56,7 @@ public class ProfileOrganizer extends AppCompatActivity implements ListenerDelet
         this.searchingUser = this.userSearch==null? false:true;
 
         this.showUserData();
+        this.isFollowing();
         this.showButtons();
     }
 

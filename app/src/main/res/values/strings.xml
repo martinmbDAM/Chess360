@@ -142,6 +142,8 @@
     <string name="profile_unfollow">DEJAR DE SEGUIR</string>
     <string name="profile_post">PUBLICAR</string>
     <string name="profile_delete_account">BORRAR CUENTA</string>
+    <string name="profile_join_club">UNIRSE AL CLUB</string>
+    <string name="profile_leave_club">SALIR DEL CLUB</string>
     <string name="profile_name">Nombre:</string>
     <string name="profile_surname">Apellidos:</string>
     <string name="profile_elo">Elo FIDE:</string>

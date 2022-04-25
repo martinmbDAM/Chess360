@@ -16,6 +16,7 @@ import com.example.chess360.dialogs.ConfirmationDialog;
 import com.example.chess360.dialogs.DialogDeleteAccount;
 import com.example.chess360.dialogs.ListenerDeleteAccount;
 import com.example.chess360.vo.Club;
+import com.example.chess360.vo.Player;
 import com.example.chess360.vo.Relationship;
 import com.example.chess360.vo.User;
 
@@ -26,8 +27,9 @@ public class ProfileClub extends AppCompatActivity implements ListenerDeleteAcco
     private TextView username;
     private boolean searchingUser;
     private boolean isFollowing;
+    private boolean hasJoined;
 
-    private Button post, follow, delete;
+    private Button post, follow, delete, join;
 
     private TextView name, location, phone;
 
@@ -40,6 +42,7 @@ public class ProfileClub extends AppCompatActivity implements ListenerDeleteAcco
         post = findViewById(R.id.profile_club_post_button);
         follow = findViewById(R.id.profile_club_follow_button);
         delete = findViewById(R.id.profile_club_delete_button);
+        join = findViewById(R.id.profile_join_club_button);
 
         // User data:
         this.username = findViewById(R.id.profile_club_username);
@@ -56,6 +59,8 @@ public class ProfileClub extends AppCompatActivity implements ListenerDeleteAcco
         this.searchingUser = this.userSearch==null? false:true;
 
         this.showUserData();
+        this.isFollowing();
+        this.hasJoined();
         this.showButtons();
     }
 
@@ -70,6 +75,13 @@ public class ProfileClub extends AppCompatActivity implements ListenerDeleteAcco
             post.setVisibility(View.VISIBLE);
             follow.setVisibility(View.GONE);
             delete.setVisibility(View.VISIBLE);
+        }
+
+        if (this.searchingUser && Dao.isPlayer(this.userProfile)){
+            join.setVisibility(View.VISIBLE);
+        }
+        else{
+            join.setVisibility(View.GONE);
         }
     }
 
@@ -200,5 +212,34 @@ public class ProfileClub extends AppCompatActivity implements ListenerDeleteAcco
             ConfirmationDialog message = new ConfirmationDialog(ConfirmationDialog.USER_DELETED);
             message.show(getSupportFragmentManager(), "AlertDialog");
         }
+    }
+
+    private void hasJoined(){
+        Club myClub = Dao.getClub(this.userSearch);
+        Player myPlayer = Dao.getPlayer(this.userProfile);
+
+        if (myPlayer.getClub() != null && myPlayer.getClub().equals(myClub)){
+            join.setText(getResources().getString(R.string.profile_leave_club));
+            this.hasJoined = true;
+        }
+        else{
+            join.setText(getResources().getString(R.string.profile_join_club));
+            this.hasJoined = false;
+        }
+    }
+
+    public void joinClub(View view){
+
+        Player myPlayer = Dao.getPlayer(this.userProfile);
+        Club myClub = Dao.getClub(this.userSearch);
+
+        if (!this.hasJoined){
+            myPlayer.setClub(myClub);
+        }
+        else{
+            myPlayer.setClub(null);
+        }
+
+        hasJoined();
     }
 }
