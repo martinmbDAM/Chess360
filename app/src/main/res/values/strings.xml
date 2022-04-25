@@ -142,6 +142,11 @@
     <string name="profile_unfollow">DEJAR DE SEGUIR</string>
     <string name="profile_post">PUBLICAR</string>
     <string name="profile_delete_account">BORRAR CUENTA</string>
+    <string name="profile_name">Nombre:</string>
+    <string name="profile_surname">Apellidos:</string>
+    <string name="profile_elo">Elo FIDE:</string>
+    <string name="profile_club">Club:</string>
+    <string name="profile_coach">Entrenador:</string>
 
     <!-- Text used int the delete account dialog -->
     <string name="delete_title">Borrar cuenta</string>

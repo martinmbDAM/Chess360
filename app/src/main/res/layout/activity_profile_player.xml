@@ -18,7 +18,117 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        tools:text="myUsername"/>
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rowCount="5"
+        android:columnCount="2"
+        android:layout_gravity="center"
+        android:background="@drawable/round_style"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/profile_player_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="@string/profile_name"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/profile_player_name_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            tools:text="miNombre"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/profile_player_surname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="@string/profile_surname"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/profile_player_surname_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            tools:text="mySurname"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/profile_player_elo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="@string/profile_elo"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/profile_player_elo_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            tools:text="myElo"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/profile_player_club"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="@string/profile_club"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/profile_player_club_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            tools:text="myClub"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/profile_player_coach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="@string/profile_coach"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/profile_player_coach_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            tools:text="myCoach"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"/>
+
+    </GridLayout>
 
     <Button
         android:id="@+id/profile_player_post_button"

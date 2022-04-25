@@ -22,7 +22,6 @@ import android.widget.TextView;
 import com.example.chess360.dao.Dao;
 import com.example.chess360.dialogs.ConfirmationDialog;
 import com.example.chess360.dialogs.DialogDeleteAccount;
-import com.example.chess360.dialogs.ErrorDialog;
 import com.example.chess360.dialogs.ListenerDeleteAccount;
 import com.example.chess360.dialogs.ListenerPost;
 import com.example.chess360.dialogs.MakePostDialog;
@@ -42,6 +41,8 @@ public class ProfilePlayer extends AppCompatActivity implements ListenerPost, Li
     private boolean isFollowing;
 
     private Button post, follow, delete;
+
+    private TextView name, surname, elo, club, coach;
 
     // ActivityResultLauncher to launch several activities:
     ActivityResultLauncher<Intent> launcher = registerForActivityResult(
@@ -83,6 +84,14 @@ public class ProfilePlayer extends AppCompatActivity implements ListenerPost, Li
         follow = findViewById(R.id.profile_player_follow_button);
         delete = findViewById(R.id.profile_player_delete_button);
 
+        // User data:
+        this.username = findViewById(R.id.profile_player_username);
+        this.name = findViewById(R.id.profile_player_name_input);
+        this.surname = findViewById(R.id.profile_player_surname_input);
+        this.elo = findViewById(R.id.profile_player_elo_input);
+        this.club = findViewById(R.id.profile_player_club_input);
+        this.coach = findViewById(R.id.profile_player_coach_input);
+
         // User input:
         String [] userInput = retrieveHomeData();
         this.userProfile = userInput[0];
@@ -91,9 +100,7 @@ public class ProfilePlayer extends AppCompatActivity implements ListenerPost, Li
         // Searching user?:
         this.searchingUser = this.userSearch==null? false:true;
 
-        this.username = findViewById(R.id.profile_player_username);
-
-        this.setUsername();
+        this.showUserData();
         this.isFollowing();
         this.showButtons();
     }
@@ -122,7 +129,7 @@ public class ProfilePlayer extends AppCompatActivity implements ListenerPost, Li
         return(output);
     }
 
-    private void setUsername(){
+    private void showUserData(){
 
         Player myPlayer;
 
@@ -133,9 +140,35 @@ public class ProfilePlayer extends AppCompatActivity implements ListenerPost, Li
             myPlayer = Dao.getPlayer(this.userSearch);
         }
 
+        // Username:
         String output = "@";
         output += myPlayer.getUsername();
         this.username.setText(output);
+
+        // Name:
+        this.name.setText(myPlayer.getName());
+
+        // Surname:
+        this.surname.setText(myPlayer.getSurname());
+
+        // ELO:
+        this.elo.setText(Integer.toString(myPlayer.getElo()));
+
+        // Club:
+        if (myPlayer.getClub() != null){
+            this.club.setText(myPlayer.getClub().getName());
+        }
+        else{
+            this.club.setText(" - ");
+        }
+
+        // Coach:
+        if (myPlayer.getCoach() != null){
+            this.coach.setText(myPlayer.getCoach().getUsername());
+        }
+        else{
+            this.coach.setText(" - ");
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

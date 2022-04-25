@@ -45,7 +45,7 @@ public class SearchUserDialog extends DialogFragment {
         LayoutInflater li = (LayoutInflater) getActivity().getSystemService(infService);
         View inflate = li.inflate(R.layout.search_user,null);
 
-        builder.setIcon(R.drawable.pen);
+        builder.setIcon(R.drawable.magnifying_glass);
         builder.setTitle(R.string.search_title);
         builder.setView(inflate);
 
