@@ -12,13 +12,16 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.chess360.dao.Dao;
+import com.example.chess360.dialogs.ConfirmationDialog;
+import com.example.chess360.dialogs.DialogDeleteAccount;
+import com.example.chess360.dialogs.ListenerDeleteAccount;
 import com.example.chess360.vo.Club;
 import com.example.chess360.vo.Organizer;
 import com.example.chess360.vo.Player;
 import com.example.chess360.vo.Relationship;
 import com.example.chess360.vo.User;
 
-public class ProfileOrganizer extends AppCompatActivity {
+public class ProfileOrganizer extends AppCompatActivity implements ListenerDeleteAccount {
 
     private String userProfile;
     private String userSearch;
@@ -164,10 +167,24 @@ public class ProfileOrganizer extends AppCompatActivity {
     }
 
     public void deleteAccount(View view){
-        Intent i = new Intent(this, HomeActivity.class);
-        i.putExtra("LOGOUT","YES");
-        setResult(RESULT_OK, i);
-        Dao.deleteUser(this.userProfile);
-        finish();
+
+        DialogDeleteAccount myDialog = new DialogDeleteAccount();
+        myDialog.show(getSupportFragmentManager(), "AlertDialog");
+
+    }
+
+    public void onDeleteClick(int option){
+
+        if (option == ProfilePlayer.DELETE_ACCOUNT){
+
+            Intent i = new Intent(this, HomeActivity.class);
+            i.putExtra("LOGOUT","YES");
+            setResult(RESULT_OK, i);
+            Dao.deleteUser(this.userProfile);
+            finish();
+
+            ConfirmationDialog message = new ConfirmationDialog(ConfirmationDialog.USER_DELETED);
+            message.show(getSupportFragmentManager(), "AlertDialog");
+        }
     }
 }

@@ -143,4 +143,12 @@
     <string name="profile_post">PUBLICAR</string>
     <string name="profile_delete_account">BORRAR CUENTA</string>
 
+    <!-- Text used int the delete account dialog -->
+    <string name="delete_title">Borrar cuenta</string>
+    <string name="delete_text">¿Deseas eliminar tu cuenta?</string>
+    <string name="delete_yes">SÍ</string>
+    <string name="delete_no">NO</string>
+    <string name="deleted_title">Usuario eliminado</string>
+    <string name="deleted_text">¡Esperamos verte de nuevo!</string>
+
 </resources>

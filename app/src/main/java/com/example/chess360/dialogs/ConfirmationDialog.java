@@ -12,20 +12,14 @@ import com.example.chess360.R;
 public class ConfirmationDialog extends DialogFragment {
 
     private int option;
-    private String date, hour;
     private String message, title;
 
     public static final int USER_ADDED = 0;
     public static final int POST_PUBLISHED = 1;
+    public static final int USER_DELETED = 2;
 
     public ConfirmationDialog(int option){
         this.option = option;
-    }
-
-    public ConfirmationDialog(int option, String date, String hour){
-        this.option = option;
-        this.date = date;
-        this.hour = hour;
     }
 
     @Override
@@ -39,6 +33,10 @@ public class ConfirmationDialog extends DialogFragment {
             case POST_PUBLISHED:
                 message = getResources().getString(R.string.post_confirmation);
                 title = getResources().getString(R.string.post_confirmation_title);
+                break;
+            case USER_DELETED:
+                message = getResources().getString(R.string.deleted_text);
+                title = getResources().getString(R.string.deleted_title);
                 break;
         }
 

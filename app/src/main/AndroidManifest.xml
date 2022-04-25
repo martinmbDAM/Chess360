@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Chess360">
         <activity
+            android:name=".AccountDeleted"
+            android:exported="false" />
+        <activity
             android:name=".ProfileOrganizer"
             android:exported="false" />
         <activity

@@ -1,11 +1,17 @@
 package com.example.chess360;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,6 +21,9 @@ import android.widget.TextView;
 
 import com.example.chess360.dao.Dao;
 import com.example.chess360.dialogs.ConfirmationDialog;
+import com.example.chess360.dialogs.DialogDeleteAccount;
+import com.example.chess360.dialogs.ErrorDialog;
+import com.example.chess360.dialogs.ListenerDeleteAccount;
 import com.example.chess360.dialogs.ListenerPost;
 import com.example.chess360.dialogs.MakePostDialog;
 import com.example.chess360.vo.Player;
@@ -22,7 +31,9 @@ import com.example.chess360.vo.Post;
 import com.example.chess360.vo.Relationship;
 import com.example.chess360.vo.User;
 
-public class ProfilePlayer extends AppCompatActivity implements ListenerPost {
+public class ProfilePlayer extends AppCompatActivity implements ListenerPost, ListenerDeleteAccount {
+
+    public static final int DELETE_ACCOUNT = 0;
 
     private String userProfile;
     private String userSearch;
@@ -31,6 +42,36 @@ public class ProfilePlayer extends AppCompatActivity implements ListenerPost {
     private boolean isFollowing;
 
     private Button post, follow, delete;
+
+    // ActivityResultLauncher to launch several activities:
+    ActivityResultLauncher<Intent> launcher = registerForActivityResult(
+
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+
+                @RequiresApi(api = Build.VERSION_CODES.O)
+                @Override
+                public void onActivityResult(ActivityResult result) {
+
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+
+                        Intent data = result.getData();
+
+                        if (data.hasExtra("LOGOUT")){
+                            if (data.getExtras().getString("LOGOUT").equals("YES")){
+
+                                Intent i = new Intent(ProfilePlayer.this, HomeActivity.class);
+                                i.putExtra("LOGOUT","YES");
+                                setResult(RESULT_OK, i);
+                                finish();
+                            }
+                        }
+
+                    } else
+                        Log.d("tag", String.valueOf(R.string.home_intent_text));
+                }
+            }
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,10 +232,21 @@ public class ProfilePlayer extends AppCompatActivity implements ListenerPost {
     }
 
     public void deleteAccount(View view){
-        Intent i = new Intent(this, HomeActivity.class);
-        i.putExtra("LOGOUT","YES");
-        setResult(RESULT_OK, i);
-        Dao.deleteUser(this.userProfile);
-        finish();
+
+        DialogDeleteAccount myDialog = new DialogDeleteAccount();
+        myDialog.show(getSupportFragmentManager(), "AlertDialog");
+
+    }
+
+    public void onDeleteClick(int option){
+
+        if (option == ProfilePlayer.DELETE_ACCOUNT){
+
+
+            Dao.deleteUser(this.userProfile);
+            Intent i = new Intent(ProfilePlayer.this, AccountDeleted.class);
+            i.putExtra("PROFILE","PLAYER");
+            launcher.launch(i);
+        }
     }
 }
