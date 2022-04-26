@@ -7,6 +7,7 @@ import androidx.annotation.RequiresApi;
 
 import com.example.chess360.vo.*;
 
+import java.sql.Array;
 import java.util.ArrayList;
 
 public abstract class Dao {
@@ -14,6 +15,7 @@ public abstract class Dao {
     private static int current_id_user = 1;
     private static int current_id_tournament = 1;
     private static int current_id_game = 1;
+    private static int current_id_achievement = 1;
 
     // Checks whether the arraylists have been initialized:
     private static boolean initialized = false;
@@ -27,6 +29,8 @@ public abstract class Dao {
     private static final ArrayList<TournamentRecord> tournamentRecords = new ArrayList<>();
     private static final ArrayList<Post> posts = new ArrayList<>();
     private static final ArrayList<Relationship> relationships = new ArrayList<>();
+    private static final ArrayList<Achievement> achievements = new ArrayList<>();
+    private static final ArrayList<CompleteAchievement> completeAchievements = new ArrayList<>();
 
     // Users
     public static void addUser(User newUser){
@@ -403,6 +407,33 @@ public abstract class Dao {
         return myRelationship;
     }
 
+    // Achievements:
+    public static int generateID_Achievement(){
+        Dao.current_id_achievement++;
+        return Dao.current_id_achievement -1;
+    }
+
+    public static void addAchievement(Achievement newAchievement){
+        achievements.add(newAchievement);
+    }
+
+    public static ArrayList<Achievement> getAchievements(){
+        return(achievements);
+    }
+
+    public static int getAchievementIndex(Achievement achievement){
+        return(achievements.indexOf(achievement));
+    }
+
+    public static Achievement getAchievement(int index){
+
+        return achievements.get(index);
+    }
+
+    public static ArrayList<CompleteAchievement> getCompleteAchievements(){
+        return completeAchievements;
+    }
+
     /********************************************************************************************/
 
     public static void initialize(){
@@ -442,6 +473,19 @@ public abstract class Dao {
             Dao.addPost(post2);
             Dao.addPost(post3);
             Dao.addPost(post4);
+
+            // Achievements:
+            Achievement ach1 = new Achievement("Registro completado", "Has completado tu registro");
+            Achievement ach2 = new Achievement("Primera partida", "Has jugado tu primera partida contra otra persona");
+            Achievement ach3 = new Achievement("Primera victoria", "Has ganado tu primera partida contra otra persona");
+            Achievement ach4 = new Achievement("Primera partida contra el ordenador","Has jugado tu primera partida contra el ordenador");
+            Achievement ach5 = new Achievement("Primera victoria contra el ordenador", "Has ganado tu primera partida contra el ordenador");
+            Achievement ach6 = new Achievement("Miembro de un club","Te has unido a un club");
+            Achievement ach7 = new Achievement("Seguidor de un jugador","Has seguido a un jugador");
+            Achievement ach8 = new Achievement("Seguidor de un club", "Has seguido a un club");
+            Achievement ach9 = new Achievement("Seguidor de un organizador", "Has seguido a un organizador");
+            Achievement ach10 = new Achievement("Mi primer torneo", "Te has inscrito en un torneo");
+            Achievement ach11 = new Achievement("Mi primera publicación", "Has hecho tu primera publicación");
         }
     }
 

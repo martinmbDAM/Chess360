@@ -144,6 +144,8 @@
     <string name="profile_delete_account">BORRAR CUENTA</string>
     <string name="profile_join_club">UNIRSE AL CLUB</string>
     <string name="profile_leave_club">SALIR DEL CLUB</string>
+    <string name="profile_statistics">ESTADÍSTICAS</string>
+    <string name="profile_achievements">LOGROS</string>
     <string name="profile_name">Nombre:</string>
     <string name="profile_surname">Apellidos:</string>
     <string name="profile_elo">Elo FIDE:</string>

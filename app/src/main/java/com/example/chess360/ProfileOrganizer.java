@@ -202,4 +202,12 @@ public class ProfileOrganizer extends AppCompatActivity implements ListenerDelet
             message.show(getSupportFragmentManager(), "AlertDialog");
         }
     }
+
+    public void seeStatistics(View view){
+
+    }
+
+    public void seeAchievements(View view){
+
+    }
 }

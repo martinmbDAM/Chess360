@@ -282,4 +282,12 @@ public class ProfilePlayer extends AppCompatActivity implements ListenerPost, Li
             launcher.launch(i);
         }
     }
+
+    public void seeStatistics(View view){
+
+    }
+
+    public void seeAchievements(View view){
+
+    }
 }

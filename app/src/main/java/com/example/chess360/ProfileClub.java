@@ -242,4 +242,12 @@ public class ProfileClub extends AppCompatActivity implements ListenerDeleteAcco
 
         hasJoined();
     }
+
+    public void seeStatistics(View view){
+
+    }
+
+    public void seeAchievements(View view){
+
+    }
 }

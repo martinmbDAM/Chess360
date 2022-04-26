@@ -151,4 +151,18 @@
         android:text="@string/profile_delete_account"
         android:onClick="deleteAccount"/>
 
+    <Button
+        android:id="@+id/profile_player_statistics_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/profile_statistics"
+        android:onClick="seeStatistics"/>
+
+    <Button
+        android:id="@+id/profile_player_achievements_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/profile_achievements"
+        android:onClick="seeAchievements"/>
+
 </LinearLayout>
